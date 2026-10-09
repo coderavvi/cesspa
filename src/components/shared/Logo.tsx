@@ -19,19 +19,19 @@ export function Logo({
   lightMode = false,
 }: LogoProps) {
   const dimensions = {
-    sm: { seal: 38, textTitle: "text-base", textSub: "text-[10px]" },
-    md: { seal: 48, textTitle: "text-xl", textSub: "text-xs" },
-    lg: { seal: 68, textTitle: "text-2xl", textSub: "text-sm" },
+    sm: { seal: 36, textTitle: "text-lg", textSub: "text-[9px]" },
+    md: { seal: 46, textTitle: "text-xl", textSub: "text-[10px]" },
+    lg: { seal: 62, textTitle: "text-3xl", textSub: "text-xs" },
   }[size];
 
   const content = (
-    <div className={cn("inline-flex items-center gap-3 select-none group", className)}>
-      {/* Circular Seal */}
+    <div className={cn("inline-flex items-center gap-3 select-none group transition-opacity hover:opacity-95", className)}>
+      {/* Renaissance Circular Seal with Gold Laurel Halo */}
       {(variant === "seal-only" || variant === "full") && (
         <div
           className={cn(
-            "relative rounded-full shrink-0 overflow-hidden shadow-sm transition-transform duration-300 group-hover:scale-105",
-            "ring-2 ring-heritage-gold/30"
+            "relative rounded-full shrink-0 overflow-hidden transition-all duration-500 group-hover:scale-105",
+            "ring-2 ring-heritage-gold/60 shadow-[0_0_16px_rgba(199,150,44,0.25)] bg-deep-emerald"
           )}
           style={{ width: dimensions.seal, height: dimensions.seal }}
         >
@@ -46,29 +46,29 @@ export function Logo({
         </div>
       )}
 
-      {/* Wordmark */}
+      {/* Regal Wordmark */}
       {(variant === "wordmark" || variant === "full") && (
-        <div className="flex flex-col leading-tight">
+        <div className="flex flex-col leading-none">
           <div className="flex items-center gap-1.5">
             <span
               className={cn(
-                "font-extrabold tracking-tight font-montserrat uppercase",
+                "font-monumental font-bold tracking-[0.14em]",
                 dimensions.textTitle,
                 lightMode ? "text-white" : "text-forest-green"
               )}
             >
               CESSPA
             </span>
-            <span className="w-1.5 h-1.5 rounded-full bg-heritage-gold shrink-0 mb-0.5" />
+            <span className="w-1.5 h-1.5 rounded-full bg-heritage-gold shrink-0 mb-0.5 shadow-[0_0_6px_#c7962c]" />
           </div>
           <span
             className={cn(
-              "font-medium tracking-wide uppercase line-clamp-1 max-w-[280px] sm:max-w-xs",
+              "font-sans font-semibold tracking-[0.18em] uppercase mt-1",
               dimensions.textSub,
-              lightMode ? "text-sage-mist/80" : "text-ink-body"
+              lightMode ? "text-heritage-gold-soft" : "text-ink-muted"
             )}
           >
-            Certified Environmental & Social Standards Professionals Association
+            Environmental & Social Standards • Nigeria
           </span>
         </div>
       )}
@@ -77,7 +77,10 @@ export function Logo({
 
   if (linkToHome) {
     return (
-      <Link href="/" className="inline-block focus:outline-none focus-visible:ring-2 focus-visible:ring-heritage-gold rounded-lg">
+      <Link
+        href="/"
+        className="inline-block focus:outline-hidden focus-visible:ring-2 focus-visible:ring-heritage-gold rounded-lg"
+      >
         {content}
       </Link>
     );

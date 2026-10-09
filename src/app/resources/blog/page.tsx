@@ -77,7 +77,7 @@ export default function BlogListingPage() {
               <div>
                 <div className="relative aspect-16/10 w-full bg-forest-green/10">
                   <Image
-                    src={article.coverImage || "/images/brand/what-is-cesspa.jpg"}
+                    src={article.coverImage || "https://images.unsplash.com/photo-1581093458791-9f3c3900df4b?auto=format&fit=crop&w=1200&q=80"}
                     alt={article.title}
                     fill
                     className="object-cover"

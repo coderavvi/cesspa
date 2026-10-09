@@ -72,8 +72,8 @@ export default function AboutPage() {
 
           <div className="lg:col-span-6 relative aspect-4/3 rounded-3xl overflow-hidden border border-brand-border shadow-xl bg-white">
             <Image
-              src="/images/brand/why-cesspa.jpg"
-              alt="Why CESSPA was Created"
+              src="https://images.unsplash.com/photo-1542273917363-3b1817f69a2d?auto=format&fit=crop&w=1600&q=80"
+              alt="Preserving Nigerian Ecosystems - CESSPA Mission"
               fill
               className="object-cover"
             />

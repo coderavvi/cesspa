@@ -18,7 +18,7 @@ const EXECUTIVES = [
     office: "Secretariat HQ, Abuja",
     portfolio: "Operations, Council Records & Chapter Liaisons",
     email: "secgen@cesspa.org.ng",
-    image: "/images/brand/what-is-cesspa.jpg",
+    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=80",
   },
   {
     name: "Mrs. Toyin Balogun-Adeleke",
@@ -27,7 +27,7 @@ const EXECUTIVES = [
     office: "Lagos Hub",
     portfolio: "Accreditation, CPD Workshops & Private Sector Partnerships",
     email: "vp.west@cesspa.org.ng",
-    image: "/images/brand/why-cesspa.jpg",
+    image: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=800&q=80",
   },
   {
     name: "Ken Ebiama, Esq.",
@@ -36,7 +36,7 @@ const EXECUTIVES = [
     office: "Port Harcourt Hub",
     portfolio: "Host Community Rights, Maritime Safeguards & Mediation",
     email: "vp.south@cesspa.org.ng",
-    image: "/images/brand/peace-foundation.jpg",
+    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=800&q=80",
   },
   {
     name: "Aliyu Mohammed Sani",
@@ -45,7 +45,7 @@ const EXECUTIVES = [
     office: "Kano Hub",
     portfolio: "Dryland Safeguards, Agriculture & Regional Integration",
     email: "vp.north@cesspa.org.ng",
-    image: "/images/brand/values-excellence.jpg",
+    image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=800&q=80",
   },
   {
     name: "Engr. Nonso Nwankwo",
@@ -54,7 +54,7 @@ const EXECUTIVES = [
     office: "Enugu Hub",
     portfolio: "ESIA Guidelines, Peer Review & Methodology Quality Control",
     email: "standards@cesspa.org.ng",
-    image: "/images/brand/what-is-cesspa.jpg",
+    image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=800&q=80",
   },
   {
     name: "Bilkisu Abubakar",
@@ -63,7 +63,7 @@ const EXECUTIVES = [
     office: "Bauchi Hub",
     portfolio: "Member Onboarding, Student Chapters & Women in Safeguards",
     email: "membership@cesspa.org.ng",
-    image: "/images/brand/why-cesspa.jpg",
+    image: "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=800&q=80",
   },
 ];
 

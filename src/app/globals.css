@@ -1,117 +1,188 @@
+@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap");
 @import "tailwindcss";
 
 :root {
-  --forest-green: #0b4a2b;
-  --deep-emerald: #08331f;
-  --leaf-green: #2e7d32;
-  --leaf-accent: #6daf3f;
-  --heritage-gold: #b8892b;
-  --heritage-gold-soft: #d9b45c;
-  --ivory: #f7f9f5;
-  --sage-mist: #eef3ea;
+  --font-jakarta: "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-cormorant: "Cormorant Garamond", Georgia, serif;
+  --font-cinzel: "Cinzel", Georgia, serif;
+
+  --forest-green: #0a3a24;
+  --deep-emerald: #052115;
+  --leaf-green: #1b6842;
+  --leaf-accent: #3eb574;
+  --heritage-gold: #c7962c;
+  --heritage-gold-soft: #ecd598;
+  --ivory: #faf9f5;
+  --sage-mist: #eff4ec;
   --white: #ffffff;
-  --ink-dark: #0e2a1c;
-  --ink-body: #3e5347;
-  --ink-muted: #7a8c82;
-  --brand-border: #dce6d8;
-  --navy-blue: #1a3a5c;
+  --ink-dark: #0a1f15;
+  --ink-body: #2f4337;
+  --ink-muted: #6a7f72;
+  --brand-border: #dbe4d7;
+  --navy-blue: #142d3e;
 }
 
 @theme {
-  --color-forest-green: #0b4a2b;
-  --color-deep-emerald: #08331f;
-  --color-leaf-green: #2e7d32;
-  --color-leaf-accent: #6daf3f;
-  --color-heritage-gold: #b8892b;
-  --color-heritage-gold-soft: #d9b45c;
-  --color-ivory: #f7f9f5;
-  --color-sage-mist: #eef3ea;
+  --color-forest-green: #0a3a24;
+  --color-deep-emerald: #052115;
+  --color-leaf-green: #1b6842;
+  --color-leaf-accent: #3eb574;
+  --color-heritage-gold: #c7962c;
+  --color-heritage-gold-soft: #ecd598;
+  --color-ivory: #faf9f5;
+  --color-sage-mist: #eff4ec;
   --color-white: #ffffff;
-  --color-ink-dark: #0e2a1c;
-  --color-ink-body: #3e5347;
-  --color-ink-muted: #7a8c82;
-  --color-brand-border: #dce6d8;
-  --color-navy-blue: #1a3a5c;
+  --color-ink-dark: #0a1f15;
+  --color-ink-body: #2f4337;
+  --color-ink-muted: #6a7f72;
+  --color-brand-border: #dbe4d7;
+  --color-navy-blue: #142d3e;
 
-  --font-montserrat: var(--font-montserrat), sans-serif;
-  --font-inter: var(--font-inter), sans-serif;
-  --font-cormorant: var(--font-cormorant), serif;
+  --font-sans: "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-serif: "Cormorant Garamond", Georgia, serif;
+  --font-cinzel: "Cinzel", Georgia, serif;
+  --font-cormorant: "Cormorant Garamond", Georgia, serif;
+  --font-montserrat: "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-inter: "Plus Jakarta Sans", system-ui, sans-serif;
 }
 
 /* Base Body Styles */
 body {
-  background-color: #f7f9f5;
-  color: #3e5347;
-  font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: #faf9f5;
+  color: #2f4337;
+  font-family: var(--font-jakarta), system-ui, sans-serif;
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Headings Typography */
+/* Regal Headings Typography (Da Vinci Codex & Garamond Elegance) */
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-montserrat), sans-serif;
-  color: #0e2a1c;
-  letter-spacing: -0.02em;
+  font-family: var(--font-cormorant), Georgia, serif;
+  color: #0a1f15;
+  letter-spacing: -0.015em;
+  font-feature-settings: "liga" 1, "dlig" 1;
 }
 
-/* Quotes */
-blockquote, .quote-font {
+h1.uppercase, h2.uppercase, h3.uppercase {
+  font-family: var(--font-cinzel), Georgia, serif;
+  letter-spacing: 0.04em;
+  font-weight: 700;
+}
+
+.font-sans {
+  font-family: var(--font-jakarta), system-ui, sans-serif !important;
+}
+
+.font-serif {
+  font-family: var(--font-cormorant), Georgia, serif !important;
+}
+
+.font-monumental {
+  font-family: var(--font-cinzel), Georgia, serif !important;
+  letter-spacing: 0.08em;
+}
+
+.font-editorial {
   font-family: var(--font-cormorant), Georgia, serif;
 }
 
-/* Custom Dotted Texture */
+/* Sacred Geometry & Subtle Botanical Textures */
 .pattern-dots {
-  background-image: radial-gradient(rgba(11, 74, 43, 0.12) 1.5px, transparent 1.5px);
-  background-size: 20px 20px;
+  background-image: radial-gradient(rgba(10, 58, 36, 0.09) 1.5px, transparent 1.5px);
+  background-size: 24px 24px;
 }
 
 .pattern-dots-white {
-  background-image: radial-gradient(rgba(255, 255, 255, 0.15) 1.5px, transparent 1.5px);
-  background-size: 20px 20px;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.2) 1.5px, transparent 1.5px);
+  background-size: 24px 24px;
 }
 
 .pattern-dots-gold {
-  background-image: radial-gradient(rgba(184, 137, 43, 0.2) 1.5px, transparent 1.5px);
-  background-size: 20px 20px;
+  background-image: radial-gradient(rgba(199, 150, 44, 0.22) 1.5px, transparent 1.5px);
+  background-size: 24px 24px;
+}
+
+/* Da Vinci Vitruvian Concentric Watermark */
+.bg-vitruvian {
+  background-image: radial-gradient(circle at center, transparent 40%, rgba(199, 150, 44, 0.05) 41%, rgba(199, 150, 44, 0.05) 42%, transparent 43%),
+                    radial-gradient(circle at center, transparent 65%, rgba(10, 58, 36, 0.04) 66%, rgba(10, 58, 36, 0.04) 67%, transparent 68%);
+}
+
+/* Luxury Glassmorphic Surfaces */
+.glass-davinci {
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(219, 228, 215, 0.85);
+  box-shadow: 0 20px 40px -15px rgba(10, 58, 36, 0.06);
+}
+
+.glass-davinci-gold {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(199, 150, 44, 0.3);
+  box-shadow: 0 24px 50px -12px rgba(199, 150, 44, 0.12);
+}
+
+.glass-davinci-dark {
+  background: linear-gradient(145deg, rgba(5, 33, 21, 0.94), rgba(10, 58, 36, 0.96));
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(236, 213, 152, 0.22);
+  box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.4);
 }
 
 /* Card Hover Lift */
 .card-hover {
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  border: 1px solid #dce6d8;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  border: 1px solid #dbe4d7;
 }
 
 .card-hover:hover {
-  transform: translateY(-4px);
-  border-color: #b8892b;
-  box-shadow: 0 16px 32px -8px rgba(11, 74, 43, 0.12);
+  transform: translateY(-5px);
+  border-color: #c7962c;
+  box-shadow: 0 24px 48px -12px rgba(10, 58, 36, 0.12);
 }
 
-/* Gold Hairline */
+/* Gold Hairlines & Illuminations */
 .gold-hairline {
   height: 1px;
-  background: linear-gradient(90deg, transparent, #b8892b, transparent);
+  background: linear-gradient(90deg, transparent, #c7962c, transparent);
 }
 
 .gold-badge {
-  border: 1px solid rgba(184, 137, 43, 0.4);
-  background: rgba(184, 137, 43, 0.08);
-  color: #8f681a;
+  border: 1px solid rgba(199, 150, 44, 0.35);
+  background: linear-gradient(135deg, rgba(236, 213, 152, 0.18), rgba(199, 150, 44, 0.08));
+  color: #8f6615;
 }
 
-/* Custom scrollbar */
+/* Text Shimmer Effect */
+.gold-gradient-text {
+  background: linear-gradient(135deg, #a77717 0%, #c7962c 40%, #ecd598 70%, #996e1a 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.emerald-gradient-text {
+  background: linear-gradient(135deg, #052115 0%, #0a3a24 50%, #1b6842 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 7px;
+  height: 7px;
 }
 ::-webkit-scrollbar-track {
-  background: #f7f9f5;
+  background: #faf9f5;
 }
 ::-webkit-scrollbar-thumb {
-  background: #c3d4be;
-  border-radius: 4px;
+  background: #c7d7c2;
+  border-radius: 999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #0b4a2b;
+  background: #0a3a24;
 }

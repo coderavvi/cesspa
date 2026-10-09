@@ -17,7 +17,7 @@ const TRUSTEES = [
     honorific: "Ph.D, FCESSPA",
     zone: "North West (Kano)",
     bio: "Over two decades directing social safeguards and resettlement policy for trans-African infrastructure pipelines.",
-    image: "/images/brand/what-is-cesspa.jpg",
+    image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80",
   },
   {
     name: "Folashade O. Williams, Esq.",
@@ -25,7 +25,7 @@ const TRUSTEES = [
     honorific: "LL.M, FCESSPA",
     zone: "North Central (Abuja)",
     bio: "Pioneer environmental jurist specializing in EIA Act harmonisation and multilateral compliance enforcement.",
-    image: "/images/brand/why-cesspa.jpg",
+    image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80",
   },
   {
     name: "Prof. Nnamdi C. Ezeoka",
@@ -33,7 +33,7 @@ const TRUSTEES = [
     honorific: "Ph.D, FESN, FCESSPA",
     zone: "South East (Enugu)",
     bio: "Distinguished ecologist with 30 years in biodiversity impact modeling and critical habitat preservation.",
-    image: "/images/brand/peace-foundation.jpg",
+    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=80",
   },
   {
     name: "Engr. Tariere Briggs",
@@ -41,7 +41,7 @@ const TRUSTEES = [
     honorific: "FNSE, FCESSPA",
     zone: "South South (Rivers)",
     bio: "Specialist in Niger Delta mangrove remediation, oil spill environmental audits, and community peace frameworks.",
-    image: "/images/brand/values-excellence.jpg",
+    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=800&q=80",
   },
   {
     name: "Alhaji Ibrahim Dan-Musa",
@@ -49,7 +49,7 @@ const TRUSTEES = [
     honorific: "FCA, FCESSPA",
     zone: "North East (Bauchi)",
     bio: "Financial governance specialist driving long-term endowment growth and fiduciary transparency for the association.",
-    image: "/images/brand/what-is-cesspa.jpg",
+    image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=800&q=80",
   },
   {
     name: "Dr. Olumide Adeleke",
@@ -57,7 +57,7 @@ const TRUSTEES = [
     honorific: "Ph.D, FCESSPA",
     zone: "South West (Lagos)",
     bio: "Former regulatory director with extensive experience auditing commercial and public infrastructure ESIAs.",
-    image: "/images/brand/why-cesspa.jpg",
+    image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=800&q=80",
   },
 ];
 

@@ -22,14 +22,14 @@ export function Section({
   const bgStyles = {
     ivory: "bg-ivory text-ink-body",
     sage: "bg-sage-mist text-ink-body",
-    dark: "bg-forest-green text-sage-mist",
+    dark: "bg-[#052115] text-sage-mist",
     white: "bg-white text-ink-body",
   }[variant];
 
   const maxStyles = {
-    default: "max-w-[1240px]",
-    narrow: "max-w-[880px]",
-    wide: "max-w-[1400px]",
+    default: "max-w-[1360px]",
+    narrow: "max-w-[920px]",
+    wide: "max-w-[1440px]",
     full: "max-w-none px-0",
   }[containerSize];
 

@@ -35,7 +35,7 @@ export default function PresidentsMessagePage() {
             <div className="rounded-3xl p-6 bg-white border border-brand-border shadow-lg text-center space-y-4">
               <div className="relative w-44 h-44 mx-auto rounded-full overflow-hidden border-4 border-heritage-gold/40 shadow-inner bg-sage-mist">
                 <Image
-                  src="/images/brand/what-is-cesspa.jpg"
+                  src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80"
                   alt="Interim President & Convener"
                   fill
                   className="object-cover"

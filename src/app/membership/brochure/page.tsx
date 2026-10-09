@@ -34,7 +34,7 @@ export default function BrochurePage() {
           {/* Brochure Cover Visual */}
           <div className="md:col-span-5 relative aspect-3/4 rounded-3xl overflow-hidden border border-brand-border shadow-2xl bg-white">
             <Image
-              src="/images/brand/what-is-cesspa.jpg"
+              src="https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=1200&q=80"
               alt="CESSPA Official Brochure Cover"
               fill
               className="object-cover"

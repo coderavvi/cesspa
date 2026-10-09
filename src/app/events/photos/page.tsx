@@ -13,7 +13,7 @@ const GALLERY_PHOTOS = [
     title: "Inaugural Technical Working Committee (TWC) Inception Session",
     location: "Transcorp Hilton, Abuja",
     date: "October 2025",
-    image: "/images/brand/why-cesspa.jpg",
+    image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=1200&q=80",
     caption: "Stakeholder conveners across all 6 geopolitical zones establishing the CESSPA charter.",
   },
   {
@@ -21,7 +21,7 @@ const GALLERY_PHOTOS = [
     title: "ESIA Pillar 01 Masterclass: Risk Screening in Infrastructure",
     location: "Victoria Island, Lagos",
     date: "January 2026",
-    image: "/images/brand/pillar-01-risk.jpg",
+    image: "https://images.unsplash.com/photo-1475721027785-f74eccf877e2?auto=format&fit=crop&w=1200&q=80",
     caption: "Practitioners analyzing high-resolution predictive baseline models for road corridors.",
   },
   {
@@ -29,7 +29,7 @@ const GALLERY_PHOTOS = [
     title: "Social Safeguards Field Workshop: Community Consultation Protocols",
     location: "Enugu Chapter Hub",
     date: "March 2026",
-    image: "/images/brand/pillar-02-social.jpg",
+    image: "https://images.unsplash.com/photo-1577495508048-b635879837f1?auto=format&fit=crop&w=1200&q=80",
     caption: "Engaging rural farmers and community leaders in livelihood restoration planning.",
   },
   {
@@ -37,7 +37,7 @@ const GALLERY_PHOTOS = [
     title: "Continuous M&E Symposium: Lifecycle Digital Audit Logs",
     location: "Kano Chapter Hub",
     date: "May 2026",
-    image: "/images/brand/pillar-03-monitoring.jpg",
+    image: "https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=1200&q=80",
     caption: "Demonstration of calibrated remote telemetry for water and air quality audits.",
   },
   {
@@ -45,7 +45,7 @@ const GALLERY_PHOTOS = [
     title: "Host Community Peace & Dignity Dialogue",
     location: "Port Harcourt Hub",
     date: "July 2026",
-    image: "/images/brand/peace-foundation.jpg",
+    image: "https://images.unsplash.com/photo-1515187029135-18ee286d815b?auto=format&fit=crop&w=1200&q=80",
     caption: "Panel discussion on institutionalizing Grievance Redress Mechanisms (GRMs).",
   },
   {
@@ -53,7 +53,7 @@ const GALLERY_PHOTOS = [
     title: "CESSPA National Council Inauguration & Seal Unveiling",
     location: "International Conference Centre, Abuja",
     date: "September 2026",
-    image: "/images/brand/esia-guide-cover.jpg",
+    image: "https://images.unsplash.com/photo-1528605248644-14dd04022da1?auto=format&fit=crop&w=1200&q=80",
     caption: "Official presentation of the Certified Practitioner Seal to inducted Fellows.",
   },
 ];

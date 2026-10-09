@@ -50,7 +50,7 @@ export function StatCounter({
         {prefix && (
           <span
             className={cn(
-              "font-montserrat font-bold text-2xl md:text-3xl",
+              "font-serif font-bold text-2xl md:text-3xl",
               lightMode ? "text-heritage-gold-soft" : "text-heritage-gold"
             )}
           >
@@ -59,7 +59,7 @@ export function StatCounter({
         )}
         <span
           className={cn(
-            "font-montserrat font-extrabold text-3xl sm:text-4xl md:text-5xl tracking-tight tabular-nums",
+            "font-serif font-bold text-3xl sm:text-4xl md:text-5xl tracking-tight tabular-nums",
             lightMode ? "text-white" : "text-forest-green"
           )}
         >
@@ -68,7 +68,7 @@ export function StatCounter({
         {suffix && (
           <span
             className={cn(
-              "font-montserrat font-bold text-2xl md:text-3xl",
+              "font-sans font-bold text-xl md:text-2xl",
               lightMode ? "text-heritage-gold-soft" : "text-heritage-gold"
             )}
           >
@@ -78,7 +78,7 @@ export function StatCounter({
       </div>
       <span
         className={cn(
-          "font-montserrat font-bold text-sm tracking-wide uppercase mt-1",
+          "font-sans font-bold text-xs tracking-wider uppercase mt-1",
           lightMode ? "text-sage-mist" : "text-ink-dark"
         )}
       >
@@ -87,8 +87,8 @@ export function StatCounter({
       {sublabel && (
         <span
           className={cn(
-            "text-xs mt-0.5 max-w-[180px]",
-            lightMode ? "text-sage-mist/70" : "text-ink-muted"
+            "text-xs font-sans mt-0.5 max-w-[180px] leading-tight",
+            lightMode ? "text-sage-mist/75" : "text-ink-muted"
           )}
         >
           {sublabel}

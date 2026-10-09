@@ -14,7 +14,7 @@ const VIDEOS = [
     category: "Technical Webinar",
     duration: "1 hr 14 mins",
     date: "September 2026",
-    thumbnail: "/images/brand/what-is-cesspa.jpg",
+    thumbnail: "https://images.unsplash.com/photo-1475721027785-f74eccf877e2?auto=format&fit=crop&w=1200&q=80",
     description: "Complete recording of the CESSPA National Webinar explaining baseline data integrity and risk scoring.",
   },
   {
@@ -23,7 +23,7 @@ const VIDEOS = [
     category: "Field Masterclass",
     duration: "48 mins",
     date: "August 2026",
-    thumbnail: "/images/brand/peace-foundation.jpg",
+    thumbnail: "https://images.unsplash.com/photo-1577495508048-b635879837f1?auto=format&fit=crop&w=1200&q=80",
     description: "Case studies from the Niger Delta and Middle Belt on culturally grounded consultation.",
   },
   {
@@ -32,7 +32,7 @@ const VIDEOS = [
     category: "Symposium Plenary",
     duration: "56 mins",
     date: "July 2026",
-    thumbnail: "/images/brand/pillar-03-monitoring.jpg",
+    thumbnail: "https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=1200&q=80",
     description: "Expert walkthrough on post-EIA approval compliance logs and regulatory submission formats.",
   },
   {
@@ -41,7 +41,7 @@ const VIDEOS = [
     category: "Presidential Address",
     duration: "32 mins",
     date: "October 2025",
-    thumbnail: "/images/brand/why-cesspa.jpg",
+    thumbnail: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=1200&q=80",
     description: "The founding convocation speech by the Technical Working Committee leadership.",
   },
 ];

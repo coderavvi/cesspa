@@ -369,7 +369,7 @@ export const MOCK_EVENTS: EventItem[] = [
     featured: true,
     capacity: 650,
     registeredCount: 418,
-    bannerImage: "/images/brand/esia-guide-cover.jpg",
+    bannerImage: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=1200&q=80",
     description:
       "The flagship annual gathering of environmental and social safeguards leaders, regulators, and developers in Nigeria. Under the theme 'Beyond Compliance: Institutionalizing Social Safeguards and Climate Resilience in Nigeria's Infrastructure Pipeline', this two-day summit brings together over 500 delegates.",
     agenda: [
@@ -477,7 +477,7 @@ export const MOCK_NEWS: NewsArticle[] = [
     authorRole: "CESSPA Practice Directorate",
     publishDate: "2026-09-12",
     readTime: "7 min read",
-    coverImage: "/images/brand/what-is-cesspa.jpg",
+    coverImage: "https://images.unsplash.com/photo-1581093458791-9f3c3900df4b?auto=format&fit=crop&w=1200&q=80",
     featured: true,
     content: `
 Environmental & Social Impact Assessment (ESIA) is fundamentally more than a procedural regulatory checkbox. In Nigeria's rapidly modernizing landscape, ESIA serves as the first line of defense protecting fragile ecosystems, vulnerable community livelihoods, and capital investments.
@@ -507,7 +507,7 @@ As certified practitioners, our responsibility transcends regulatory minimums â€
     authorRole: "CESSPA Social Safeguards Working Group",
     publishDate: "2026-09-24",
     readTime: "5 min read",
-    coverImage: "/images/brand/peace-foundation.jpg",
+    coverImage: "https://images.unsplash.com/photo-1577495508048-b635879837f1?auto=format&fit=crop&w=1200&q=80",
     featured: false,
     content: `
 A peaceful relationship between an infrastructure project and its host community is never an accident. It is the conscious, continuous outcome of four foundational tenets:
@@ -531,7 +531,7 @@ Our formula is unmistakable: Peace + Participation + Protection + Respect = More
     authorRole: "CESSPA Board Trustee",
     publishDate: "2026-10-02",
     readTime: "6 min read",
-    coverImage: "/images/brand/why-cesspa.jpg",
+    coverImage: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=1200&q=80",
     featured: false,
     content: `
 In October 2025, over seventy environmental scientists, social safeguards specialists, and legal scholars gathered across six geopolitical hubs to confront a long-standing paradox: Nigeria boasts world-class safeguard experts, yet lacked a unified professional institution holding practice to uncompromising ethical standards.
@@ -552,7 +552,7 @@ export const MOCK_PUBLICATIONS: Publication[] = [
     fileSize: "4.8 MB PDF",
     summary:
       "The definitive manual for field practitioners, detailing baseline screening, community scoping, public hearings, and mitigation hierarchy frameworks.",
-    coverImage: "/images/brand/what-is-cesspa.jpg",
+    coverImage: "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=1200&q=80",
   },
   {
     id: "pub-002",
@@ -564,7 +564,7 @@ export const MOCK_PUBLICATIONS: Publication[] = [
     fileSize: "3.2 MB PDF",
     summary:
       "Comprehensive guidelines on socio-economic surveys, asset valuation, livelihood restoration planning, and vulnerable group protections.",
-    coverImage: "/images/brand/pillar-02-social.jpg",
+    coverImage: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80",
   },
   {
     id: "pub-003",
@@ -576,7 +576,7 @@ export const MOCK_PUBLICATIONS: Publication[] = [
     fileSize: "2.1 MB PDF",
     summary:
       "Operational templates for construction-phase effluent monitoring, air emission audits, noise tracking, and quarterly regulator reporting.",
-    coverImage: "/images/brand/pillar-03-monitoring.jpg",
+    coverImage: "https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=1200&q=80",
   },
   {
     id: "pub-004",
@@ -588,7 +588,7 @@ export const MOCK_PUBLICATIONS: Publication[] = [
     fileSize: "1.9 MB PDF",
     summary:
       "Institutional design for confidential, multi-tiered community dispute resolution councils, reducing project stoppages and fostering mutual respect.",
-    coverImage: "/images/brand/peace-foundation.jpg",
+    coverImage: "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=1200&q=80",
   },
 ];
 

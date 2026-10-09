@@ -70,7 +70,7 @@ export function BlogDetailClient({ article }: { article: NewsArticle }) {
           {/* Cover Image */}
           <div className="relative aspect-16/9 w-full rounded-3xl overflow-hidden border border-brand-border shadow-md bg-white">
             <Image
-              src={article.coverImage || "/images/brand/what-is-cesspa.jpg"}
+              src={article.coverImage || "https://images.unsplash.com/photo-1581093458791-9f3c3900df4b?auto=format&fit=crop&w=1200&q=80"}
               alt={article.title}
               fill
               className="object-cover"
