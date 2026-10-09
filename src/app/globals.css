@@ -1,26 +1,117 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --forest-green: #0b4a2b;
+  --deep-emerald: #08331f;
+  --leaf-green: #2e7d32;
+  --leaf-accent: #6daf3f;
+  --heritage-gold: #b8892b;
+  --heritage-gold-soft: #d9b45c;
+  --ivory: #f7f9f5;
+  --sage-mist: #eef3ea;
+  --white: #ffffff;
+  --ink-dark: #0e2a1c;
+  --ink-body: #3e5347;
+  --ink-muted: #7a8c82;
+  --brand-border: #dce6d8;
+  --navy-blue: #1a3a5c;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+@theme {
+  --color-forest-green: #0b4a2b;
+  --color-deep-emerald: #08331f;
+  --color-leaf-green: #2e7d32;
+  --color-leaf-accent: #6daf3f;
+  --color-heritage-gold: #b8892b;
+  --color-heritage-gold-soft: #d9b45c;
+  --color-ivory: #f7f9f5;
+  --color-sage-mist: #eef3ea;
+  --color-white: #ffffff;
+  --color-ink-dark: #0e2a1c;
+  --color-ink-body: #3e5347;
+  --color-ink-muted: #7a8c82;
+  --color-brand-border: #dce6d8;
+  --color-navy-blue: #1a3a5c;
+
+  --font-montserrat: var(--font-montserrat), sans-serif;
+  --font-inter: var(--font-inter), sans-serif;
+  --font-cormorant: var(--font-cormorant), serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+/* Base Body Styles */
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: #f7f9f5;
+  color: #3e5347;
+  font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Headings Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-montserrat), sans-serif;
+  color: #0e2a1c;
+  letter-spacing: -0.02em;
+}
+
+/* Quotes */
+blockquote, .quote-font {
+  font-family: var(--font-cormorant), Georgia, serif;
+}
+
+/* Custom Dotted Texture */
+.pattern-dots {
+  background-image: radial-gradient(rgba(11, 74, 43, 0.12) 1.5px, transparent 1.5px);
+  background-size: 20px 20px;
+}
+
+.pattern-dots-white {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.15) 1.5px, transparent 1.5px);
+  background-size: 20px 20px;
+}
+
+.pattern-dots-gold {
+  background-image: radial-gradient(rgba(184, 137, 43, 0.2) 1.5px, transparent 1.5px);
+  background-size: 20px 20px;
+}
+
+/* Card Hover Lift */
+.card-hover {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  border: 1px solid #dce6d8;
+}
+
+.card-hover:hover {
+  transform: translateY(-4px);
+  border-color: #b8892b;
+  box-shadow: 0 16px 32px -8px rgba(11, 74, 43, 0.12);
+}
+
+/* Gold Hairline */
+.gold-hairline {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #b8892b, transparent);
+}
+
+.gold-badge {
+  border: 1px solid rgba(184, 137, 43, 0.4);
+  background: rgba(184, 137, 43, 0.08);
+  color: #8f681a;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f7f9f5;
+}
+::-webkit-scrollbar-thumb {
+  background: #c3d4be;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #0b4a2b;
 }
