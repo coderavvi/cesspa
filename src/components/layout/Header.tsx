@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import {
   MapPin,
@@ -133,19 +134,26 @@ export function Header() {
       {/* Main Navbar */}
       <div className="bg-[#072517] border-b border-white/10 shadow-lg">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-          {/* Brand Logo */}
-          <Link href="/" className="flex items-center gap-3 group">
-            <div className="w-10 h-10 rounded-lg bg-[#16a34a] flex items-center justify-center text-white shadow-md group-hover:scale-105 transition-transform">
-              <svg className="w-6 h-6 fill-current" viewBox="0 0 24 24">
-                <path d="M17 8C8 10 5.9 16.17 3.82 21.34L5.71 22l1-2.3A9.49 9.49 0 0 0 12 21c7 0 11-8 11-14a5 5 0 0 0-6 1zM7.22 17.5c1.47-3.66 3.65-7.79 9.38-9.42C16.89 13.54 12.92 18.25 7.22 17.5z" />
-              </svg>
+          {/* Brand Logo with Official CESSPA Seal */}
+          <Link href="/" className="flex items-center gap-3.5 group">
+            <div className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-[#16a34a] shadow-md group-hover:scale-105 transition-transform bg-white shrink-0">
+              <Image
+                src="/images/brand/logo.png"
+                alt="CESSPA Official Seal"
+                fill
+                className="object-cover"
+                priority
+              />
             </div>
             <div className="flex flex-col">
-              <span className="font-heading font-black text-xl text-white tracking-wide leading-none">
-                CESSPA
-              </span>
-              <span className="text-[10px] text-gray-300 font-medium tracking-wider uppercase mt-1">
-                Environmental Standards Nigeria
+              <div className="flex items-center gap-1.5">
+                <span className="font-heading font-black text-2xl text-white tracking-wide leading-none">
+                  CESSPA
+                </span>
+                <span className="w-1.5 h-1.5 rounded-full bg-[#22c55e]" />
+              </div>
+              <span className="text-[10px] text-gray-300 font-semibold tracking-wider uppercase mt-1 leading-tight hidden sm:block">
+                Environmental &amp; Social Standards • Nigeria
               </span>
             </div>
           </Link>

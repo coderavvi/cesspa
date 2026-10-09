@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import {
   MapPin,
   Mail,
@@ -88,15 +89,23 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Col 1: Brand & Contacts */}
           <div className="space-y-4">
-            <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-lg bg-[#16a34a] flex items-center justify-center text-white">
-                <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
-                  <path d="M17 8C8 10 5.9 16.17 3.82 21.34L5.71 22l1-2.3A9.49 9.49 0 0 0 12 21c7 0 11-8 11-14a5 5 0 0 0-6 1zM7.22 17.5c1.47-3.66 3.65-7.79 9.38-9.42C16.89 13.54 12.92 18.25 7.22 17.5z" />
-                </svg>
+            <div className="flex items-center gap-3.5">
+              <div className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-[#16a34a] shadow-md bg-white shrink-0">
+                <Image
+                  src="/images/brand/logo.png"
+                  alt="CESSPA Official Seal"
+                  fill
+                  className="object-cover"
+                />
               </div>
-              <span className="font-heading font-black text-2xl text-white tracking-wide">
-                CESSPA
-              </span>
+              <div className="flex flex-col">
+                <span className="font-heading font-black text-2xl text-white tracking-wide leading-none">
+                  CESSPA
+                </span>
+                <span className="text-[10px] text-gray-400 font-semibold tracking-wider uppercase mt-1 leading-tight">
+                  Environmental &amp; Social Standards
+                </span>
+              </div>
             </div>
 
             <p className="text-sm text-gray-400 leading-relaxed">
