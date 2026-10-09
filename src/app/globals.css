@@ -54,9 +54,16 @@ body {
 /* Clean Modern Headings (Montserrat) */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-montserrat), system-ui, sans-serif;
-  color: #0e1e17;
   font-weight: 700;
   letter-spacing: -0.02em;
+}
+
+:where(h1, h2, h3, h4, h5, h6) {
+  color: #0e1e17;
+}
+
+.text-white {
+  color: #ffffff !important;
 }
 
 .font-heading {

@@ -32,23 +32,23 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             {/* Left Vertical "FOLLOW US" Bar (Behance Style) */}
-            <div className="hidden xl:flex lg:col-span-1 flex-col items-center gap-6 text-gray-400">
-              <span className="[writing-mode:vertical-lr] rotate-180 uppercase tracking-widest text-xs font-bold text-gray-400">
+            <div className="hidden xl:flex lg:col-span-1 flex-col items-center gap-6 text-white/80">
+              <span className="[writing-mode:vertical-lr] rotate-180 uppercase tracking-widest text-xs font-bold text-white/80">
                 Follow Us
               </span>
-              <div className="w-[1px] h-12 bg-white/20" />
-              <div className="flex flex-col gap-4 text-gray-400">
-                <a href="https://x.com" target="_blank" rel="noreferrer" className="hover:text-[#4ade80] transition-colors" aria-label="X">
+              <div className="w-[1px] h-12 bg-white/30" />
+              <div className="flex flex-col gap-4 text-white/80">
+                <a href="https://x.com" target="_blank" rel="noreferrer" className="hover:text-white transition-colors" aria-label="X">
                   <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
                     <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
                   </svg>
                 </a>
-                <a href="https://facebook.com" target="_blank" rel="noreferrer" className="hover:text-[#4ade80] transition-colors" aria-label="Facebook">
+                <a href="https://facebook.com" target="_blank" rel="noreferrer" className="hover:text-white transition-colors" aria-label="Facebook">
                   <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
                     <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
                   </svg>
                 </a>
-                <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="hover:text-[#4ade80] transition-colors" aria-label="LinkedIn">
+                <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="hover:text-white transition-colors" aria-label="LinkedIn">
                   <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
                     <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
                   </svg>
@@ -58,17 +58,17 @@ export default function HomePage() {
 
             {/* Hero Main Copy */}
             <div className="lg:col-span-7 xl:col-span-6 space-y-6">
-              <div className="inline-flex items-center gap-2 text-xs font-semibold tracking-wider uppercase text-[#4ade80]">
-                <span className="w-2 h-2 rounded-full bg-[#22c55e] animate-pulse" />
+              <div className="inline-flex items-center gap-2 text-xs font-bold tracking-wider uppercase text-white bg-white/10 px-3.5 py-1.5 rounded-full border border-white/20">
+                <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
                 Environmental &amp; Social Standards • Nigeria
               </div>
 
               <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-black text-white leading-[1.1] tracking-tight">
                 Raising Standards, <br />
-                <span className="text-[#22c55e]">Guarding Ecology</span>
+                <span className="text-white">Guarding Ecology</span>
               </h1>
 
-              <p className="text-gray-300 text-base sm:text-lg leading-relaxed max-w-xl">
+              <p className="text-white/95 text-base sm:text-lg leading-relaxed max-w-xl font-medium">
                 The unified statutory professional body for Environmental &amp; Social (E&amp;S) standards in Nigeria.
                 We advance rigorous ESIA benchmarks, statutory ecological audits, and certified practitioner excellence to safeguard national biodiversity and community welfare.
               </p>
@@ -79,12 +79,12 @@ export default function HomePage() {
                   className="bg-[#16a34a] hover:bg-[#15803d] text-white font-bold px-7 py-3.5 rounded-lg flex items-center gap-2.5 transition-all shadow-lg hover:shadow-xl active:scale-95"
                 >
                   <span>Apply for Certification</span>
-                  <ArrowRight className="w-4 h-4" />
+                  <ArrowRight className="w-4 h-4 text-white" />
                 </Link>
 
                 <Link
                   href="/about"
-                  className="border border-white/30 hover:border-white text-white font-semibold px-7 py-3.5 rounded-lg transition-all hover:bg-white/5"
+                  className="border border-white/40 hover:border-white text-white font-semibold px-7 py-3.5 rounded-lg transition-all hover:bg-white/10"
                 >
                   Explore Our Mandate
                 </Link>
@@ -104,11 +104,11 @@ export default function HomePage() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#072517]/80 via-transparent to-transparent pointer-events-none" />
 
-                <div className="absolute bottom-6 left-6 right-6 bg-[#092e1d]/90 backdrop-blur-md border border-white/10 rounded-xl p-4 text-white">
+                <div className="absolute bottom-6 left-6 right-6 bg-[#092e1d]/95 backdrop-blur-md border border-white/20 rounded-xl p-4 text-white">
                   <div className="flex items-center justify-between">
                     <div>
-                      <div className="text-xs text-[#4ade80] font-semibold uppercase tracking-wider">Federal Safeguards Mandate</div>
-                      <div className="text-sm font-bold mt-0.5">Certified Environmental Professionals</div>
+                      <div className="text-xs text-white/90 font-bold uppercase tracking-wider">Federal Safeguards Mandate</div>
+                      <div className="text-sm font-bold mt-0.5 text-white">Certified Environmental Professionals</div>
                     </div>
                     <div className="w-10 h-10 rounded-lg bg-[#16a34a] flex items-center justify-center">
                       <ShieldCheck className="w-5 h-5 text-white" />
@@ -125,26 +125,26 @@ export default function HomePage() {
           HERO TICKER RIBBON (Full-Width Green Band)
       ========================================================================== */}
       <div className="bg-[#16a34a] text-white py-4 overflow-hidden border-y border-[#15803d]">
-        <div className="flex items-center justify-around gap-8 text-sm sm:text-base font-bold tracking-wide uppercase whitespace-nowrap animate-marquee">
+        <div className="flex items-center justify-around gap-8 text-sm sm:text-base font-bold tracking-wide uppercase whitespace-nowrap animate-marquee text-white">
           <span className="flex items-center gap-3">
             <span>ESIA Statutory Safeguards</span>
-            <span className="text-emerald-200">🌿</span>
+            <span className="text-white">🌿</span>
           </span>
           <span className="flex items-center gap-3">
             <span>Environmental Audit &amp; Compliance</span>
-            <span className="text-emerald-200">🌿</span>
+            <span className="text-white">🌿</span>
           </span>
           <span className="flex items-center gap-3">
             <span>Ecological &amp; Marine Remediation</span>
-            <span className="text-emerald-200">🌿</span>
+            <span className="text-white">🌿</span>
           </span>
           <span className="flex items-center gap-3">
             <span>Resettlement Action Frameworks (RAP)</span>
-            <span className="text-emerald-200">🌿</span>
+            <span className="text-white">🌿</span>
           </span>
           <span className="flex items-center gap-3">
             <span>Certified Practitioner Registry</span>
-            <span className="text-emerald-200">🌿</span>
+            <span className="text-white">🌿</span>
           </span>
         </div>
       </div>
@@ -421,41 +421,41 @@ export default function HomePage() {
       ========================================================================== */}
       <section className="bg-[#16a34a] text-white py-14">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center text-white">
             {/* 2,500+ Certified Practitioners */}
             <div className="flex flex-col items-center space-y-3">
-              <div className="w-14 h-14 rounded-full border-2 border-white/60 flex items-center justify-center">
+              <div className="w-14 h-14 rounded-full border-2 border-white flex items-center justify-center text-white">
                 <Users className="w-7 h-7 text-white" />
               </div>
-              <div className="font-heading text-4xl sm:text-5xl font-black tracking-tight">2,500+</div>
-              <div className="text-emerald-100 text-sm font-semibold uppercase tracking-wider">Certified Practitioners</div>
+              <div className="font-heading text-4xl sm:text-5xl font-black tracking-tight text-white">2,500+</div>
+              <div className="text-white text-sm font-bold uppercase tracking-wider">Certified Practitioners</div>
             </div>
 
             {/* 960+ Approved ESIAs */}
             <div className="flex flex-col items-center space-y-3">
-              <div className="w-14 h-14 rounded-full border-2 border-white/60 flex items-center justify-center">
+              <div className="w-14 h-14 rounded-full border-2 border-white flex items-center justify-center text-white">
                 <CheckCircle2 className="w-7 h-7 text-white" />
               </div>
-              <div className="font-heading text-4xl sm:text-5xl font-black tracking-tight">960+</div>
-              <div className="text-emerald-100 text-sm font-semibold uppercase tracking-wider">Approved ESIA Studies</div>
+              <div className="font-heading text-4xl sm:text-5xl font-black tracking-tight text-white">960+</div>
+              <div className="text-white text-sm font-bold uppercase tracking-wider">Approved ESIA Studies</div>
             </div>
 
             {/* 36 States & FCT */}
             <div className="flex flex-col items-center space-y-3">
-              <div className="w-14 h-14 rounded-full border-2 border-white/60 flex items-center justify-center">
+              <div className="w-14 h-14 rounded-full border-2 border-white flex items-center justify-center text-white">
                 <Award className="w-7 h-7 text-white" />
               </div>
-              <div className="font-heading text-4xl sm:text-5xl font-black tracking-tight">36</div>
-              <div className="text-emerald-100 text-sm font-semibold uppercase tracking-wider">States &amp; FCT Coverage</div>
+              <div className="font-heading text-4xl sm:text-5xl font-black tracking-tight text-white">36</div>
+              <div className="text-white text-sm font-bold uppercase tracking-wider">States &amp; FCT Coverage</div>
             </div>
 
             {/* 99.4% Regulatory Approval */}
             <div className="flex flex-col items-center space-y-3">
-              <div className="w-14 h-14 rounded-full border-2 border-white/60 flex items-center justify-center">
+              <div className="w-14 h-14 rounded-full border-2 border-white flex items-center justify-center text-white">
                 <Star className="w-7 h-7 text-white" />
               </div>
-              <div className="font-heading text-4xl sm:text-5xl font-black tracking-tight">99.4%</div>
-              <div className="text-emerald-100 text-sm font-semibold uppercase tracking-wider">Regulatory Acceptance</div>
+              <div className="font-heading text-4xl sm:text-5xl font-black tracking-tight text-white">99.4%</div>
+              <div className="text-white text-sm font-bold uppercase tracking-wider">Regulatory Acceptance</div>
             </div>
           </div>
         </div>
@@ -552,11 +552,11 @@ export default function HomePage() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
               <div className="absolute bottom-6 left-6 right-6 text-white space-y-2">
-                <span className="text-xs font-semibold text-[#4ade80] uppercase tracking-wider">Ecology</span>
+                <span className="text-xs font-bold text-white uppercase tracking-wider bg-[#16a34a] px-2.5 py-1 rounded inline-block">Ecology</span>
                 <h3 className="font-heading font-bold text-xl text-white">Mangrove Ecosystem Restoration</h3>
-                <Link href="/resources/blog" className="inline-flex items-center gap-1.5 text-xs font-bold text-white hover:text-[#4ade80] transition-colors pt-1">
+                <Link href="/resources/blog" className="inline-flex items-center gap-1.5 text-xs font-bold text-white hover:underline transition-all pt-1">
                   <span>View Details</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
+                  <ArrowRight className="w-3.5 h-3.5 text-white" />
                 </Link>
               </div>
             </div>
@@ -571,11 +571,11 @@ export default function HomePage() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
               <div className="absolute bottom-6 left-6 right-6 text-white space-y-2">
-                <span className="text-xs font-semibold text-[#4ade80] uppercase tracking-wider">Energy &amp; Climate</span>
+                <span className="text-xs font-bold text-white uppercase tracking-wider bg-[#16a34a] px-2.5 py-1 rounded inline-block">Energy &amp; Climate</span>
                 <h3 className="font-heading font-bold text-xl text-white">Clean Energy Grid ESIA Oversight</h3>
-                <Link href="/resources/blog" className="inline-flex items-center gap-1.5 text-xs font-bold text-white hover:text-[#4ade80] transition-colors pt-1">
+                <Link href="/resources/blog" className="inline-flex items-center gap-1.5 text-xs font-bold text-white hover:underline transition-all pt-1">
                   <span>View Details</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
+                  <ArrowRight className="w-3.5 h-3.5 text-white" />
                 </Link>
               </div>
             </div>
@@ -590,11 +590,11 @@ export default function HomePage() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
               <div className="absolute bottom-6 left-6 right-6 text-white space-y-2">
-                <span className="text-xs font-semibold text-[#4ade80] uppercase tracking-wider">Compliance</span>
+                <span className="text-xs font-bold text-white uppercase tracking-wider bg-[#16a34a] px-2.5 py-1 rounded inline-block">Compliance</span>
                 <h3 className="font-heading font-bold text-xl text-white">Industrial Effluent Baseline Audits</h3>
-                <Link href="/resources/blog" className="inline-flex items-center gap-1.5 text-xs font-bold text-white hover:text-[#4ade80] transition-colors pt-1">
+                <Link href="/resources/blog" className="inline-flex items-center gap-1.5 text-xs font-bold text-white hover:underline transition-all pt-1">
                   <span>View Details</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
+                  <ArrowRight className="w-3.5 h-3.5 text-white" />
                 </Link>
               </div>
             </div>
@@ -619,8 +619,8 @@ export default function HomePage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12 relative">
             {/* Step 1 */}
             <div className="flex flex-col items-center space-y-4">
-              <div className="w-20 h-20 rounded-full border-2 border-[#16a34a] bg-[#e8f7ed] flex items-center justify-center text-[#16a34a] shadow-sm">
-                <FileText className="w-10 h-10" />
+              <div className="w-20 h-20 rounded-full bg-[#16a34a] flex items-center justify-center text-white shadow-md">
+                <FileText className="w-10 h-10 text-white" />
               </div>
               <h3 className="font-heading font-bold text-xl text-[#0e1e17]">
                 01. Application &amp; Vetting
@@ -632,8 +632,8 @@ export default function HomePage() {
 
             {/* Step 2 */}
             <div className="flex flex-col items-center space-y-4">
-              <div className="w-20 h-20 rounded-full border-2 border-[#16a34a] bg-[#e8f7ed] flex items-center justify-center text-[#16a34a] shadow-sm">
-                <ShieldCheck className="w-10 h-10" />
+              <div className="w-20 h-20 rounded-full bg-[#16a34a] flex items-center justify-center text-white shadow-md">
+                <ShieldCheck className="w-10 h-10 text-white" />
               </div>
               <h3 className="font-heading font-bold text-xl text-[#0e1e17]">
                 02. Technical Peer Review
@@ -645,8 +645,8 @@ export default function HomePage() {
 
             {/* Step 3 */}
             <div className="flex flex-col items-center space-y-4">
-              <div className="w-20 h-20 rounded-full border-2 border-[#16a34a] bg-[#e8f7ed] flex items-center justify-center text-[#16a34a] shadow-sm">
-                <Award className="w-10 h-10" />
+              <div className="w-20 h-20 rounded-full bg-[#16a34a] flex items-center justify-center text-white shadow-md">
+                <Award className="w-10 h-10 text-white" />
               </div>
               <h3 className="font-heading font-bold text-xl text-[#0e1e17]">
                 03. Accredited Practice Seal
@@ -768,18 +768,18 @@ export default function HomePage() {
       {/* =========================================================================
           10. INSTITUTIONAL TRUST BAR ("Collaborating with Federal Agencies & Global Institutions")
       ========================================================================== */}
-      <section className="bg-[#16a34a] text-white py-12">
+      <section className="bg-[#16a34a] text-white py-14">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-8">
           <h3 className="font-heading font-bold text-xl sm:text-2xl text-white tracking-wide">
             Trusted by Federal Ministries, State Regulatory Agencies &amp; Industry
           </h3>
-          <div className="flex flex-wrap items-center justify-center gap-8 md:gap-14 opacity-95 text-white font-black text-base sm:text-lg">
-            <span className="bg-white/10 px-4 py-2 rounded-lg">FMEnv Nigeria</span>
-            <span className="bg-white/10 px-4 py-2 rounded-lg">NESREA</span>
-            <span className="bg-white/10 px-4 py-2 rounded-lg">NOSDRA</span>
-            <span className="bg-white/10 px-4 py-2 rounded-lg">UNEP Partner</span>
-            <span className="bg-white/10 px-4 py-2 rounded-lg">World Bank E&amp;S Hub</span>
-            <span className="bg-white/10 px-4 py-2 rounded-lg">NUPRC</span>
+          <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-white font-black text-sm sm:text-base">
+            <span className="bg-white/20 border border-white/40 text-white px-5 py-2.5 rounded-lg shadow-xs">FMEnv Nigeria</span>
+            <span className="bg-white/20 border border-white/40 text-white px-5 py-2.5 rounded-lg shadow-xs">NESREA</span>
+            <span className="bg-white/20 border border-white/40 text-white px-5 py-2.5 rounded-lg shadow-xs">NOSDRA</span>
+            <span className="bg-white/20 border border-white/40 text-white px-5 py-2.5 rounded-lg shadow-xs">UNEP Partner</span>
+            <span className="bg-white/20 border border-white/40 text-white px-5 py-2.5 rounded-lg shadow-xs">World Bank E&amp;S Hub</span>
+            <span className="bg-white/20 border border-white/40 text-white px-5 py-2.5 rounded-lg shadow-xs">NUPRC</span>
           </div>
         </div>
       </section>

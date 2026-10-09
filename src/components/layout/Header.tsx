@@ -68,16 +68,16 @@ export function Header() {
       <div className="bg-[#051d12] text-gray-300 text-xs border-b border-white/10 hidden md:block">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-10 flex items-center justify-between">
           <div className="flex items-center gap-6">
-            <span className="flex items-center gap-1.5 text-gray-300 hover:text-white transition-colors">
-              <MapPin className="w-3.5 h-3.5 text-[#22c55e]" />
+            <span className="flex items-center gap-1.5 text-white/90 hover:text-white transition-colors">
+              <MapPin className="w-3.5 h-3.5 text-white" />
               Federal Capital Territory, Abuja, Nigeria
             </span>
             <span className="text-white/20">|</span>
             <a
               href="mailto:secretariat@cesspa.org.ng"
-              className="flex items-center gap-1.5 text-gray-300 hover:text-white transition-colors"
+              className="flex items-center gap-1.5 text-white/90 hover:text-white transition-colors"
             >
-              <Mail className="w-3.5 h-3.5 text-[#22c55e]" />
+              <Mail className="w-3.5 h-3.5 text-white" />
               secretariat@cesspa.org.ng
             </a>
           </div>
@@ -85,19 +85,19 @@ export function Header() {
           <div className="flex items-center gap-6">
             <a
               href="tel:+2348032377721"
-              className="flex items-center gap-1.5 text-gray-300 hover:text-white transition-colors font-medium"
+              className="flex items-center gap-1.5 text-white/90 hover:text-white transition-colors font-medium"
             >
-              <Phone className="w-3.5 h-3.5 text-[#22c55e]" />
+              <Phone className="w-3.5 h-3.5 text-white" />
               +234 (0) 803 237 7721
             </a>
             <span className="text-white/20">|</span>
             <div className="flex items-center gap-3">
-              <span className="text-gray-400 text-[11px] uppercase tracking-wider font-semibold">Follow Us:</span>
+              <span className="text-white/80 text-[11px] uppercase tracking-wider font-semibold">Follow Us:</span>
               <a
                 href="https://x.com"
                 target="_blank"
                 rel="noreferrer"
-                className="w-5 h-5 rounded flex items-center justify-center text-gray-300 hover:text-[#22c55e] transition-colors"
+                className="w-5 h-5 rounded flex items-center justify-center text-white/80 hover:text-white transition-colors"
                 aria-label="X (Twitter)"
               >
                 <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
@@ -108,7 +108,7 @@ export function Header() {
                 href="https://facebook.com"
                 target="_blank"
                 rel="noreferrer"
-                className="w-5 h-5 rounded flex items-center justify-center text-gray-300 hover:text-[#22c55e] transition-colors"
+                className="w-5 h-5 rounded flex items-center justify-center text-white/80 hover:text-white transition-colors"
                 aria-label="Facebook"
               >
                 <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
@@ -119,7 +119,7 @@ export function Header() {
                 href="https://linkedin.com"
                 target="_blank"
                 rel="noreferrer"
-                className="w-5 h-5 rounded flex items-center justify-center text-gray-300 hover:text-[#22c55e] transition-colors"
+                className="w-5 h-5 rounded flex items-center justify-center text-white/80 hover:text-white transition-colors"
                 aria-label="LinkedIn"
               >
                 <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
@@ -177,11 +177,11 @@ export function Header() {
                         "flex items-center gap-1.5 px-3 py-2 text-sm font-medium transition-colors rounded-md",
                         activeDropdown === item.label || isActive
                           ? "text-[#4ade80]"
-                          : "text-gray-200 hover:text-white"
+                          : "text-white/80 hover:text-white"
                       )}
                     >
                       {item.label}
-                      <ChevronDown className="w-3.5 h-3.5 transition-transform group-hover:rotate-180" />
+                      <ChevronDown className="w-3.5 h-3.5 transition-transform group-hover:rotate-180 text-white" />
                     </button>
 
                     {activeDropdown === item.label && (
@@ -190,17 +190,17 @@ export function Header() {
                           <Link
                             key={sub.label}
                             href={sub.href}
-                            className="flex items-start gap-3 px-4 py-2.5 hover:bg-white/5 transition-colors group"
+                            className="flex items-start gap-3 px-4 py-2.5 hover:bg-white/10 transition-colors group"
                             onClick={() => setActiveDropdown(null)}
                           >
-                            <div className="p-1.5 rounded-lg bg-[#16a34a]/20 text-[#4ade80] group-hover:bg-[#16a34a] group-hover:text-white transition-colors mt-0.5">
-                              <sub.icon className="w-4 h-4" />
+                            <div className="p-1.5 rounded-lg bg-white/20 text-white group-hover:bg-[#16a34a] transition-colors mt-0.5">
+                              <sub.icon className="w-4 h-4 text-white" />
                             </div>
                             <div>
-                              <div className="text-sm font-semibold text-white group-hover:text-[#4ade80] transition-colors">
+                              <div className="text-sm font-semibold text-white group-hover:text-white transition-colors">
                                 {sub.label}
                               </div>
-                              <div className="text-xs text-gray-400 mt-0.5 leading-snug">
+                              <div className="text-xs text-white/70 mt-0.5 leading-snug">
                                 {sub.desc}
                               </div>
                             </div>
@@ -219,8 +219,8 @@ export function Header() {
                   className={cn(
                     "px-3 py-2 text-sm font-medium transition-colors rounded-md",
                     isActive
-                      ? "text-[#4ade80] font-semibold"
-                      : "text-gray-200 hover:text-white"
+                      ? "text-white font-bold bg-white/15"
+                      : "text-white/80 hover:text-white hover:bg-white/10"
                   )}
                 >
                   {item.label}
@@ -233,10 +233,10 @@ export function Header() {
           <div className="hidden sm:flex items-center gap-4">
             <Link
               href="/resources/blog"
-              className="p-2 text-gray-300 hover:text-white hover:bg-white/5 rounded-lg transition-colors"
+              className="p-2 text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
               aria-label="Search or Publications"
             >
-              <Search className="w-5 h-5" />
+              <Search className="w-5 h-5 text-white" />
             </Link>
 
             <Link
@@ -244,7 +244,7 @@ export function Header() {
               className="bg-[#16a34a] hover:bg-[#15803d] text-white text-sm font-bold px-5 py-2.5 rounded-lg flex items-center gap-2 transition-all shadow-md hover:shadow-lg active:scale-95"
             >
               <span>Get Certified</span>
-              <ArrowRight className="w-4 h-4" />
+              <ArrowRight className="w-4 h-4 text-white" />
             </Link>
           </div>
 
@@ -252,10 +252,10 @@ export function Header() {
           <div className="flex lg:hidden items-center gap-2">
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 text-gray-300 hover:text-white rounded-lg focus:outline-none"
+              className="p-2 text-white hover:text-white rounded-lg focus:outline-none"
               aria-label="Toggle menu"
             >
-              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {mobileMenuOpen ? <X className="w-6 h-6 text-white" /> : <Menu className="w-6 h-6 text-white" />}
             </button>
           </div>
         </div>
@@ -268,7 +268,7 @@ export function Header() {
             <div key={item.label} className="border-b border-white/5 pb-2">
               <Link
                 href={item.href}
-                className="block py-2 text-base font-semibold text-white hover:text-[#4ade80]"
+                className="block py-2 text-base font-semibold text-white hover:text-white"
                 onClick={() => setMobileMenuOpen(false)}
               >
                 {item.label}
@@ -279,7 +279,7 @@ export function Header() {
                     <Link
                       key={sub.label}
                       href={sub.href}
-                      className="block text-sm text-gray-300 hover:text-[#4ade80] py-1"
+                      className="block text-sm text-white/80 hover:text-white py-1"
                       onClick={() => setMobileMenuOpen(false)}
                     >
                       {sub.label}
