@@ -1,188 +1,105 @@
-@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Montserrat:wght@400;500;600;700;800;900&display=swap");
 @import "tailwindcss";
 
 :root {
-  --font-jakarta: "Plus Jakarta Sans", system-ui, sans-serif;
-  --font-cormorant: "Cormorant Garamond", Georgia, serif;
-  --font-cinzel: "Cinzel", Georgia, serif;
+  --font-inter: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-montserrat: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 
   --forest-green: #0a3a24;
-  --deep-emerald: #052115;
-  --leaf-green: #1b6842;
-  --leaf-accent: #3eb574;
+  --forest-dark: #072517;
+  --deep-emerald: #051d12;
+  --leaf-green: #16a34a;
+  --leaf-accent: #22c55e;
+  --leaf-light: #e8f7ed;
   --heritage-gold: #c7962c;
-  --heritage-gold-soft: #ecd598;
-  --ivory: #faf9f5;
-  --sage-mist: #eff4ec;
-  --white: #ffffff;
-  --ink-dark: #0a1f15;
-  --ink-body: #2f4337;
-  --ink-muted: #6a7f72;
-  --brand-border: #dbe4d7;
-  --navy-blue: #142d3e;
+  --ivory: #ffffff;
+  --bg-soft: #f4f7f4;
+  --ink-dark: #0e1e17;
+  --ink-body: #374151;
+  --ink-muted: #6b7280;
+  --brand-border: #e5e7eb;
 }
 
 @theme {
   --color-forest-green: #0a3a24;
-  --color-deep-emerald: #052115;
-  --color-leaf-green: #1b6842;
-  --color-leaf-accent: #3eb574;
+  --color-forest-dark: #072517;
+  --color-deep-emerald: #051d12;
+  --color-leaf-green: #16a34a;
+  --color-leaf-accent: #22c55e;
+  --color-leaf-light: #e8f7ed;
   --color-heritage-gold: #c7962c;
-  --color-heritage-gold-soft: #ecd598;
-  --color-ivory: #faf9f5;
-  --color-sage-mist: #eff4ec;
-  --color-white: #ffffff;
-  --color-ink-dark: #0a1f15;
-  --color-ink-body: #2f4337;
-  --color-ink-muted: #6a7f72;
-  --color-brand-border: #dbe4d7;
-  --color-navy-blue: #142d3e;
+  --color-ivory: #ffffff;
+  --color-bg-soft: #f4f7f4;
+  --color-ink-dark: #0e1e17;
+  --color-ink-body: #374151;
+  --color-ink-muted: #6b7280;
+  --color-brand-border: #e5e7eb;
 
-  --font-sans: "Plus Jakarta Sans", system-ui, sans-serif;
-  --font-serif: "Cormorant Garamond", Georgia, serif;
-  --font-cinzel: "Cinzel", Georgia, serif;
-  --font-cormorant: "Cormorant Garamond", Georgia, serif;
-  --font-montserrat: "Plus Jakarta Sans", system-ui, sans-serif;
-  --font-inter: "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-inter: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-montserrat: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-heading: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
 /* Base Body Styles */
 body {
-  background-color: #faf9f5;
-  color: #2f4337;
-  font-family: var(--font-jakarta), system-ui, sans-serif;
-  line-height: 1.7;
+  background-color: #ffffff;
+  color: #374151;
+  font-family: var(--font-inter), system-ui, sans-serif;
+  line-height: 1.65;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Regal Headings Typography (Da Vinci Codex & Garamond Elegance) */
+/* Clean Modern Headings (Montserrat) */
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-cormorant), Georgia, serif;
-  color: #0a1f15;
-  letter-spacing: -0.015em;
-  font-feature-settings: "liga" 1, "dlig" 1;
+  font-family: var(--font-montserrat), system-ui, sans-serif;
+  color: #0e1e17;
+  font-weight: 700;
+  letter-spacing: -0.02em;
 }
 
-h1.uppercase, h2.uppercase, h3.uppercase {
-  font-family: var(--font-cinzel), Georgia, serif;
-  letter-spacing: 0.04em;
-  font-weight: 700;
+.font-heading {
+  font-family: var(--font-montserrat), system-ui, sans-serif !important;
 }
 
 .font-sans {
-  font-family: var(--font-jakarta), system-ui, sans-serif !important;
+  font-family: var(--font-inter), system-ui, sans-serif !important;
 }
 
-.font-serif {
-  font-family: var(--font-cormorant), Georgia, serif !important;
-}
-
-.font-monumental {
-  font-family: var(--font-cinzel), Georgia, serif !important;
-  letter-spacing: 0.08em;
-}
-
-.font-editorial {
-  font-family: var(--font-cormorant), Georgia, serif;
-}
-
-/* Sacred Geometry & Subtle Botanical Textures */
+/* Subtle Modern Eco Patterns */
 .pattern-dots {
-  background-image: radial-gradient(rgba(10, 58, 36, 0.09) 1.5px, transparent 1.5px);
-  background-size: 24px 24px;
+  background-image: radial-gradient(rgba(10, 58, 36, 0.12) 1.5px, transparent 1.5px);
+  background-size: 20px 20px;
 }
 
 .pattern-dots-white {
-  background-image: radial-gradient(rgba(255, 255, 255, 0.2) 1.5px, transparent 1.5px);
-  background-size: 24px 24px;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.25) 1.5px, transparent 1.5px);
+  background-size: 20px 20px;
 }
 
-.pattern-dots-gold {
-  background-image: radial-gradient(rgba(199, 150, 44, 0.22) 1.5px, transparent 1.5px);
-  background-size: 24px 24px;
-}
-
-/* Da Vinci Vitruvian Concentric Watermark */
-.bg-vitruvian {
-  background-image: radial-gradient(circle at center, transparent 40%, rgba(199, 150, 44, 0.05) 41%, rgba(199, 150, 44, 0.05) 42%, transparent 43%),
-                    radial-gradient(circle at center, transparent 65%, rgba(10, 58, 36, 0.04) 66%, rgba(10, 58, 36, 0.04) 67%, transparent 68%);
-}
-
-/* Luxury Glassmorphic Surfaces */
-.glass-davinci {
-  background: rgba(255, 255, 255, 0.88);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(219, 228, 215, 0.85);
-  box-shadow: 0 20px 40px -15px rgba(10, 58, 36, 0.06);
-}
-
-.glass-davinci-gold {
-  background: rgba(255, 255, 255, 0.92);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(199, 150, 44, 0.3);
-  box-shadow: 0 24px 50px -12px rgba(199, 150, 44, 0.12);
-}
-
-.glass-davinci-dark {
-  background: linear-gradient(145deg, rgba(5, 33, 21, 0.94), rgba(10, 58, 36, 0.96));
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(236, 213, 152, 0.22);
-  box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.4);
-}
-
-/* Card Hover Lift */
+/* Clean Card Hover */
 .card-hover {
-  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-  border: 1px solid #dbe4d7;
+  transition: all 0.3s ease;
 }
 
 .card-hover:hover {
-  transform: translateY(-5px);
-  border-color: #c7962c;
-  box-shadow: 0 24px 48px -12px rgba(10, 58, 36, 0.12);
-}
-
-/* Gold Hairlines & Illuminations */
-.gold-hairline {
-  height: 1px;
-  background: linear-gradient(90deg, transparent, #c7962c, transparent);
-}
-
-.gold-badge {
-  border: 1px solid rgba(199, 150, 44, 0.35);
-  background: linear-gradient(135deg, rgba(236, 213, 152, 0.18), rgba(199, 150, 44, 0.08));
-  color: #8f6615;
-}
-
-/* Text Shimmer Effect */
-.gold-gradient-text {
-  background: linear-gradient(135deg, #a77717 0%, #c7962c 40%, #ecd598 70%, #996e1a 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.emerald-gradient-text {
-  background: linear-gradient(135deg, #052115 0%, #0a3a24 50%, #1b6842 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  transform: translateY(-4px);
+  box-shadow: 0 16px 32px -8px rgba(10, 58, 36, 0.12);
 }
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 7px;
-  height: 7px;
+  width: 8px;
+  height: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #faf9f5;
+  background: #f4f7f4;
 }
 ::-webkit-scrollbar-thumb {
-  background: #c7d7c2;
-  border-radius: 999px;
+  background: #cbd5e1;
+  border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #0a3a24;
+  background: #16a34a;
 }

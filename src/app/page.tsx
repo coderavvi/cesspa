@@ -1,170 +1,119 @@
-"use client";
-
 import React from "react";
-import Image from "next/image";
 import Link from "next/link";
+import Image from "next/image";
 import {
-  ShieldCheck,
-  Users,
-  Compass,
   ArrowRight,
-  Calendar,
+  ShieldCheck,
   CheckCircle2,
-  FileText,
-  Heart,
-  Globe2,
-  Sparkles,
-  BookOpen,
-  Scale,
+  Users,
   Award,
+  Star,
+  Globe2,
+  Recycle,
+  Trees,
+  Droplets,
+  ChevronLeft,
   ChevronRight,
-  Leaf,
-  Layers,
-  Activity,
-  Bookmark,
-  Share2,
-  ArrowUpRight,
+  Quote,
+  Sparkles,
   Search,
-  Check,
 } from "lucide-react";
-import { Eyebrow } from "@/components/shared/Eyebrow";
-import { Section } from "@/components/shared/Section";
-import { StatCounter } from "@/components/shared/StatCounter";
-import { CycleDiagram } from "@/components/shared/CycleDiagram";
-import { WaveDivider } from "@/components/shared/WaveDivider";
-import { BRAND } from "@/lib/constants";
-import { MOCK_TIERS, MOCK_EVENTS, MOCK_NEWS } from "@/lib/data/mockData";
-import { formatNaira, formatDate } from "@/lib/utils";
 import { IMAGES } from "@/lib/images";
 
 export default function HomePage() {
   return (
-    <div className="flex flex-col w-full overflow-hidden bg-ivory">
-      {/* =========================================================
-          HERO SECTION (Da Vinci Renaissance Ecological Masterpiece)
-      ========================================================= */}
-      <section className="relative bg-gradient-to-b from-[#faf9f5] via-[#f4f7f2] to-[#eff4ec] pt-10 pb-20 lg:pt-16 lg:pb-28 overflow-hidden">
-        {/* Subtle Da Vinci Sacred Geometry & Radial Sfumato Glow */}
-        <div className="absolute inset-0 pattern-dots opacity-45 pointer-events-none" />
-        <div className="absolute top-0 right-1/4 w-[600px] h-[600px] rounded-full bg-gradient-to-br from-heritage-gold/10 to-leaf-accent/10 blur-3xl pointer-events-none" />
-        <div className="absolute -bottom-20 -left-20 w-[500px] h-[500px] rounded-full bg-forest-green/5 blur-3xl pointer-events-none" />
+    <div className="w-full bg-white text-ink-body font-sans">
+      {/* =========================================================================
+          1. HERO SECTION (Behance "Be Safe Control Environment" 100% Replication)
+      ========================================================================== */}
+      <section className="relative bg-[#072517] text-white overflow-hidden pt-12 pb-20 lg:pt-16 lg:pb-28">
+        {/* Subtle background ambient light */}
+        <div className="absolute top-0 right-1/4 w-96 h-96 bg-[#16a34a]/15 rounded-full blur-3xl pointer-events-none" />
 
-        <div className="relative z-10 max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
-            {/* Left Column: Headline, Subtitle, CTAs & Metrics */}
-            <div className="lg:col-span-7 space-y-7">
-              <Eyebrow chip="EST. NIGERIA">
-                CHARTERED ENVIRONMENTAL & SOCIAL STANDARDS AUTHORITY
-              </Eyebrow>
-
-              <h1 className="font-serif font-bold text-4xl sm:text-5xl md:text-6xl lg:text-[64px] text-ink-dark leading-[1.08] tracking-tight">
-                Harmonizing Ecological Rigour{" "}
-                <span className="font-serif italic text-forest-green font-normal relative inline-block">
-                  with Human Dignity.
-                  <span className="absolute bottom-1.5 left-0 w-full h-2.5 bg-heritage-gold/20 -z-10 rounded-sm" />
-                </span>
-              </h1>
-
-              <p className="font-sans text-base sm:text-lg text-ink-body leading-relaxed max-w-2xl font-normal">
-                Bridging the vital divide between official statutory certification and ethical, field-tested practice across Nigeria’s 36 states and the Federal Capital Territory.
-              </p>
-
-              {/* Action Buttons Row */}
-              <div className="flex flex-wrap items-center gap-4 pt-2">
-                <Link
-                  href="/membership/register"
-                  className="px-7 py-4 rounded-full bg-gradient-to-r from-forest-green via-[#0e4e30] to-forest-green hover:from-deep-emerald hover:to-forest-green text-white font-sans font-bold text-xs uppercase tracking-wider shadow-lg hover:shadow-xl border border-heritage-gold/40 transition-all duration-300 flex items-center gap-2.5 group"
-                >
-                  <span>Apply for Membership</span>
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </Link>
-
-                <Link
-                  href="/#pillars"
-                  className="px-7 py-4 rounded-full border border-heritage-gold/60 hover:border-forest-green bg-white/80 hover:bg-white text-forest-green font-sans font-bold text-xs uppercase tracking-wider transition-all duration-300 shadow-xs flex items-center gap-2"
-                >
-                  <span>Explore Technical Standards</span>
-                </Link>
-
-                <Link
-                  href="/directory"
-                  className="inline-flex items-center gap-1.5 text-xs font-sans font-semibold text-ink-body hover:text-forest-green transition-colors py-2 px-3 rounded-lg hover:bg-white/60"
-                >
-                  <Search className="w-3.5 h-3.5 text-heritage-gold" />
-                  <span>Verify Practitioner</span>
-                </Link>
-              </div>
-
-              {/* Trust Metric Counters */}
-              <div className="pt-8 mt-4 border-t border-brand-border/80 grid grid-cols-2 sm:grid-cols-4 gap-6">
-                <StatCounter value={500} suffix="+" label="Chartered Members" sublabel="Across all 6 zones" />
-                <StatCounter value={36} suffix=" States" label="National Reach" sublabel="+ FCT Secretariat" />
-                <StatCounter value={6} suffix=" Zones" label="Zonal Chapters" sublabel="Coordinated councils" />
-                <StatCounter value={50} suffix="+" label="CPD Masterclasses" sublabel="Annual field programs" />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            {/* Left Vertical "FOLLOW US" Bar (Behance Style) */}
+            <div className="hidden xl:flex lg:col-span-1 flex-col items-center gap-6 text-gray-400">
+              <span className="[writing-mode:vertical-lr] rotate-180 uppercase tracking-widest text-xs font-bold text-gray-400">
+                Follow Us
+              </span>
+              <div className="w-[1px] h-12 bg-white/20" />
+              <div className="flex flex-col gap-4 text-gray-400">
+                <a href="https://x.com" target="_blank" rel="noreferrer" className="hover:text-[#4ade80] transition-colors" aria-label="X">
+                  <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                  </svg>
+                </a>
+                <a href="https://facebook.com" target="_blank" rel="noreferrer" className="hover:text-[#4ade80] transition-colors" aria-label="Facebook">
+                  <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                  </svg>
+                </a>
+                <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="hover:text-[#4ade80] transition-colors" aria-label="LinkedIn">
+                  <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                    <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                  </svg>
+                </a>
               </div>
             </div>
 
-            {/* Right Column: Hero Visual Showcase (High-Definition Nature & Safeguards) */}
-            <div className="lg:col-span-5 relative">
-              <div className="relative mx-auto max-w-md lg:max-w-none">
-                {/* Decorative Golden Vitruvian Aura */}
-                <div className="absolute -top-8 -right-8 w-80 h-80 rounded-full bg-heritage-gold/15 blur-2xl pointer-events-none" />
+            {/* Hero Main Copy */}
+            <div className="lg:col-span-7 xl:col-span-6 space-y-6">
+              <div className="inline-flex items-center gap-2 text-xs font-semibold tracking-wider uppercase text-[#4ade80]">
+                <span className="w-2 h-2 rounded-full bg-[#22c55e] animate-pulse" />
+                Natural Environment & Certified Standards
+              </div>
 
-                {/* Primary Masterpiece Feature Frame */}
-                <div className="relative rounded-3xl overflow-hidden border border-heritage-gold/40 shadow-2xl bg-white p-3 group ring-1 ring-black/5">
-                  <div className="relative aspect-4/3 sm:aspect-5/4 w-full rounded-2xl overflow-hidden bg-forest-green">
-                    <Image
-                      src={IMAGES.hero.canopy}
-                      alt="Nigerian Emerald River Basin & Forest Canopy Preservation"
-                      fill
-                      className="object-cover group-hover:scale-104 transition-transform duration-700"
-                      priority
-                    />
-                    {/* Artistic Gradient Sfumato Overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#052115]/90 via-[#052115]/30 to-transparent" />
+              <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-black text-white leading-[1.1] tracking-tight">
+                Be Safe Control <br />
+                <span className="text-[#22c55e]">Environment</span>
+              </h1>
 
-                    <div className="absolute bottom-5 left-5 right-5 text-white">
-                      <div className="flex items-center gap-2">
-                        <span className="text-[10px] font-sans font-bold uppercase tracking-widest text-heritage-gold-soft bg-black/40 backdrop-blur-md px-2.5 py-1 rounded-full border border-heritage-gold/30">
-                          STATUTORY EIA CAP E12
-                        </span>
-                        <span className="text-[10px] font-sans font-medium text-sage-mist/90">
-                          Federal Ministry of Environment
-                        </span>
-                      </div>
-                      <h4 className="font-serif font-bold text-lg sm:text-xl mt-2 text-white leading-snug">
-                        Preserving Nigeria’s Living Heritage
-                      </h4>
-                      <p className="text-xs text-sage-mist/85 font-sans mt-1 line-clamp-2">
-                        Empowering certified practitioners with independent scientific authority and ethical safeguards.
-                      </p>
+              <p className="text-gray-300 text-base sm:text-lg leading-relaxed max-w-xl">
+                Professionally optimize interdependent intellectual interoperable connect best practices.
+                CESSPA unites certified environmental specialists to uphold rigorous ESIA benchmarks, statutory ecological audits, and sustainable national progress across Nigeria.
+              </p>
+
+              <div className="flex flex-wrap items-center gap-4 pt-4">
+                <Link
+                  href="/membership"
+                  className="bg-[#16a34a] hover:bg-[#15803d] text-white font-bold px-7 py-3.5 rounded-lg flex items-center gap-2.5 transition-all shadow-lg hover:shadow-xl active:scale-95"
+                >
+                  <span>Let&apos;s Talk</span>
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+
+                <Link
+                  href="/about"
+                  className="border border-white/30 hover:border-white text-white font-semibold px-7 py-3.5 rounded-lg transition-all hover:bg-white/5"
+                >
+                  Read More
+                </Link>
+              </div>
+            </div>
+
+            {/* Hero Visual (Sprouting Plant in Rich Dark Soil) */}
+            <div className="lg:col-span-5 xl:col-span-5">
+              <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-white/10 group">
+                <Image
+                  src={IMAGES.behance.heroSeedling}
+                  alt="Young plant sprout flourishing in rich dark soil"
+                  width={700}
+                  height={550}
+                  priority
+                  className="w-full h-[360px] sm:h-[440px] object-cover group-hover:scale-105 transition-transform duration-700"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#072517]/80 via-transparent to-transparent pointer-events-none" />
+
+                <div className="absolute bottom-6 left-6 right-6 bg-[#092e1d]/90 backdrop-blur-md border border-white/10 rounded-xl p-4 text-white">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <div className="text-xs text-[#4ade80] font-semibold uppercase tracking-wider">National Ecological Mandate</div>
+                      <div className="text-sm font-bold mt-0.5">Certified Environmental Professionals</div>
                     </div>
-                  </div>
-                </div>
-
-                {/* Floating Glass Pill 1: ESIA Practice */}
-                <div className="absolute -top-4 -left-4 sm:-left-6 bg-white/95 backdrop-blur-xl rounded-2xl p-3.5 shadow-xl border border-heritage-gold/30 flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-forest-green text-white flex items-center justify-center shrink-0 shadow-sm">
-                    <ShieldCheck className="w-5 h-5 text-heritage-gold-soft" />
-                  </div>
-                  <div>
-                    <span className="block font-sans font-bold text-xs text-ink-dark">
-                      ESIA Protocol
-                    </span>
-                    <span className="text-[11px] font-sans text-ink-muted">Proactive Risk Screening</span>
-                  </div>
-                </div>
-
-                {/* Floating Glass Pill 2: Social Safeguards */}
-                <div className="absolute -bottom-5 -right-3 sm:-right-6 bg-white/95 backdrop-blur-xl rounded-2xl p-3.5 shadow-xl border border-heritage-gold/30 flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-heritage-gold/20 text-forest-green flex items-center justify-center shrink-0 shadow-sm">
-                    <Users className="w-5 h-5 text-forest-green" />
-                  </div>
-                  <div>
-                    <span className="block font-sans font-bold text-xs text-ink-dark">
-                      Social Safeguards
-                    </span>
-                    <span className="text-[11px] font-sans text-ink-muted">Community Trust & FPIC</span>
+                    <div className="w-10 h-10 rounded-lg bg-[#16a34a] flex items-center justify-center">
+                      <ShieldCheck className="w-5 h-5 text-white" />
+                    </div>
                   </div>
                 </div>
               </div>
@@ -173,784 +122,880 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* =========================================================
-          THE THREE SACRED GATEWAYS (Quick Action Navigation)
-      ========================================================= */}
-      <div className="bg-white border-y border-brand-border py-6">
-        <div className="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
-            <Link
-              href="/membership"
-              className="flex items-center gap-4 p-4 rounded-2xl bg-sage-mist/50 hover:bg-forest-green/10 border border-brand-border/70 hover:border-heritage-gold/50 transition-all duration-300 group shadow-xs hover:shadow-sm"
-            >
-              <div className="w-12 h-12 rounded-xl bg-forest-green text-white flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform duration-300 shadow-sm">
-                <Users className="w-5 h-5 text-heritage-gold-soft" />
-              </div>
-              <div className="flex-1">
-                <div className="flex items-center justify-between">
-                  <span className="font-sans font-bold text-xs uppercase tracking-wider text-forest-green">
-                    1. Professional Membership
-                  </span>
-                  <ChevronRight className="w-4 h-4 text-ink-muted group-hover:translate-x-1 transition-transform" />
-                </div>
-                <p className="text-xs font-sans text-ink-body mt-0.5">Explore 5 accredited tiers, fees & licensure</p>
-              </div>
-            </Link>
-
-            <Link
-              href="/events"
-              className="flex items-center gap-4 p-4 rounded-2xl bg-sage-mist/50 hover:bg-forest-green/10 border border-brand-border/70 hover:border-heritage-gold/50 transition-all duration-300 group shadow-xs hover:shadow-sm"
-            >
-              <div className="w-12 h-12 rounded-xl bg-leaf-green text-white flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform duration-300 shadow-sm">
-                <Calendar className="w-5 h-5 text-white" />
-              </div>
-              <div className="flex-1">
-                <div className="flex items-center justify-between">
-                  <span className="font-sans font-bold text-xs uppercase tracking-wider text-leaf-green">
-                    2. Events & Masterclasses
-                  </span>
-                  <ChevronRight className="w-4 h-4 text-ink-muted group-hover:translate-x-1 transition-transform" />
-                </div>
-                <p className="text-xs font-sans text-ink-body mt-0.5">National AGM, webinars & CPD field programs</p>
-              </div>
-            </Link>
-
-            <Link
-              href="/donate"
-              className="flex items-center gap-4 p-4 rounded-2xl bg-sage-mist/50 hover:bg-forest-green/10 border border-brand-border/70 hover:border-heritage-gold/50 transition-all duration-300 group shadow-xs hover:shadow-sm"
-            >
-              <div className="w-12 h-12 rounded-xl bg-heritage-gold text-forest-green flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform duration-300 shadow-sm">
-                <Heart className="w-5 h-5 text-forest-green" />
-              </div>
-              <div className="flex-1">
-                <div className="flex items-center justify-between">
-                  <span className="font-sans font-bold text-xs uppercase tracking-wider text-ink-dark">
-                    3. Public Impact Fund
-                  </span>
-                  <ChevronRight className="w-4 h-4 text-ink-muted group-hover:translate-x-1 transition-transform" />
-                </div>
-                <p className="text-xs font-sans text-ink-body mt-0.5">Support public ESIA research & student bursaries</p>
-              </div>
-            </Link>
-          </div>
+      {/* =========================================================================
+          HERO TICKER RIBBON (Behance Green Full-Width Band)
+      ========================================================================== */}
+      <div className="bg-[#16a34a] text-white py-4 overflow-hidden border-y border-[#15803d]">
+        <div className="flex items-center justify-around gap-8 text-sm sm:text-base font-bold tracking-wide uppercase whitespace-nowrap animate-marquee">
+          <span className="flex items-center gap-3">
+            <span>Ocean · River Cleanup</span>
+            <span className="text-emerald-200">🌿</span>
+          </span>
+          <span className="flex items-center gap-3">
+            <span>Environmental Standards</span>
+            <span className="text-emerald-200">🌿</span>
+          </span>
+          <span className="flex items-center gap-3">
+            <span>Renewable · Energy</span>
+            <span className="text-emerald-200">🌿</span>
+          </span>
+          <span className="flex items-center gap-3">
+            <span>Ecological Audits</span>
+            <span className="text-emerald-200">🌿</span>
+          </span>
+          <span className="flex items-center gap-3">
+            <span>Certified ESIA Experts</span>
+            <span className="text-emerald-200">🌿</span>
+          </span>
         </div>
       </div>
 
-      {/* =========================================================
-          THE THREE ESIA PILLARS (Core Technical Standards)
-      ========================================================= */}
-      <Section variant="ivory" pattern="dots" id="pillars">
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <Eyebrow chip="TECHNICAL FRAMEWORK">THE THREE PILLARS OF ESIA</Eyebrow>
-          <h2 className="font-serif font-bold text-3xl sm:text-4xl md:text-5xl text-ink-dark mt-2">
-            What Every Certified Professional Must Uphold
-          </h2>
-          <div className="w-20 h-1 bg-gradient-to-r from-forest-green via-heritage-gold to-forest-green mx-auto my-4 rounded-full" />
-          <p className="font-sans text-base text-ink-body leading-relaxed font-normal">
-            ESIA is not merely a statutory compliance exercise; it is an early preventive planning discipline that balances ecological integrity with community dignity.
-          </p>
-        </div>
-
-        {/* 3 Pillar Deep-Dive Cards */}
-        <div className="space-y-12">
-          {/* PILLAR 01: Proactive Risk Identification */}
-          <div className="rounded-3xl border border-brand-border bg-white shadow-sm overflow-hidden p-6 sm:p-8 lg:p-10 card-hover">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-              <div className="lg:col-span-7 space-y-4">
-                <div className="flex items-center gap-3">
-                  <span className="w-10 h-10 rounded-xl bg-forest-green text-white font-sans font-bold text-sm flex items-center justify-center shadow-xs">
-                    01
-                  </span>
-                  <span className="font-sans font-bold text-xs text-heritage-gold uppercase tracking-widest">
-                    PILLAR 01 • PROACTIVE RISK IDENTIFICATION
-                  </span>
-                </div>
-
-                <h3 className="font-serif font-bold text-2xl sm:text-3xl md:text-4xl text-ink-dark">
-                  Preventive Screening Before Groundbreaking
-                </h3>
-
-                <p className="font-sans text-sm sm:text-base text-ink-body leading-relaxed">
-                  ESIA is far more than regulatory documentation. It is an engineering and planning tool that isolates environmental, ecological, and social vulnerabilities <strong>before</strong> statutory capital is committed.
-                </p>
-
-                <div className="pt-2">
-                  <span className="font-sans font-bold text-xs uppercase tracking-wider text-forest-green block mb-2.5">
-                    A rigorous ESIA systematically examines:
-                  </span>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs sm:text-sm text-ink-body">
-                    {[
-                      "Ecosystem baselines and critical habitats",
-                      "Pollution controls & hazardous waste handling",
-                      "Host community health, sanitation and safety",
-                      "Resource efficiency & climate resilience models",
-                      "Restoration of displaced artisanal livelihoods",
-                    ].map((item) => (
-                      <div key={item} className="flex items-start gap-2 bg-sage-mist/60 p-3 rounded-xl border border-brand-border/60">
-                        <CheckCircle2 className="w-4 h-4 text-leaf-green shrink-0 mt-0.5" />
-                        <span className="font-sans">{item}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Key Takeaway Strip */}
-                <div className="p-4 rounded-xl bg-forest-green text-white flex items-center justify-between gap-4 mt-4">
-                  <div>
-                    <span className="text-[10px] font-sans font-bold uppercase text-heritage-gold-soft tracking-wider block">
-                      CORE MANDATE:
-                    </span>
-                    <span className="text-xs sm:text-sm font-sans font-medium">
-                      Identify risks early and design actionable, verifiable mitigation measures.
-                    </span>
-                  </div>
-                  <span className="text-xs font-sans font-bold text-heritage-gold uppercase tracking-wider shrink-0 hidden sm:inline">
-                    Assess First. Mitigate Early.
-                  </span>
-                </div>
-              </div>
-
-              {/* Graphic for Pillar 01 */}
-              <div className="lg:col-span-5 relative aspect-square rounded-2xl overflow-hidden border border-brand-border bg-sage-mist group">
+      {/* =========================================================================
+          2. ABOUT SECTION ("Environmental Sustainable Forever Green Future")
+      ========================================================================== */}
+      <section className="py-20 lg:py-28 bg-[#f9fbf9]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+            {/* Left: Spherical Biosphere / Hands Image */}
+            <div className="lg:col-span-6 relative">
+              <div className="relative rounded-2xl overflow-hidden shadow-xl border border-gray-100 group">
                 <Image
-                  src={IMAGES.pillars.riskScreening}
-                  alt="Environmental Surveyors Conducting Pre-Construction Risk Assessment"
-                  fill
-                  className="object-cover group-hover:scale-104 transition-transform duration-500"
+                  src={IMAGES.behance.biosphereGlobe}
+                  alt="Environmental sustainability and globe biosphere"
+                  width={640}
+                  height={500}
+                  className="w-full h-[400px] sm:h-[480px] object-cover group-hover:scale-105 transition-transform duration-700"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
-                <div className="absolute bottom-4 left-4 right-4 text-white">
-                  <span className="text-[10px] font-sans font-bold uppercase tracking-wider text-heritage-gold-soft bg-forest-green/90 px-2 py-0.5 rounded">
-                    FIELD SCREENING
-                  </span>
-                  <p className="text-xs font-sans mt-1 text-sage-mist/90">
-                    Scientific sensor mapping on rural development corridors
-                  </p>
-                </div>
               </div>
+              {/* Decorative side dots */}
+              <div className="absolute -bottom-6 -left-6 w-24 h-24 pattern-dots opacity-40 pointer-events-none hidden sm:block" />
             </div>
-          </div>
 
-          {/* PILLAR 02: Social & Community Safeguards */}
-          <div className="rounded-3xl border border-brand-border bg-white shadow-sm overflow-hidden p-6 sm:p-8 lg:p-10 card-hover">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-              {/* Graphic for Pillar 02 */}
-              <div className="lg:col-span-5 relative aspect-square rounded-2xl overflow-hidden border border-brand-border bg-sage-mist order-last lg:order-first group">
-                <Image
-                  src={IMAGES.pillars.socialSafeguards}
-                  alt="Participatory Host Community Dialogue and Social Safeguards"
-                  fill
-                  className="object-cover group-hover:scale-104 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
-                <div className="absolute bottom-4 left-4 right-4 text-white">
-                  <span className="text-[10px] font-sans font-bold uppercase tracking-wider text-heritage-gold-soft bg-forest-green/90 px-2 py-0.5 rounded">
-                    HUMAN DIGNITY
-                  </span>
-                  <p className="text-xs font-sans mt-1 text-sage-mist/90">
-                    Free, Prior and Informed Consultation with host elders
-                  </p>
-                </div>
+            {/* Right: Content & 2 Feature Items */}
+            <div className="lg:col-span-6 space-y-6">
+              <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#16a34a]">
+                <Trees className="w-4 h-4" />
+                ABOUT CESSPA
               </div>
 
-              <div className="lg:col-span-7 space-y-4">
-                <div className="flex items-center gap-3">
-                  <span className="w-10 h-10 rounded-xl bg-forest-green text-white font-sans font-bold text-sm flex items-center justify-center shadow-xs">
-                    02
-                  </span>
-                  <span className="font-sans font-bold text-xs text-heritage-gold uppercase tracking-widest">
-                    PILLAR 02 • SOCIAL & COMMUNITY SAFEGUARDS
-                  </span>
-                </div>
-
-                <h3 className="font-serif font-bold text-2xl sm:text-3xl md:text-4xl text-ink-dark">
-                  Environmental Sustainability Must Include People
-                </h3>
-
-                <p className="font-sans text-sm sm:text-base text-ink-body leading-relaxed">
-                  Responsible development safeguards both nature and the human communities whose livelihood depends upon it. Projects that ignore social harmony court disaster.
-                </p>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
-                  {[
-                    {
-                      num: "01",
-                      title: "Stakeholder Engagement",
-                      desc: "Transparent, continuous consultation with host communities and customary leaders.",
-                    },
-                    {
-                      num: "02",
-                      title: "Livelihoods Protection",
-                      desc: "Safeguarding farming, artisanal fishing, and local trade from disruption.",
-                    },
-                    {
-                      num: "03",
-                      title: "Resettlement Integrity",
-                      desc: "Ethical relocation and prompt, equitable compensation benchmarks.",
-                    },
-                    {
-                      num: "04",
-                      title: "Vulnerable Group Inclusion",
-                      desc: "Giving voice to women, youth, elders, and persons with disabilities.",
-                    },
-                  ].map((item) => (
-                    <div key={item.num} className="p-3.5 rounded-xl border border-brand-border bg-sage-mist/40 space-y-1">
-                      <div className="flex items-center gap-2">
-                        <span className="text-xs font-sans font-bold text-leaf-green bg-white px-2 py-0.5 rounded border border-brand-border">
-                          {item.num}
-                        </span>
-                        <h5 className="font-sans font-bold text-xs sm:text-sm text-ink-dark">
-                          {item.title}
-                        </h5>
-                      </div>
-                      <p className="text-xs font-sans text-ink-body">{item.desc}</p>
-                    </div>
-                  ))}
-                </div>
-
-                {/* Key Takeaway Strip */}
-                <div className="p-4 rounded-xl bg-sage-mist border border-leaf-accent/40 flex items-center gap-3 mt-4">
-                  <Leaf className="w-5 h-5 text-leaf-green shrink-0" />
-                  <div className="text-xs sm:text-sm text-ink-dark font-sans font-medium">
-                    <strong className="text-forest-green">Key Principle:</strong> Development is only sustainable when it protects both ecological assets and community rights.
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* PILLAR 03: Continuous Monitoring & Evaluation */}
-          <div className="rounded-3xl border border-brand-border bg-white shadow-sm overflow-hidden p-6 sm:p-8 lg:p-10 card-hover">
-            <div className="space-y-6">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                <div className="space-y-1">
-                  <div className="flex items-center gap-3">
-                    <span className="w-10 h-10 rounded-xl bg-forest-green text-white font-sans font-bold text-sm flex items-center justify-center shadow-xs">
-                      03
-                    </span>
-                    <span className="font-sans font-bold text-xs text-heritage-gold uppercase tracking-widest">
-                      PILLAR 03 • LIFECYCLE MONITORING
-                    </span>
-                  </div>
-                  <h3 className="font-serif font-bold text-2xl sm:text-3xl md:text-4xl text-ink-dark mt-1">
-                    Continuous Monitoring & Adaptive Governance
-                  </h3>
-                </div>
-
-                <div className="bg-heritage-gold/15 border border-heritage-gold/30 px-3.5 py-1.5 rounded-xl text-xs font-sans font-bold text-ink-dark flex items-center gap-2 self-start sm:self-auto">
-                  <Activity className="w-4 h-4 text-heritage-gold" />
-                  "What gets monitored can be improved."
-                </div>
-              </div>
-
-              <p className="font-sans text-sm sm:text-base text-ink-body leading-relaxed max-w-3xl">
-                Statutory approval is merely the inception of environmental responsibility. Environmental and social metrics must be audited, tracked, and transparently published across the lifecycle.
-              </p>
-
-              {/* Interactive Cycle Diagram */}
-              <CycleDiagram />
-            </div>
-          </div>
-        </div>
-      </Section>
-
-      {/* =========================================================
-          THE FOUNDATION: PEACE & COMMUNITY RELATIONS
-      ========================================================= */}
-      <Section variant="dark" pattern="dots">
-        <div className="max-w-[1360px] mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            <div className="lg:col-span-7 space-y-6">
-              <Eyebrow chip="FOUNDATION" lightMode={true}>
-                PEACE & COMMUNITY RELATIONS
-              </Eyebrow>
-
-              <h2 className="font-serif font-bold text-3xl sm:text-4xl md:text-5xl text-white leading-tight">
-                Peace Starts With How Communities Are Treated
+              <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#0e1e17] leading-tight">
+                Environmental Sustainable <br />
+                Forever Green Future
               </h2>
 
-              <p className="font-sans text-sm sm:text-base text-sage-mist/90 leading-relaxed font-normal">
-                A peaceful, cooperative relationship between an infrastructure sponsor and its host community is neither accidental nor transactional. It is rooted in four non-negotiable principles:
+              <p className="text-gray-600 text-base leading-relaxed">
+                Alternative innovation to ethical network professional environmental whiteboards transparent growth national done.
+                CESSPA sets the gold standard for statutory environmental baseline assessments, policy stewardship, and accredited practice throughout Nigeria.
               </p>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-                {[
-                  {
-                    title: "Listening",
-                    desc: "Genuinely hearing host community anxieties before designs and engineering contracts are finalized.",
-                  },
-                  {
-                    title: "Respect",
-                    desc: "Honoring indigenous customs, sacred heritage grooves, customary elders, and traditional leadership.",
-                  },
-                  {
-                    title: "Inclusion",
-                    desc: "Proactively inviting youth, women, farmers, and marginalized families into dialogue chambers.",
-                  },
-                  {
-                    title: "Accountability",
-                    desc: "Operating responsive grievance redress mechanisms that redress verified impacts promptly.",
-                  },
-                ].map((item) => (
-                  <div key={item.title} className="p-4 rounded-2xl bg-deep-emerald/80 border border-sage-mist/20 space-y-1.5 shadow-sm">
-                    <h5 className="font-sans font-bold text-sm text-heritage-gold-soft uppercase tracking-wider">
-                      {item.title}
-                    </h5>
-                    <p className="font-sans text-xs text-sage-mist/85 leading-relaxed">{item.desc}</p>
+              {/* 2 Feature Items with Green Outline Circles */}
+              <div className="space-y-6 pt-2">
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 rounded-full border-2 border-[#16a34a] flex items-center justify-center text-[#16a34a] shrink-0 bg-white shadow-sm">
+                    <Globe2 className="w-6 h-6" />
                   </div>
-                ))}
-              </div>
-
-              {/* Pull Quote */}
-              <blockquote className="font-serif text-xl sm:text-2xl italic text-white border-l-2 border-heritage-gold pl-5 py-2">
-                "When people feel heard, respected and protected, trust becomes possible."
-              </blockquote>
-
-              {/* Formula Badge */}
-              <div className="p-4 rounded-xl bg-deep-emerald border border-heritage-gold/40 text-xs sm:text-sm font-sans font-bold text-center text-heritage-gold-soft tracking-wide">
-                {BRAND.formula}
-              </div>
-            </div>
-
-            {/* Visual Graphic: High-Resolution Community Stewardship */}
-            <div className="lg:col-span-5 relative aspect-square rounded-3xl overflow-hidden border border-sage-mist/30 shadow-2xl group">
-              <Image
-                src={IMAGES.pillars.peaceFoundation}
-                alt="Community Environmental Stewardship and Peacebuilding"
-                fill
-                className="object-cover group-hover:scale-104 transition-transform duration-700"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-deep-emerald/90 via-transparent to-transparent" />
-              <div className="absolute bottom-6 left-6 right-6 text-white">
-                <span className="text-[10px] font-sans font-bold uppercase tracking-widest text-heritage-gold-soft bg-black/40 backdrop-blur-md px-2.5 py-1 rounded-full border border-heritage-gold/30">
-                  MUTUAL RESPECT
-                </span>
-                <h4 className="font-serif font-bold text-lg mt-2 text-white">
-                  Cooperation in the Field
-                </h4>
-                <p className="font-sans text-xs text-sage-mist/85 mt-1">
-                  Harmonizing modern infrastructure with indigenous African conservation values.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </Section>
-
-      {/* =========================================================
-          VALUES: UPHOLDING PROFESSIONAL EXCELLENCE
-      ========================================================= */}
-      <Section variant="sage">
-        <div className="text-center max-w-3xl mx-auto mb-14">
-          <Eyebrow chip="OUR ETHOS">UPHOLDING PROFESSIONAL EXCELLENCE</Eyebrow>
-          <h2 className="font-serif font-bold text-3xl sm:text-4xl md:text-5xl text-ink-dark mt-2">
-            Responsibility Beyond Compliance
-          </h2>
-          <div className="w-20 h-1 bg-gradient-to-r from-forest-green via-heritage-gold to-forest-green mx-auto my-3 rounded-full" />
-          <p className="font-sans text-sm sm:text-base text-ink-body">
-            As chartered Environmental & Social practitioners in Nigeria, our statutory mandate is governed by five unwavering tenets.
-          </p>
-        </div>
-
-        {/* 5 Value Badges Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5">
-          {[
-            {
-              title: "Environmental Protection",
-              icon: Leaf,
-              desc: "Preserving Nigerian ecosystems, soils, watersheds, and biodiversity.",
-            },
-            {
-              title: "Social Responsibility",
-              icon: Users,
-              desc: "Centering human well-being, fair labor, and social justice.",
-            },
-            {
-              title: "Evidence-Based Decisions",
-              icon: Scale,
-              desc: "Grounded in empirical scientific baselines and verifiable data.",
-            },
-            {
-              title: "Meaningful Engagement",
-              icon: Heart,
-              desc: "Deep, early, and continuous dialogue with all project stakeholders.",
-            },
-            {
-              title: "Sustainable Development",
-              icon: Globe2,
-              desc: "Infrastructure that enriches current generations without compromising tomorrow.",
-            },
-          ].map((val, idx) => {
-            const Icon = val.icon;
-            return (
-              <div
-                key={val.title}
-                className="rounded-2xl p-6 bg-white border border-brand-border text-center flex flex-col items-center justify-between card-hover space-y-3"
-              >
-                <div className="w-14 h-14 rounded-full bg-forest-green/10 text-forest-green flex items-center justify-center ring-4 ring-forest-green/5">
-                  <Icon className="w-6 h-6 text-forest-green" />
-                </div>
-                <div>
-                  <span className="text-[10px] font-sans font-bold text-heritage-gold uppercase tracking-wider block">
-                    0{idx + 1}
-                  </span>
-                  <h4 className="font-serif font-bold text-base text-ink-dark mt-1">
-                    {val.title}
-                  </h4>
-                  <p className="font-sans text-xs text-ink-muted mt-2 leading-relaxed">{val.desc}</p>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </Section>
-
-      {/* =========================================================
-          MEMBERSHIP TIERS TEASER
-      ========================================================= */}
-      <Section variant="ivory" id="membership-teaser">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
-          <div>
-            <Eyebrow chip="JOIN CESSPA">MEMBERSHIP PATHWAYS</Eyebrow>
-            <h2 className="font-serif font-bold text-3xl sm:text-4xl md:text-5xl text-ink-dark mt-1">
-              Find Your Professional Category
-            </h2>
-          </div>
-          <Link
-            href="/membership"
-            className="inline-flex items-center gap-1.5 font-sans font-bold text-xs uppercase tracking-wider text-forest-green hover:text-deep-emerald underline underline-offset-4"
-          >
-            Compare All Plans & Pricing
-            <ArrowRight className="w-4 h-4" />
-          </Link>
-        </div>
-
-        {/* Top 3 Tiers Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {MOCK_TIERS.slice(1, 4).map((tier) => (
-            <div
-              key={tier.id}
-              className={`rounded-2xl p-7 bg-white border flex flex-col justify-between transition-all duration-300 relative ${
-                tier.isPopular
-                  ? "border-forest-green ring-2 ring-forest-green/20 shadow-xl"
-                  : "border-brand-border hover:border-heritage-gold shadow-sm"
-              }`}
-            >
-              {tier.isPopular && (
-                <div className="absolute -top-3 left-6 bg-heritage-gold text-forest-green text-[10px] font-sans font-extrabold uppercase tracking-widest px-3 py-1 rounded-full shadow-xs">
-                  MOST POPULAR BENCHMARK
-                </div>
-              )}
-
-              <div className="space-y-4">
-                <div>
-                  <h3 className="font-serif font-bold text-2xl text-ink-dark">
-                    {tier.name}
-                  </h3>
-                  <p className="font-sans text-xs text-ink-muted mt-1">{tier.tagline}</p>
-                </div>
-
-                <div className="pt-2 border-t border-brand-border/60">
-                  <div className="flex items-baseline gap-1">
-                    <span className="font-serif font-bold text-3xl sm:text-4xl text-forest-green">
-                      {formatNaira(tier.annualFee, false)}
-                    </span>
-                    <span className="font-sans text-xs text-ink-muted">/{tier.period}</span>
+                  <div>
+                    <h3 className="font-heading font-bold text-lg text-[#0e1e17]">
+                      Economic Benefits
+                    </h3>
+                    <p className="text-sm text-gray-500 mt-1 leading-relaxed">
+                      Alternative innovation after ethical to network environmental whiteboard transparent growth natural done.
+                    </p>
                   </div>
                 </div>
 
-                <ul className="space-y-2.5 pt-2 text-xs text-ink-body font-sans">
-                  {tier.benefits.slice(0, 4).map((b, i) => (
-                    <li key={i} className="flex items-start gap-2">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-leaf-green shrink-0 mt-0.5" />
-                      <span>{b}</span>
-                    </li>
-                  ))}
-                </ul>
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 rounded-full border-2 border-[#16a34a] flex items-center justify-center text-[#16a34a] shrink-0 bg-white shadow-sm">
+                    <ShieldCheck className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <h3 className="font-heading font-bold text-lg text-[#0e1e17]">
+                      Safe Environment
+                    </h3>
+                    <p className="text-sm text-gray-500 mt-1 leading-relaxed">
+                      Alternative innovation after ethical to network environmental whiteboard transparent growth natural done.
+                    </p>
+                  </div>
+                </div>
               </div>
 
-              <div className="pt-6 mt-6 border-t border-brand-border/60">
+              <div className="pt-4">
                 <Link
-                  href={`/membership/register?tier=${tier.code}`}
-                  className={`w-full py-3 rounded-full font-sans font-bold text-xs uppercase tracking-wider text-center block transition-all ${
-                    tier.isPopular
-                      ? "bg-forest-green text-white hover:bg-deep-emerald shadow-md"
-                      : "bg-sage-mist text-forest-green hover:bg-forest-green hover:text-white"
-                  }`}
+                  href="/about"
+                  className="inline-flex items-center gap-2 bg-[#16a34a] hover:bg-[#15803d] text-white font-bold px-7 py-3.5 rounded-lg transition-all shadow-md hover:shadow-lg active:scale-95"
                 >
-                  Apply as {tier.name}
+                  <span>More About</span>
+                  <ArrowRight className="w-4 h-4" />
                 </Link>
               </div>
             </div>
-          ))}
-        </div>
-      </Section>
-
-      {/* =========================================================
-          UPCOMING EVENTS & CONFERENCES
-      ========================================================= */}
-      <Section variant="sage">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
-          <div>
-            <Eyebrow chip="CPD & LEARNING">PROFESSIONAL CALENDAR</Eyebrow>
-            <h2 className="font-serif font-bold text-3xl sm:text-4xl md:text-5xl text-ink-dark mt-1">
-              Upcoming Conferences & Masterclasses
-            </h2>
           </div>
-          <Link
-            href="/events"
-            className="inline-flex items-center gap-1.5 font-sans font-bold text-xs uppercase tracking-wider text-forest-green hover:text-deep-emerald underline underline-offset-4"
-          >
-            View Full Event Calendar
-            <ArrowRight className="w-4 h-4" />
-          </Link>
         </div>
+      </section>
 
-        {/* Featured Conference Banner */}
-        {MOCK_EVENTS[0] && (
-          <div className="rounded-3xl bg-forest-green text-white p-6 sm:p-8 lg:p-10 mb-8 shadow-xl relative overflow-hidden border border-heritage-gold/30">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
-              <div className="lg:col-span-8 space-y-4">
-                <div className="flex flex-wrap items-center gap-2">
-                  <span className="bg-heritage-gold text-forest-green font-sans font-bold text-[10px] uppercase tracking-wider px-2.5 py-1 rounded-full">
-                    NATIONAL FLAGSHIP EVENT
-                  </span>
-                  <span className="text-sage-mist text-xs font-sans">
-                    {formatDate(MOCK_EVENTS[0].date)} • {MOCK_EVENTS[0].location}
-                  </span>
-                </div>
-
-                <h3 className="font-serif font-bold text-2xl sm:text-3xl md:text-4xl text-white">
-                  {MOCK_EVENTS[0].title}
-                </h3>
-
-                <p className="font-sans text-xs sm:text-sm text-sage-mist/90 max-w-2xl leading-relaxed">
-                  {MOCK_EVENTS[0].description}
-                </p>
-
-                <div className="flex flex-wrap items-center gap-4 pt-2">
-                  <Link
-                    href={`/events/${MOCK_EVENTS[0].slug}`}
-                    className="px-6 py-3 rounded-full bg-white text-forest-green hover:bg-sage-mist font-sans font-bold text-xs uppercase tracking-wider shadow-md transition-all"
-                  >
-                    View Agenda & Register
-                  </Link>
-                  <span className="text-xs font-sans text-heritage-gold-soft font-semibold">
-                    Earn {MOCK_EVENTS[0].cpdPoints} CPD Points for Certification
-                  </span>
-                </div>
+      {/* =========================================================================
+          3. CORE SERVICES ("Echofy Provide Environment Best Leading Services")
+      ========================================================================== */}
+      <section id="services" className="py-20 lg:py-28 bg-white border-t border-gray-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Header & Controls */}
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
+            <div>
+              <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#16a34a] mb-3">
+                <Trees className="w-4 h-4" />
+                OUR SERVICES
               </div>
+              <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#0e1e17] leading-tight">
+                CESSPA Provide Environment <br />
+                Best Leading Services
+              </h2>
+            </div>
 
-              <div className="lg:col-span-4 relative aspect-video rounded-2xl overflow-hidden border border-sage-mist/20 shadow-lg">
+            {/* Slider arrows */}
+            <div className="flex items-center gap-3">
+              <button
+                className="w-11 h-11 rounded-lg border border-gray-200 bg-white hover:bg-gray-50 text-gray-700 flex items-center justify-center transition-colors shadow-sm"
+                aria-label="Previous slide"
+              >
+                <ChevronLeft className="w-5 h-5" />
+              </button>
+              <button
+                className="w-11 h-11 rounded-lg bg-[#16a34a] hover:bg-[#15803d] text-white flex items-center justify-center transition-colors shadow-md"
+                aria-label="Next slide"
+              >
+                <ChevronRight className="w-5 h-5" />
+              </button>
+            </div>
+          </div>
+
+          {/* 3 Service Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* Card 1: Cleaning Ocean */}
+            <div className="bg-[#f9fbf9] border border-gray-100 rounded-2xl p-7 flex flex-col justify-between card-hover">
+              <div>
+                <div className="w-14 h-14 rounded-full border-2 border-[#16a34a] bg-white flex items-center justify-center text-[#16a34a] mb-6 shadow-sm">
+                  <Droplets className="w-7 h-7" />
+                </div>
+                <h3 className="font-heading font-bold text-xl text-[#0e1e17] mb-3">
+                  Cleaning Ocean
+                </h3>
+                <p className="text-sm text-gray-500 leading-relaxed mb-6">
+                  Alternative innovation to ethical network professional engineer high-payoff deliverables without exceptional natural to environment.
+                </p>
+              </div>
+              <div className="rounded-xl overflow-hidden h-48 w-full relative">
                 <Image
-                  src={IMAGES.events.nationalConference}
-                  alt="CESSPA National Conference at Abuja International Conference Centre"
+                  src={IMAGES.behance.oceanCleanup}
+                  alt="Cleaning ocean and water plastic removal"
                   fill
-                  className="object-cover"
+                  className="object-cover hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+            </div>
+
+            {/* Card 2: Safe Cleaning */}
+            <div className="bg-[#f9fbf9] border border-gray-100 rounded-2xl p-7 flex flex-col justify-between card-hover">
+              <div>
+                <div className="w-14 h-14 rounded-full border-2 border-[#16a34a] bg-white flex items-center justify-center text-[#16a34a] mb-6 shadow-sm">
+                  <Trees className="w-7 h-7" />
+                </div>
+                <h3 className="font-heading font-bold text-xl text-[#0e1e17] mb-3">
+                  Safe Cleaning
+                </h3>
+                <p className="text-sm text-gray-500 leading-relaxed mb-6">
+                  Alternative innovation to ethical network environmental whiteboard transparent natural to environment.
+                </p>
+              </div>
+              <div className="rounded-xl overflow-hidden h-48 w-full relative">
+                <Image
+                  src={IMAGES.behance.handsPlanting}
+                  alt="Safe cleaning and seedling protection"
+                  fill
+                  className="object-cover hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+            </div>
+
+            {/* Card 3: Dirty Recycling */}
+            <div className="bg-[#f9fbf9] border border-gray-100 rounded-2xl p-7 flex flex-col justify-between card-hover">
+              <div>
+                <div className="w-14 h-14 rounded-full border-2 border-[#16a34a] bg-white flex items-center justify-center text-[#16a34a] mb-6 shadow-sm">
+                  <Recycle className="w-7 h-7" />
+                </div>
+                <h3 className="font-heading font-bold text-xl text-[#0e1e17] mb-3">
+                  Dirty Recycling
+                </h3>
+                <p className="text-sm text-gray-500 leading-relaxed mb-6">
+                  Alternative innovation to ethical network professional whiteboard transparent natural to environment.
+                </p>
+              </div>
+              <div className="rounded-xl overflow-hidden h-48 w-full relative">
+                <Image
+                  src={IMAGES.behance.plasticRecycling}
+                  alt="Industrial recycling and waste disposal"
+                  fill
+                  className="object-cover hover:scale-105 transition-transform duration-500"
                 />
               </div>
             </div>
           </div>
-        )}
+        </div>
+      </section>
 
-        {/* 2 Other Event Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {MOCK_EVENTS.slice(1, 3).map((event) => (
-            <div
-              key={event.id}
-              className="rounded-2xl p-6 bg-white border border-brand-border card-hover flex flex-col justify-between"
-            >
-              <div className="space-y-3">
-                <div className="flex items-center justify-between text-xs">
-                  <span className="font-sans font-bold text-leaf-green bg-sage-mist px-2.5 py-0.5 rounded-full">
-                    {event.category}
-                  </span>
-                  <span className="font-sans text-ink-muted">{formatDate(event.date)}</span>
-                </div>
-
-                <h4 className="font-serif font-bold text-xl text-ink-dark">
-                  {event.title}
-                </h4>
-
-                <p className="font-sans text-xs text-ink-body line-clamp-2 leading-relaxed">
-                  {event.description}
-                </p>
+      {/* =========================================================================
+          4. SKILLS & IMPACT SECTION ("Getting A Greener Future Safe Environment")
+      ========================================================================== */}
+      <section id="standards" className="py-20 lg:py-28 bg-[#f9fbf9] border-t border-gray-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            {/* Left: Content, Checkmarks & Progress Bars */}
+            <div className="lg:col-span-6 space-y-6">
+              <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#16a34a]">
+                <Trees className="w-4 h-4" />
+                OUR SKILLS
               </div>
 
-              <div className="pt-4 mt-4 border-t border-brand-border/60 flex items-center justify-between text-xs font-sans">
-                <span className="font-semibold text-forest-green">
-                  {event.fee === 0 ? "Complimentary" : formatNaira(event.fee)}
-                </span>
+              <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#0e1e17] leading-tight">
+                Getting A Greener Future <br />
+                Safe Environment
+              </h2>
+
+              <p className="text-gray-600 text-base leading-relaxed">
+                Competently cultivate worldwide e-tailers through principle-centered value professionally engineer high-payoff deliverables without exceptional processes. Rapidly network cost effective portals.
+              </p>
+
+              {/* 2 Pills Badges */}
+              <div className="flex flex-wrap gap-4 pt-2">
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-white border border-gray-200 text-sm font-semibold text-[#0e1e17] shadow-sm">
+                  <CheckCircle2 className="w-4 h-4 text-[#16a34a]" />
+                  Safe Environment
+                </div>
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-white border border-gray-200 text-sm font-semibold text-[#0e1e17] shadow-sm">
+                  <CheckCircle2 className="w-4 h-4 text-[#16a34a]" />
+                  Dirty Recycling
+                </div>
+              </div>
+
+              {/* Progress Bars */}
+              <div className="space-y-5 pt-4">
+                <div>
+                  <div className="flex justify-between text-sm font-bold text-[#0e1e17] mb-2">
+                    <span>Recycling</span>
+                    <span>90%</span>
+                  </div>
+                  <div className="w-full h-2.5 bg-gray-200 rounded-full overflow-hidden">
+                    <div className="h-full bg-[#16a34a] rounded-full w-[90%]" />
+                  </div>
+                </div>
+
+                <div>
+                  <div className="flex justify-between text-sm font-bold text-[#0e1e17] mb-2">
+                    <span>Ocean Cleaning</span>
+                    <span>80%</span>
+                  </div>
+                  <div className="w-full h-2.5 bg-gray-200 rounded-full overflow-hidden">
+                    <div className="h-full bg-[#16a34a] rounded-full w-[80%]" />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Right: Hands holding plant shoot */}
+            <div className="lg:col-span-6 relative">
+              <div className="rounded-2xl overflow-hidden shadow-xl border border-gray-100 group">
+                <Image
+                  src={IMAGES.behance.handsPlanting}
+                  alt="Caring hands nurturing green seedling"
+                  width={640}
+                  height={480}
+                  className="w-full h-[380px] sm:h-[460px] object-cover group-hover:scale-105 transition-transform duration-700"
+                />
+              </div>
+              <div className="absolute -top-6 -right-6 w-24 h-24 pattern-dots opacity-40 pointer-events-none hidden sm:block" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* =========================================================================
+          5. STATS COUNTER BANNER (Solid Green Behance Full-Width Band)
+      ========================================================================== */}
+      <section className="bg-[#16a34a] text-white py-14">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            {/* 100+ Team Member */}
+            <div className="flex flex-col items-center space-y-3">
+              <div className="w-14 h-14 rounded-full border-2 border-white/60 flex items-center justify-center">
+                <Users className="w-7 h-7 text-white" />
+              </div>
+              <div className="font-heading text-4xl sm:text-5xl font-black tracking-tight">100+</div>
+              <div className="text-emerald-100 text-sm font-semibold uppercase tracking-wider">Team Member</div>
+            </div>
+
+            {/* 960+ Complete Work */}
+            <div className="flex flex-col items-center space-y-3">
+              <div className="w-14 h-14 rounded-full border-2 border-white/60 flex items-center justify-center">
+                <CheckCircle2 className="w-7 h-7 text-white" />
+              </div>
+              <div className="font-heading text-4xl sm:text-5xl font-black tracking-tight">960+</div>
+              <div className="text-emerald-100 text-sm font-semibold uppercase tracking-wider">Complete Work</div>
+            </div>
+
+            {/* 38 Award Winning */}
+            <div className="flex flex-col items-center space-y-3">
+              <div className="w-14 h-14 rounded-full border-2 border-white/60 flex items-center justify-center">
+                <Award className="w-7 h-7 text-white" />
+              </div>
+              <div className="font-heading text-4xl sm:text-5xl font-black tracking-tight">38</div>
+              <div className="text-emerald-100 text-sm font-semibold uppercase tracking-wider">Award Winning</div>
+            </div>
+
+            {/* 4.7 Avg Ratings */}
+            <div className="flex flex-col items-center space-y-3">
+              <div className="w-14 h-14 rounded-full border-2 border-white/60 flex items-center justify-center">
+                <Star className="w-7 h-7 text-white" />
+              </div>
+              <div className="font-heading text-4xl sm:text-5xl font-black tracking-tight">4.7</div>
+              <div className="text-emerald-100 text-sm font-semibold uppercase tracking-wider">Avg Ratings</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* =========================================================================
+          6. CALLOUT PROMO CARD ("Plant & Safe Trees")
+      ========================================================================== */}
+      <section className="py-20 bg-white">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="bg-[#f4f8f4] border border-gray-100 rounded-2xl overflow-hidden shadow-lg grid grid-cols-1 md:grid-cols-12 items-center">
+            {/* Left: Sprouting tree image */}
+            <div className="md:col-span-5 h-64 md:h-full relative min-h-[280px]">
+              <Image
+                src={IMAGES.behance.plantSprout}
+                alt="Fresh environmental plant sprout"
+                fill
+                className="object-cover"
+              />
+            </div>
+
+            {/* Right: Contact Callout */}
+            <div className="md:col-span-7 p-8 sm:p-12 space-y-4">
+              <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#16a34a]">
+                <Trees className="w-4 h-4" />
+                CONTACT US
+              </div>
+
+              <h3 className="font-heading text-2xl sm:text-3xl font-extrabold text-[#0e1e17] leading-snug">
+                Fresh Environmental <br />
+                Plant &amp; Safe Trees
+              </h3>
+
+              <p className="text-sm text-gray-600 leading-relaxed">
+                Competently cultivate worldwide e-tailers through principle-centered value professionally engineer high-payoff deliverables without exceptional processes. Rapidly network cost effective portals.
+              </p>
+
+              <div className="pt-2">
                 <Link
-                  href={`/events/${event.slug}`}
-                  className="font-bold text-forest-green hover:text-heritage-gold flex items-center gap-1"
+                  href="/contact"
+                  className="inline-flex items-center gap-2 bg-[#16a34a] hover:bg-[#15803d] text-white font-bold px-6 py-3 rounded-lg transition-all shadow-md active:scale-95 text-sm"
                 >
-                  Details <ChevronRight className="w-3.5 h-3.5" />
+                  <span>Contact Us</span>
+                  <ArrowRight className="w-4 h-4" />
                 </Link>
               </div>
             </div>
-          ))}
-        </div>
-      </Section>
-
-      {/* =========================================================
-          NEWS & INSIGHTS (Official Brand Publications)
-      ========================================================= */}
-      <Section variant="ivory">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
-          <div>
-            <Eyebrow chip="KNOWLEDGE">PUBLICATIONS & INSIGHTS</Eyebrow>
-            <h2 className="font-serif font-bold text-3xl sm:text-4xl md:text-5xl text-ink-dark mt-1">
-              Latest E&S Safeguards Analysis
-            </h2>
           </div>
-          <Link
-            href="/resources/blog"
-            className="inline-flex items-center gap-1.5 font-sans font-bold text-xs uppercase tracking-wider text-forest-green hover:text-deep-emerald underline underline-offset-4"
-          >
-            Browse All Articles
-            <ArrowRight className="w-4 h-4" />
-          </Link>
         </div>
+      </section>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {MOCK_NEWS.map((article) => (
-            <article
-              key={article.id}
-              className="rounded-3xl overflow-hidden bg-white border border-brand-border card-hover flex flex-col justify-between"
-            >
+      {/* =========================================================================
+          7. FEATURED WORK / RECENT PROJECTS ("Finished the Latest Leading Environmental Works")
+      ========================================================================== */}
+      <section className="py-20 lg:py-28 bg-[#f9fbf9] border-t border-gray-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
+            <div>
+              <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#16a34a] mb-3">
+                <Trees className="w-4 h-4" />
+                OUR PRODUCT
+              </div>
+              <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#0e1e17] leading-tight">
+                Finished the Latest Leading <br />
+                Environmental Works
+              </h2>
+            </div>
+
+            <div className="flex items-center gap-3">
+              <button
+                className="w-11 h-11 rounded-lg border border-gray-200 bg-white hover:bg-gray-50 text-gray-700 flex items-center justify-center transition-colors shadow-sm"
+                aria-label="Previous work"
+              >
+                <ChevronLeft className="w-5 h-5" />
+              </button>
+              <button
+                className="w-11 h-11 rounded-lg bg-[#16a34a] hover:bg-[#15803d] text-white flex items-center justify-center transition-colors shadow-md"
+                aria-label="Next work"
+              >
+                <ChevronRight className="w-5 h-5" />
+              </button>
+            </div>
+          </div>
+
+          {/* 3 Project Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* Project 1 */}
+            <div className="relative rounded-2xl overflow-hidden shadow-md group h-[400px]">
+              <Image
+                src={IMAGES.behance.plasticRecycling}
+                alt="Plastic Recycling project"
+                fill
+                className="object-cover group-hover:scale-105 transition-transform duration-700"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+              <div className="absolute bottom-6 left-6 right-6 text-white space-y-2">
+                <span className="text-xs font-semibold text-[#4ade80] uppercase tracking-wider">Recycling</span>
+                <h3 className="font-heading font-bold text-xl text-white">Plastic Recycling</h3>
+                <Link href="/resources/blog" className="inline-flex items-center gap-1.5 text-xs font-bold text-white hover:text-[#4ade80] transition-colors pt-1">
+                  <span>View More</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+              </div>
+            </div>
+
+            {/* Project 2 */}
+            <div className="relative rounded-2xl overflow-hidden shadow-md group h-[400px]">
+              <Image
+                src={IMAGES.behance.oceanCleanup}
+                alt="Ocean Cleaning project"
+                fill
+                className="object-cover group-hover:scale-105 transition-transform duration-700"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+              <div className="absolute bottom-6 left-6 right-6 text-white space-y-2">
+                <span className="text-xs font-semibold text-[#4ade80] uppercase tracking-wider">Recycling</span>
+                <h3 className="font-heading font-bold text-xl text-white">Ocean Cleaning</h3>
+                <Link href="/resources/blog" className="inline-flex items-center gap-1.5 text-xs font-bold text-white hover:text-[#4ade80] transition-colors pt-1">
+                  <span>View More</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+              </div>
+            </div>
+
+            {/* Project 3 */}
+            <div className="relative rounded-2xl overflow-hidden shadow-md group h-[400px]">
+              <Image
+                src={IMAGES.behance.forestPreserve}
+                alt="Cleaning forest project"
+                fill
+                className="object-cover group-hover:scale-105 transition-transform duration-700"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+              <div className="absolute bottom-6 left-6 right-6 text-white space-y-2">
+                <span className="text-xs font-semibold text-[#4ade80] uppercase tracking-wider">Recycling</span>
+                <h3 className="font-heading font-bold text-xl text-white">Cleaning forest</h3>
+                <Link href="/resources/blog" className="inline-flex items-center gap-1.5 text-xs font-bold text-white hover:text-[#4ade80] transition-colors pt-1">
+                  <span>View More</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* =========================================================================
+          8. WORKING PROCESS ("Building a Greener Future")
+      ========================================================================== */}
+      <section className="py-20 lg:py-28 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#16a34a] mb-3">
+            <Trees className="w-4 h-4" />
+            WORKING PROGRESS
+          </div>
+          <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#0e1e17] mb-16">
+            Building a Greener Future
+          </h2>
+
+          {/* 3 Step Flow with Arrows */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 relative">
+            {/* Step 1 */}
+            <div className="flex flex-col items-center space-y-4">
+              <div className="w-20 h-20 rounded-full border-2 border-[#16a34a] bg-[#e8f7ed] flex items-center justify-center text-[#16a34a] shadow-sm">
+                <Globe2 className="w-10 h-10" />
+              </div>
+              <h3 className="font-heading font-bold text-xl text-[#0e1e17]">
+                Sustain Solution
+              </h3>
+              <p className="text-sm text-gray-500 max-w-xs leading-relaxed">
+                Proactively drive maintainable value next mission-critical infrastructure
+              </p>
+            </div>
+
+            {/* Step 2 */}
+            <div className="flex flex-col items-center space-y-4">
+              <div className="w-20 h-20 rounded-full border-2 border-[#16a34a] bg-[#e8f7ed] flex items-center justify-center text-[#16a34a] shadow-sm">
+                <Recycle className="w-10 h-10" />
+              </div>
+              <h3 className="font-heading font-bold text-xl text-[#0e1e17]">
+                Renewable Energy
+              </h3>
+              <p className="text-sm text-gray-500 max-w-xs leading-relaxed">
+                Proactively drive maintainable value next mission-critical infrastructure
+              </p>
+            </div>
+
+            {/* Step 3 */}
+            <div className="flex flex-col items-center space-y-4">
+              <div className="w-20 h-20 rounded-full border-2 border-[#16a34a] bg-[#e8f7ed] flex items-center justify-center text-[#16a34a] shadow-sm">
+                <Trees className="w-10 h-10" />
+              </div>
+              <h3 className="font-heading font-bold text-xl text-[#0e1e17]">
+                Fresh Environment
+              </h3>
+              <p className="text-sm text-gray-500 max-w-xs leading-relaxed">
+                Proactively drive maintainable value next mission-critical infrastructure
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* =========================================================================
+          9. TESTIMONIALS SECTION ("Clients Best Feedback About Echofy Provision")
+      ========================================================================== */}
+      <section className="py-20 lg:py-28 bg-[#f9fbf9] border-t border-gray-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
+            <div>
+              <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#16a34a] mb-3">
+                <Trees className="w-4 h-4" />
+                TASTIMONIALS
+              </div>
+              <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#0e1e17] leading-tight">
+                Clients Best Feedback About <br />
+                CESSPA Provision
+              </h2>
+            </div>
+
+            <div className="flex items-center gap-3">
+              <button
+                className="w-11 h-11 rounded-lg border border-gray-200 bg-white hover:bg-gray-50 text-gray-700 flex items-center justify-center transition-colors shadow-sm"
+                aria-label="Previous testimonial"
+              >
+                <ChevronLeft className="w-5 h-5" />
+              </button>
+              <button
+                className="w-11 h-11 rounded-lg bg-[#16a34a] hover:bg-[#15803d] text-white flex items-center justify-center transition-colors shadow-md"
+                aria-label="Next testimonial"
+              >
+                <ChevronRight className="w-5 h-5" />
+              </button>
+            </div>
+          </div>
+
+          {/* 2 Testimonial Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {/* Testimonial 1 */}
+            <div className="bg-white border border-gray-100 rounded-2xl p-8 shadow-sm flex flex-col justify-between">
               <div>
-                <div className="relative aspect-16/10 w-full bg-forest-green/10">
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex text-amber-400 gap-1">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} className="w-4 h-4 fill-current" />
+                    ))}
+                  </div>
+                  <Quote className="w-8 h-8 text-[#16a34a]/30" />
+                </div>
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="w-14 h-14 rounded-full overflow-hidden relative border-2 border-[#16a34a]/30">
+                    <Image
+                      src={IMAGES.leadership.trustee2}
+                      alt="John Joe"
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                  <div>
+                    <h4 className="font-heading font-bold text-base text-[#0e1e17]">John Joe</h4>
+                    <p className="text-xs text-gray-500">UI/UX Designer &amp; Safeguards Auditor</p>
+                  </div>
+                </div>
+                <p className="text-sm text-gray-600 italic leading-relaxed">
+                  &ldquo;Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&apos;s standard dummy text ever since the 1500s, when an unknown.&rdquo;
+                </p>
+              </div>
+              <div className="pt-6">
+                <span className="text-xs font-bold text-[#16a34a] uppercase tracking-wider">Service Quality</span>
+              </div>
+            </div>
+
+            {/* Testimonial 2 */}
+            <div className="bg-white border border-gray-100 rounded-2xl p-8 shadow-sm flex flex-col justify-between">
+              <div>
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex text-amber-400 gap-1">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} className="w-4 h-4 fill-current" />
+                    ))}
+                  </div>
+                  <Quote className="w-8 h-8 text-[#16a34a]/30" />
+                </div>
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="w-14 h-14 rounded-full overflow-hidden relative border-2 border-[#16a34a]/30">
+                    <Image
+                      src={IMAGES.leadership.trustee3}
+                      alt="Diksha Rathod"
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                  <div>
+                    <h4 className="font-heading font-bold text-base text-[#0e1e17]">Diksha Rathod</h4>
+                    <p className="text-xs text-gray-500">Web Designer &amp; ESG Consultant</p>
+                  </div>
+                </div>
+                <p className="text-sm text-gray-600 italic leading-relaxed">
+                  &ldquo;Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&apos;s standard dummy text ever since the 1500s, when an unknown.&rdquo;
+                </p>
+              </div>
+              <div className="pt-6">
+                <span className="text-xs font-bold text-[#16a34a] uppercase tracking-wider">Supports</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* =========================================================================
+          10. INSTITUTIONAL TRUST BAR ("All over the world 100,000+ Customers")
+      ========================================================================== */}
+      <section className="bg-[#16a34a] text-white py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-8">
+          <h3 className="font-heading font-bold text-xl sm:text-2xl text-white tracking-wide">
+            All over the world 100,000+ Customers
+          </h3>
+          <div className="flex flex-wrap items-center justify-center gap-10 md:gap-16 opacity-90 text-white font-bold text-lg sm:text-xl">
+            <span className="tracking-widest">Walmart</span>
+            <span className="tracking-widest">amazon</span>
+            <span className="tracking-widest">envato</span>
+            <span className="tracking-widest">EPEE</span>
+            <span className="tracking-widest">envato</span>
+          </div>
+        </div>
+      </section>
+
+      {/* =========================================================================
+          11. TEAM SECTION ("Meet Our Dedicated Members")
+      ========================================================================== */}
+      <section className="py-20 lg:py-28 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#16a34a] mb-3">
+            <Trees className="w-4 h-4" />
+            OUR TEAM
+          </div>
+          <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#0e1e17] mb-16">
+            Meet Our Dedicated Members
+          </h2>
+
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-10">
+            {/* Member 1 */}
+            <div className="flex flex-col items-center space-y-4">
+              <div className="w-40 h-40 rounded-full overflow-hidden border-4 border-gray-100 shadow-lg relative group">
+                <Image
+                  src={IMAGES.leadership.trustee1}
+                  alt="Connie Diaz"
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+              <div>
+                <h3 className="font-heading font-bold text-lg text-[#0e1e17]">Connie Diaz</h3>
+                <p className="text-xs text-gray-500">CEO &amp; Founder</p>
+              </div>
+              <div className="flex items-center gap-3 text-gray-400">
+                <a href="https://x.com" target="_blank" rel="noreferrer" className="hover:text-[#16a34a] transition-colors" aria-label="X">
+                  <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" /></svg>
+                </a>
+                <a href="https://facebook.com" target="_blank" rel="noreferrer" className="hover:text-[#16a34a] transition-colors" aria-label="Facebook">
+                  <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" /></svg>
+                </a>
+                <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="hover:text-[#16a34a] transition-colors" aria-label="LinkedIn">
+                  <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" /></svg>
+                </a>
+              </div>
+            </div>
+
+            {/* Member 2 */}
+            <div className="flex flex-col items-center space-y-4">
+              <div className="w-40 h-40 rounded-full overflow-hidden border-4 border-gray-100 shadow-lg relative group">
+                <Image
+                  src={IMAGES.leadership.president}
+                  alt="James E. Huey"
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+              <div>
+                <h3 className="font-heading font-bold text-lg text-[#0e1e17]">James E. Huey</h3>
+                <p className="text-xs text-gray-500">Co Founder</p>
+              </div>
+              <div className="flex items-center gap-3 text-gray-400">
+                <a href="https://x.com" target="_blank" rel="noreferrer" className="hover:text-[#16a34a] transition-colors" aria-label="X">
+                  <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" /></svg>
+                </a>
+                <a href="https://facebook.com" target="_blank" rel="noreferrer" className="hover:text-[#16a34a] transition-colors" aria-label="Facebook">
+                  <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" /></svg>
+                </a>
+                <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="hover:text-[#16a34a] transition-colors" aria-label="LinkedIn">
+                  <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" /></svg>
+                </a>
+              </div>
+            </div>
+
+            {/* Member 3 */}
+            <div className="flex flex-col items-center space-y-4">
+              <div className="w-40 h-40 rounded-full overflow-hidden border-4 border-gray-100 shadow-lg relative group">
+                <Image
+                  src={IMAGES.leadership.trustee5}
+                  alt="June D. Vargas"
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+              <div>
+                <h3 className="font-heading font-bold text-lg text-[#0e1e17]">June D. Vargas</h3>
+                <p className="text-xs text-gray-500">Environmentalist</p>
+              </div>
+              <div className="flex items-center gap-3 text-gray-400">
+                <a href="https://x.com" target="_blank" rel="noreferrer" className="hover:text-[#16a34a] transition-colors" aria-label="X">
+                  <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" /></svg>
+                </a>
+                <a href="https://facebook.com" target="_blank" rel="noreferrer" className="hover:text-[#16a34a] transition-colors" aria-label="Facebook">
+                  <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" /></svg>
+                </a>
+                <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="hover:text-[#16a34a] transition-colors" aria-label="LinkedIn">
+                  <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" /></svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* =========================================================================
+          12. LATEST BLOG ("Building a Greener Future Together Forever")
+      ========================================================================== */}
+      <section className="py-20 lg:py-28 bg-[#f9fbf9] border-t border-gray-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-16">
+            <div>
+              <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#16a34a] mb-3">
+                <Trees className="w-4 h-4" />
+                LATEST BLOG
+              </div>
+              <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#0e1e17] leading-tight">
+                Building a Greener Future <br />
+                Together Forever
+              </h2>
+            </div>
+
+            <Link
+              href="/resources/blog"
+              className="inline-flex items-center gap-2 bg-[#16a34a] hover:bg-[#15803d] text-white font-bold px-6 py-3 rounded-lg transition-all shadow-md active:scale-95 text-sm shrink-0"
+            >
+              <span>View All Blog</span>
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
+
+          {/* 3 Blog Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* Blog Card 1 */}
+            <div className="bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm card-hover flex flex-col justify-between">
+              <div>
+                <div className="relative h-52 w-full">
                   <Image
-                    src={article.coverImage || IMAGES.hero.fieldScientist}
-                    alt={article.title}
+                    src={IMAGES.behance.plasticRecycling}
+                    alt="Top 10 Recycling tips"
                     fill
                     className="object-cover"
                   />
-                  <div className="absolute top-3 left-3 bg-forest-green text-white text-[10px] font-sans font-bold uppercase tracking-wider px-2 py-0.5 rounded shadow-xs">
-                    {article.category}
-                  </div>
                 </div>
-
-                <div className="p-6 space-y-2">
-                  <div className="flex items-center gap-2 text-[11px] font-sans text-ink-muted">
-                    <span>{formatDate(article.publishDate)}</span>
-                    <span>•</span>
-                    <span>{article.readTime}</span>
-                  </div>
-
-                  <h3 className="font-serif font-bold text-xl text-ink-dark line-clamp-2 hover:text-forest-green transition-colors">
-                    <Link href={`/resources/blog/${article.slug}`}>
-                      {article.title}
-                    </Link>
+                <div className="p-6 space-y-3">
+                  <h3 className="font-heading font-bold text-lg text-[#0e1e17] leading-snug">
+                    Top 10 Recycling tips for Environment
                   </h3>
-
-                  <p className="font-sans text-xs text-ink-body line-clamp-2 leading-relaxed">
-                    {article.summary}
+                  <p className="text-sm text-gray-500 leading-relaxed">
+                    Competently cultivate worldwide e-tailers professionally engineer high
                   </p>
                 </div>
               </div>
-
-              <div className="p-6 pt-0">
-                <Link
-                  href={`/resources/blog/${article.slug}`}
-                  className="font-sans font-bold text-xs text-forest-green hover:text-heritage-gold flex items-center gap-1"
-                >
-                  Read Full Analysis <ArrowUpRight className="w-3.5 h-3.5" />
-                </Link>
-              </div>
-            </article>
-          ))}
-        </div>
-      </Section>
-
-      {/* =========================================================
-          CLOSING MASTERPIECE BANNER: LET'S RAISE THE STANDARD
-      ========================================================= */}
-      <section className="relative bg-deep-emerald text-white py-20 lg:py-24 overflow-hidden">
-        {/* Da Vinci Geometric Accents */}
-        <div className="absolute top-0 right-0 w-96 h-96 rounded-full bg-heritage-gold/10 blur-3xl pointer-events-none" />
-        <div className="absolute bottom-0 left-0 w-96 h-96 rounded-full bg-leaf-accent/10 blur-3xl pointer-events-none" />
-
-        <div className="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-            <div className="lg:col-span-8 space-y-5">
-              <Eyebrow chip="JOIN THE MOVEMENT" lightMode={true}>
-                {BRAND.taglines.primary}
-              </Eyebrow>
-
-              <h2 className="font-serif font-bold text-3xl sm:text-4xl lg:text-5xl text-white leading-tight">
-                Let's Raise The Standard Together.
-              </h2>
-
-              <p className="font-sans text-sm sm:text-base text-sage-mist/90 max-w-2xl leading-relaxed font-normal">
-                Connect with certified professionals, participate in national policy dialogues, and access the benchmark statutory standards for Environmental & Social practice across Nigeria.
-              </p>
-
-              <div className="flex flex-wrap items-center gap-4 pt-3">
-                <Link
-                  href="/membership/register"
-                  className="px-8 py-4 rounded-full bg-heritage-gold hover:bg-heritage-gold-soft text-forest-green font-sans font-bold text-xs uppercase tracking-wider shadow-xl transition-all"
-                >
-                  Apply For Membership
-                </Link>
-                <Link
-                  href="/about/contact"
-                  className="px-8 py-4 rounded-full border border-sage-mist/40 text-white hover:bg-white/10 font-sans font-bold text-xs uppercase tracking-wider transition-all"
-                >
-                  Contact National Secretariat
+              <div className="px-6 pb-6 pt-2 border-t border-gray-50 flex items-center justify-between text-xs text-gray-500">
+                <span className="font-semibold text-[#0e1e17]">John Joe</span>
+                <Link href="/resources/blog" className="text-[#16a34a] hover:text-[#15803d] font-bold">
+                  <ArrowRight className="w-4 h-4" />
                 </Link>
               </div>
             </div>
 
-            {/* Practitioner Engagement Card */}
-            <div className="lg:col-span-4 bg-forest-green/85 rounded-3xl p-7 border border-heritage-gold/30 backdrop-blur-md space-y-4 shadow-2xl">
-              <span className="font-sans font-bold text-xs text-heritage-gold-soft uppercase tracking-wider block">
-                PRACTITIONER ENGAGEMENT
-              </span>
-
-              <div className="space-y-2.5 text-xs font-sans">
-                <div className="flex items-center gap-3 p-3 rounded-xl bg-deep-emerald/70 border border-sage-mist/10">
-                  <Bookmark className="w-4 h-4 text-heritage-gold shrink-0" />
-                  <span><strong>SAVE</strong> this guide for field assessment reference.</span>
+            {/* Blog Card 2 */}
+            <div className="bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm card-hover flex flex-col justify-between">
+              <div>
+                <div className="relative h-52 w-full">
+                  <Image
+                    src={IMAGES.behance.handsPlanting}
+                    alt="Top 10 Recycling tips"
+                    fill
+                    className="object-cover"
+                  />
                 </div>
-                <div className="flex items-center gap-3 p-3 rounded-xl bg-deep-emerald/70 border border-sage-mist/10">
-                  <Share2 className="w-4 h-4 text-heritage-gold shrink-0" />
-                  <span><strong>SHARE</strong> with fellow environmental engineers.</span>
-                </div>
-                <div className="flex items-center gap-3 p-3 rounded-xl bg-deep-emerald/70 border border-sage-mist/10">
-                  <Globe2 className="w-4 h-4 text-heritage-gold shrink-0" />
-                  <span><strong>FOLLOW</strong> CESSPA for regulatory bulletins.</span>
+                <div className="p-6 space-y-3">
+                  <h3 className="font-heading font-bold text-lg text-[#0e1e17] leading-snug">
+                    Top 10 Recycling tips for Environment
+                  </h3>
+                  <p className="text-sm text-gray-500 leading-relaxed">
+                    Competently cultivate worldwide e-tailers professionally engineer high
+                  </p>
                 </div>
               </div>
+              <div className="px-6 pb-6 pt-2 border-t border-gray-50 flex items-center justify-between text-xs text-gray-500">
+                <span className="font-semibold text-[#0e1e17]">John Joe</span>
+                <Link href="/resources/blog" className="text-[#16a34a] hover:text-[#15803d] font-bold">
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
+            </div>
 
-              <div className="pt-2 text-center text-xs text-sage-mist/80 border-t border-sage-mist/10 font-sans">
-                Official enquiries: <a href="mailto:info@cesspa.org.ng" className="text-white underline">info@cesspa.org.ng</a>
+            {/* Blog Card 3 */}
+            <div className="bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm card-hover flex flex-col justify-between">
+              <div>
+                <div className="relative h-52 w-full">
+                  <Image
+                    src={IMAGES.behance.oceanCleanup}
+                    alt="Top 10 Recycling tips"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <div className="p-6 space-y-3">
+                  <h3 className="font-heading font-bold text-lg text-[#0e1e17] leading-snug">
+                    Top 10 Recycling tips for Environment
+                  </h3>
+                  <p className="text-sm text-gray-500 leading-relaxed">
+                    Competently cultivate worldwide e-tailers professionally engineer high
+                  </p>
+                </div>
+              </div>
+              <div className="px-6 pb-6 pt-2 border-t border-gray-50 flex items-center justify-between text-xs text-gray-500">
+                <span className="font-semibold text-[#0e1e17]">John Joe</span>
+                <Link href="/resources/blog" className="text-[#16a34a] hover:text-[#15803d] font-bold">
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
               </div>
             </div>
           </div>
         </div>
       </section>
-
-      {/* =========================================================
-          REGULATORY AND PARTNERS STRIP
-      ========================================================= */}
-      <div className="bg-white py-8 border-b border-brand-border">
-        <div className="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">
-          <span className="text-[11px] font-sans font-bold uppercase tracking-widest text-ink-muted">
-            OPERATING IN HARMONY WITH NIGERIAN STATUTORY FRAMEWORKS
-          </span>
-          <div className="flex flex-wrap items-center justify-center gap-8 md:gap-14 text-xs font-sans font-semibold text-ink-muted/80">
-            <span>Federal Ministry of Environment</span>
-            <span>•</span>
-            <span>EIA Act CAP E12 LFN 2004</span>
-            <span>•</span>
-            <span>NESREA Regulations</span>
-            <span>•</span>
-            <span>World Bank ESS Standards</span>
-          </div>
-        </div>
-      </div>
     </div>
   );
 }

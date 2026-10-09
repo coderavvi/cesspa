@@ -52,23 +52,23 @@ export function Logo({
           <div className="flex items-center gap-1.5">
             <span
               className={cn(
-                "font-monumental font-bold tracking-[0.14em]",
+                "font-heading font-black tracking-wide",
                 dimensions.textTitle,
                 lightMode ? "text-white" : "text-forest-green"
               )}
             >
               CESSPA
             </span>
-            <span className="w-1.5 h-1.5 rounded-full bg-heritage-gold shrink-0 mb-0.5 shadow-[0_0_6px_#c7962c]" />
+            <span className="w-1.5 h-1.5 rounded-full bg-[#16a34a] shrink-0 mb-0.5" />
           </div>
           <span
             className={cn(
-              "font-sans font-semibold tracking-[0.18em] uppercase mt-1",
+              "font-sans font-semibold tracking-wider uppercase mt-1",
               dimensions.textSub,
-              lightMode ? "text-heritage-gold-soft" : "text-ink-muted"
+              lightMode ? "text-[#4ade80]" : "text-ink-muted"
             )}
           >
-            Environmental & Social Standards • Nigeria
+            Environmental Standards • Nigeria
           </span>
         </div>
       )}
