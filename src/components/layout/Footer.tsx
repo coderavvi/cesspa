@@ -28,10 +28,10 @@ export function Footer() {
     <footer className="w-full bg-[#051d12] text-gray-300">
       {/* Pre-Footer Social Ribbon (Behance Style) */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10">
-        <div className="bg-[#16a34a] rounded-xl px-6 sm:px-10 py-5 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-lg">
+        <div className="bg-[#16a34a] rounded-xl px-6 sm:px-10 py-5 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-lg border border-[#4ade80]/20">
           <div className="flex items-center gap-3">
             <span className="font-heading font-bold text-lg sm:text-xl text-white tracking-wide">
-              Connect with us on Social
+              Connect with us on <span className="text-[#dcfce7]">Social Media</span>
             </span>
           </div>
 
@@ -40,7 +40,7 @@ export function Footer() {
               href="https://x.com"
               target="_blank"
               rel="noreferrer"
-              className="w-10 h-10 rounded-full bg-white/20 hover:bg-white text-white hover:text-[#16a34a] flex items-center justify-center transition-all"
+              className="w-10 h-10 rounded-full bg-white/15 border border-[#86efac]/30 hover:bg-white text-white hover:text-[#16a34a] flex items-center justify-center transition-all"
               aria-label="X"
             >
               <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
@@ -51,7 +51,7 @@ export function Footer() {
               href="https://facebook.com"
               target="_blank"
               rel="noreferrer"
-              className="w-10 h-10 rounded-full bg-white/20 hover:bg-white text-white hover:text-[#16a34a] flex items-center justify-center transition-all"
+              className="w-10 h-10 rounded-full bg-white/15 border border-[#86efac]/30 hover:bg-white text-white hover:text-[#16a34a] flex items-center justify-center transition-all"
               aria-label="Facebook"
             >
               <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
@@ -62,7 +62,7 @@ export function Footer() {
               href="https://linkedin.com"
               target="_blank"
               rel="noreferrer"
-              className="w-10 h-10 rounded-full bg-white/20 hover:bg-white text-white hover:text-[#16a34a] flex items-center justify-center transition-all"
+              className="w-10 h-10 rounded-full bg-white/15 border border-[#86efac]/30 hover:bg-white text-white hover:text-[#16a34a] flex items-center justify-center transition-all"
               aria-label="LinkedIn"
             >
               <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
@@ -73,7 +73,7 @@ export function Footer() {
               href="https://instagram.com"
               target="_blank"
               rel="noreferrer"
-              className="w-10 h-10 rounded-full bg-white/20 hover:bg-white text-white hover:text-[#16a34a] flex items-center justify-center transition-all"
+              className="w-10 h-10 rounded-full bg-white/15 border border-[#86efac]/30 hover:bg-white text-white hover:text-[#16a34a] flex items-center justify-center transition-all"
               aria-label="Instagram"
             >
               <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
@@ -90,7 +90,7 @@ export function Footer() {
           {/* Col 1: Brand & Contacts */}
           <div className="space-y-4">
             <div className="flex items-center gap-3.5">
-              <div className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-[#16a34a] shadow-md bg-white shrink-0">
+              <div className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-[#4ade80] shadow-[0_0_12px_rgba(74,222,128,0.25)] bg-white shrink-0">
                 <Image
                   src="/images/brand/logo.png"
                   alt="CESSPA Official Seal"
@@ -99,10 +99,13 @@ export function Footer() {
                 />
               </div>
               <div className="flex flex-col">
-                <span className="font-heading font-black text-2xl text-white tracking-wide leading-none">
-                  CESSPA
-                </span>
-                <span className="text-[10px] text-gray-400 font-semibold tracking-wider uppercase mt-1 leading-tight">
+                <div className="flex items-center gap-1.5">
+                  <span className="font-heading font-black text-2xl text-white tracking-wide leading-none">
+                    CESSPA
+                  </span>
+                  <span className="w-2 h-2 rounded-full bg-[#4ade80] shadow-[0_0_8px_#4ade80]" />
+                </div>
+                <span className="text-[10px] text-[#86efac] font-bold tracking-wider uppercase mt-1 leading-tight">
                   Environmental &amp; Social Standards
                 </span>
               </div>
@@ -112,17 +115,17 @@ export function Footer() {
               Proactively restore environmental health through certified baseline standards, ESIA audits, and sustainable ecosystem safeguards across Nigeria.
             </p>
 
-            <div className="space-y-2.5 pt-2 text-xs text-gray-400">
+            <div className="space-y-2.5 pt-2 text-xs text-gray-300">
               <div className="flex items-start gap-2.5">
-                <MapPin className="w-4 h-4 text-[#22c55e] shrink-0 mt-0.5" />
+                <MapPin className="w-4 h-4 text-[#4ade80] shrink-0 mt-0.5" />
                 <span>Central Business District, FCT Abuja, Nigeria</span>
               </div>
               <div className="flex items-center gap-2.5">
-                <Phone className="w-4 h-4 text-[#22c55e] shrink-0" />
+                <Phone className="w-4 h-4 text-[#4ade80] shrink-0" />
                 <span>+234 (0) 803 237 7721</span>
               </div>
               <div className="flex items-center gap-2.5">
-                <Mail className="w-4 h-4 text-[#22c55e] shrink-0" />
+                <Mail className="w-4 h-4 text-[#4ade80] shrink-0" />
                 <span>secretariat@cesspa.org.ng</span>
               </div>
             </div>
@@ -216,10 +219,10 @@ export function Footer() {
               />
               <button
                 type="submit"
-                className="w-full bg-[#16a34a] hover:bg-[#15803d] text-white font-bold text-sm py-3 rounded-lg flex items-center justify-center gap-2 transition-all shadow-md active:scale-98"
+                className="w-full bg-[#16a34a] hover:bg-[#15803d] border border-[#4ade80]/30 text-white font-bold text-sm py-3 rounded-lg flex items-center justify-center gap-2 transition-all shadow-md active:scale-98"
               >
                 <span>Subscribe Now</span>
-                <ArrowRight className="w-4 h-4" />
+                <ArrowRight className="w-4 h-4 text-[#86efac]" />
               </button>
             </form>
 

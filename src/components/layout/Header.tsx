@@ -68,16 +68,16 @@ export function Header() {
       <div className="bg-[#051d12] text-gray-300 text-xs border-b border-white/10 hidden md:block">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-10 flex items-center justify-between">
           <div className="flex items-center gap-6">
-            <span className="flex items-center gap-1.5 text-white/90 hover:text-white transition-colors">
-              <MapPin className="w-3.5 h-3.5 text-white" />
+            <span className="flex items-center gap-1.5 text-white/95 hover:text-white transition-colors">
+              <MapPin className="w-3.5 h-3.5 text-[#4ade80]" />
               Federal Capital Territory, Abuja, Nigeria
             </span>
             <span className="text-white/20">|</span>
             <a
               href="mailto:secretariat@cesspa.org.ng"
-              className="flex items-center gap-1.5 text-white/90 hover:text-white transition-colors"
+              className="flex items-center gap-1.5 text-white/95 hover:text-white transition-colors"
             >
-              <Mail className="w-3.5 h-3.5 text-white" />
+              <Mail className="w-3.5 h-3.5 text-[#4ade80]" />
               secretariat@cesspa.org.ng
             </a>
           </div>
@@ -85,19 +85,19 @@ export function Header() {
           <div className="flex items-center gap-6">
             <a
               href="tel:+2348032377721"
-              className="flex items-center gap-1.5 text-white/90 hover:text-white transition-colors font-medium"
+              className="flex items-center gap-1.5 text-white/95 hover:text-white transition-colors font-medium"
             >
-              <Phone className="w-3.5 h-3.5 text-white" />
+              <Phone className="w-3.5 h-3.5 text-[#4ade80]" />
               +234 (0) 803 237 7721
             </a>
             <span className="text-white/20">|</span>
             <div className="flex items-center gap-3">
-              <span className="text-white/80 text-[11px] uppercase tracking-wider font-semibold">Follow Us:</span>
+              <span className="text-[#86efac] text-[11px] uppercase tracking-wider font-bold">Follow Us:</span>
               <a
                 href="https://x.com"
                 target="_blank"
                 rel="noreferrer"
-                className="w-5 h-5 rounded flex items-center justify-center text-white/80 hover:text-white transition-colors"
+                className="w-5 h-5 rounded flex items-center justify-center text-white/90 hover:text-[#4ade80] transition-colors"
                 aria-label="X (Twitter)"
               >
                 <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
@@ -108,7 +108,7 @@ export function Header() {
                 href="https://facebook.com"
                 target="_blank"
                 rel="noreferrer"
-                className="w-5 h-5 rounded flex items-center justify-center text-white/80 hover:text-white transition-colors"
+                className="w-5 h-5 rounded flex items-center justify-center text-white/90 hover:text-[#4ade80] transition-colors"
                 aria-label="Facebook"
               >
                 <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
@@ -119,7 +119,7 @@ export function Header() {
                 href="https://linkedin.com"
                 target="_blank"
                 rel="noreferrer"
-                className="w-5 h-5 rounded flex items-center justify-center text-white/80 hover:text-white transition-colors"
+                className="w-5 h-5 rounded flex items-center justify-center text-white/90 hover:text-[#4ade80] transition-colors"
                 aria-label="LinkedIn"
               >
                 <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
@@ -136,7 +136,7 @@ export function Header() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
           {/* Brand Logo with Official CESSPA Seal */}
           <Link href="/" className="flex items-center gap-3.5 group">
-            <div className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-[#16a34a] shadow-md group-hover:scale-105 transition-transform bg-white shrink-0">
+            <div className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-[#4ade80] shadow-[0_0_12px_rgba(74,222,128,0.35)] group-hover:scale-105 transition-transform bg-white shrink-0">
               <Image
                 src="/images/brand/logo.png"
                 alt="CESSPA Official Seal"
@@ -150,9 +150,9 @@ export function Header() {
                 <span className="font-heading font-black text-2xl text-white tracking-wide leading-none">
                   CESSPA
                 </span>
-                <span className="w-1.5 h-1.5 rounded-full bg-[#22c55e]" />
+                <span className="w-2 h-2 rounded-full bg-[#4ade80] shadow-[0_0_8px_#4ade80]" />
               </div>
-              <span className="text-[10px] text-gray-300 font-semibold tracking-wider uppercase mt-1 leading-tight hidden sm:block">
+              <span className="text-[10px] text-[#86efac] font-bold tracking-wider uppercase mt-1 leading-tight hidden sm:block">
                 Environmental &amp; Social Standards • Nigeria
               </span>
             </div>
@@ -174,18 +174,18 @@ export function Header() {
                   >
                     <button
                       className={cn(
-                        "flex items-center gap-1.5 px-3 py-2 text-sm font-medium transition-colors rounded-md",
+                        "flex items-center gap-1.5 px-3 py-2 text-sm font-semibold transition-all rounded-md",
                         activeDropdown === item.label || isActive
-                          ? "text-[#4ade80]"
-                          : "text-white/80 hover:text-white"
+                          ? "text-[#4ade80] bg-[#16a34a]/25 border border-[#4ade80]/30 shadow-xs"
+                          : "text-white/90 hover:text-[#4ade80]"
                       )}
                     >
                       {item.label}
-                      <ChevronDown className="w-3.5 h-3.5 transition-transform group-hover:rotate-180 text-white" />
+                      <ChevronDown className="w-3.5 h-3.5 transition-transform group-hover:rotate-180 text-[#86efac]" />
                     </button>
 
                     {activeDropdown === item.label && (
-                      <div className="absolute top-full left-0 w-72 bg-[#092e1d] border border-white/10 rounded-xl shadow-2xl py-2 mt-1 z-50 animate-in fade-in slide-in-from-top-2 duration-150">
+                      <div className="absolute top-full left-0 w-72 bg-[#092e1d] border border-[#4ade80]/20 rounded-xl shadow-2xl py-2 mt-1 z-50 animate-in fade-in slide-in-from-top-2 duration-150">
                         {item.dropdown?.map((sub) => (
                           <Link
                             key={sub.label}
@@ -193,14 +193,14 @@ export function Header() {
                             className="flex items-start gap-3 px-4 py-2.5 hover:bg-white/10 transition-colors group"
                             onClick={() => setActiveDropdown(null)}
                           >
-                            <div className="p-1.5 rounded-lg bg-white/20 text-white group-hover:bg-[#16a34a] transition-colors mt-0.5">
-                              <sub.icon className="w-4 h-4 text-white" />
+                            <div className="p-1.5 rounded-lg bg-[#16a34a]/30 text-[#4ade80] border border-[#4ade80]/30 group-hover:bg-[#16a34a] group-hover:text-white transition-colors mt-0.5">
+                              <sub.icon className="w-4 h-4" />
                             </div>
                             <div>
-                              <div className="text-sm font-semibold text-white group-hover:text-white transition-colors">
+                              <div className="text-sm font-bold text-white group-hover:text-[#4ade80] transition-colors">
                                 {sub.label}
                               </div>
-                              <div className="text-xs text-white/70 mt-0.5 leading-snug">
+                              <div className="text-xs text-[#86efac]/80 mt-0.5 leading-snug">
                                 {sub.desc}
                               </div>
                             </div>
@@ -217,10 +217,10 @@ export function Header() {
                   key={item.label}
                   href={item.href}
                   className={cn(
-                    "px-3 py-2 text-sm font-medium transition-colors rounded-md",
+                    "px-3 py-2 text-sm font-semibold transition-all rounded-md",
                     isActive
-                      ? "text-white font-bold bg-white/15"
-                      : "text-white/80 hover:text-white hover:bg-white/10"
+                      ? "text-[#4ade80] font-bold bg-[#16a34a]/25 border border-[#4ade80]/30 shadow-xs"
+                      : "text-white/90 hover:text-[#4ade80] hover:bg-white/5"
                   )}
                 >
                   {item.label}
@@ -233,18 +233,18 @@ export function Header() {
           <div className="hidden sm:flex items-center gap-4">
             <Link
               href="/resources/blog"
-              className="p-2 text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
+              className="p-2 text-white/90 hover:text-[#4ade80] hover:bg-white/10 rounded-lg transition-colors"
               aria-label="Search or Publications"
             >
-              <Search className="w-5 h-5 text-white" />
+              <Search className="w-5 h-5" />
             </Link>
 
             <Link
               href="/membership"
-              className="bg-[#16a34a] hover:bg-[#15803d] text-white text-sm font-bold px-5 py-2.5 rounded-lg flex items-center gap-2 transition-all shadow-md hover:shadow-lg active:scale-95"
+              className="bg-[#16a34a] hover:bg-[#15803d] text-white text-sm font-bold px-5 py-2.5 rounded-lg flex items-center gap-2 transition-all shadow-md hover:shadow-lg active:scale-95 border border-[#4ade80]/30"
             >
               <span>Get Certified</span>
-              <ArrowRight className="w-4 h-4 text-white" />
+              <ArrowRight className="w-4 h-4 text-[#86efac]" />
             </Link>
           </div>
 

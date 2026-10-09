@@ -58,33 +58,33 @@ export default function HomePage() {
 
             {/* Hero Main Copy */}
             <div className="lg:col-span-7 xl:col-span-6 space-y-6">
-              <div className="inline-flex items-center gap-2 text-xs font-bold tracking-wider uppercase text-white bg-white/10 px-3.5 py-1.5 rounded-full border border-white/20">
-                <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
-                Environmental &amp; Social Standards • Nigeria
+              <div className="inline-flex items-center gap-2 text-xs font-bold tracking-wider uppercase text-[#86efac] bg-[#16a34a]/30 px-3.5 py-1.5 rounded-full border border-[#4ade80]/40 shadow-xs">
+                <span className="w-2 h-2 rounded-full bg-[#4ade80] animate-pulse shadow-[0_0_8px_#4ade80]" />
+                <span>Environmental &amp; Social Standards • Nigeria</span>
               </div>
 
               <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-black text-white leading-[1.1] tracking-tight">
                 Raising Standards, <br />
-                <span className="text-white">Guarding Ecology</span>
+                <span className="text-[#4ade80] drop-shadow-[0_2px_10px_rgba(74,222,128,0.3)]">Guarding Ecology</span>
               </h1>
 
-              <p className="text-white/95 text-base sm:text-lg leading-relaxed max-w-xl font-medium">
+              <p className="text-white/90 text-base sm:text-lg leading-relaxed max-w-xl font-medium">
                 The unified statutory professional body for Environmental &amp; Social (E&amp;S) standards in Nigeria.
-                We advance rigorous ESIA benchmarks, statutory ecological audits, and certified practitioner excellence to safeguard national biodiversity and community welfare.
+                We advance rigorous <span className="text-[#86efac] font-bold">ESIA benchmarks</span>, statutory ecological audits, and <span className="text-[#86efac] font-bold">certified practitioner excellence</span> to safeguard national biodiversity and community welfare.
               </p>
 
               <div className="flex flex-wrap items-center gap-4 pt-4">
                 <Link
                   href="/membership/register"
-                  className="bg-[#16a34a] hover:bg-[#15803d] text-white font-bold px-7 py-3.5 rounded-lg flex items-center gap-2.5 transition-all shadow-lg hover:shadow-xl active:scale-95"
+                  className="bg-[#16a34a] hover:bg-[#15803d] text-white font-bold px-7 py-3.5 rounded-lg flex items-center gap-2.5 transition-all shadow-lg hover:shadow-xl active:scale-95 border border-[#4ade80]/30"
                 >
                   <span>Apply for Certification</span>
-                  <ArrowRight className="w-4 h-4 text-white" />
+                  <ArrowRight className="w-4 h-4 text-[#86efac]" />
                 </Link>
 
                 <Link
                   href="/about"
-                  className="border border-white/40 hover:border-white text-white font-semibold px-7 py-3.5 rounded-lg transition-all hover:bg-white/10"
+                  className="border border-[#4ade80]/40 hover:border-white text-white font-semibold px-7 py-3.5 rounded-lg transition-all hover:bg-white/10"
                 >
                   Explore Our Mandate
                 </Link>
@@ -93,7 +93,7 @@ export default function HomePage() {
 
             {/* Hero Visual (Sprouting Plant in Rich Dark Soil) */}
             <div className="lg:col-span-5 xl:col-span-5">
-              <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-white/10 group">
+              <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-[#4ade80]/20 group">
                 <Image
                   src={IMAGES.behance.heroSeedling}
                   alt="Environmental protection and ecological renewal in Nigeria"
@@ -104,14 +104,14 @@ export default function HomePage() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#072517]/80 via-transparent to-transparent pointer-events-none" />
 
-                <div className="absolute bottom-6 left-6 right-6 bg-[#092e1d]/95 backdrop-blur-md border border-white/20 rounded-xl p-4 text-white">
+                <div className="absolute bottom-6 left-6 right-6 bg-[#092e1d]/95 backdrop-blur-md border border-[#4ade80]/30 rounded-xl p-4 text-white shadow-xl">
                   <div className="flex items-center justify-between">
                     <div>
-                      <div className="text-xs text-white/90 font-bold uppercase tracking-wider">Federal Safeguards Mandate</div>
+                      <div className="text-xs text-[#86efac] font-bold uppercase tracking-wider">Federal Safeguards Mandate</div>
                       <div className="text-sm font-bold mt-0.5 text-white">Certified Environmental Professionals</div>
                     </div>
-                    <div className="w-10 h-10 rounded-lg bg-[#16a34a] flex items-center justify-center">
-                      <ShieldCheck className="w-5 h-5 text-white" />
+                    <div className="w-10 h-10 rounded-lg bg-[#16a34a] border border-[#4ade80]/40 flex items-center justify-center text-[#86efac]">
+                      <ShieldCheck className="w-5 h-5 text-[#86efac]" />
                     </div>
                   </div>
                 </div>
@@ -124,27 +124,27 @@ export default function HomePage() {
       {/* =========================================================================
           HERO TICKER RIBBON (Full-Width Green Band)
       ========================================================================== */}
-      <div className="bg-[#16a34a] text-white py-4 overflow-hidden border-y border-[#15803d]">
-        <div className="flex items-center justify-around gap-8 text-sm sm:text-base font-bold tracking-wide uppercase whitespace-nowrap animate-marquee text-white">
+      <div className="bg-[#16a34a] py-4 overflow-hidden border-y border-[#15803d]">
+        <div className="flex items-center justify-around gap-8 text-sm sm:text-base font-bold tracking-wide uppercase whitespace-nowrap animate-marquee">
           <span className="flex items-center gap-3">
-            <span>ESIA Statutory Safeguards</span>
-            <span className="text-white">🌿</span>
+            <span className="text-white">ESIA Statutory Safeguards</span>
+            <span className="text-[#86efac]">🌿</span>
           </span>
           <span className="flex items-center gap-3">
-            <span>Environmental Audit &amp; Compliance</span>
-            <span className="text-white">🌿</span>
+            <span className="text-[#dcfce7]">Environmental Audit &amp; Compliance</span>
+            <span className="text-[#4ade80]">🌿</span>
           </span>
           <span className="flex items-center gap-3">
-            <span>Ecological &amp; Marine Remediation</span>
-            <span className="text-white">🌿</span>
+            <span className="text-white">Ecological &amp; Marine Remediation</span>
+            <span className="text-[#86efac]">🌿</span>
           </span>
           <span className="flex items-center gap-3">
-            <span>Resettlement Action Frameworks (RAP)</span>
-            <span className="text-white">🌿</span>
+            <span className="text-[#dcfce7]">Resettlement Action Frameworks (RAP)</span>
+            <span className="text-[#4ade80]">🌿</span>
           </span>
           <span className="flex items-center gap-3">
-            <span>Certified Practitioner Registry</span>
-            <span className="text-white">🌿</span>
+            <span className="text-white">Certified Practitioner Registry</span>
+            <span className="text-[#86efac]">🌿</span>
           </span>
         </div>
       </div>
@@ -424,38 +424,38 @@ export default function HomePage() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center text-white">
             {/* 2,500+ Certified Practitioners */}
             <div className="flex flex-col items-center space-y-3">
-              <div className="w-14 h-14 rounded-full border-2 border-white flex items-center justify-center text-white">
-                <Users className="w-7 h-7 text-white" />
+              <div className="w-14 h-14 rounded-full border-2 border-[#86efac] bg-white/10 flex items-center justify-center text-[#86efac] shadow-xs">
+                <Users className="w-7 h-7" />
               </div>
               <div className="font-heading text-4xl sm:text-5xl font-black tracking-tight text-white">2,500+</div>
-              <div className="text-white text-sm font-bold uppercase tracking-wider">Certified Practitioners</div>
+              <div className="text-[#dcfce7] text-sm font-bold uppercase tracking-wider">Certified Practitioners</div>
             </div>
 
             {/* 960+ Approved ESIAs */}
             <div className="flex flex-col items-center space-y-3">
-              <div className="w-14 h-14 rounded-full border-2 border-white flex items-center justify-center text-white">
-                <CheckCircle2 className="w-7 h-7 text-white" />
+              <div className="w-14 h-14 rounded-full border-2 border-[#86efac] bg-white/10 flex items-center justify-center text-[#86efac] shadow-xs">
+                <CheckCircle2 className="w-7 h-7" />
               </div>
               <div className="font-heading text-4xl sm:text-5xl font-black tracking-tight text-white">960+</div>
-              <div className="text-white text-sm font-bold uppercase tracking-wider">Approved ESIA Studies</div>
+              <div className="text-[#dcfce7] text-sm font-bold uppercase tracking-wider">Approved ESIA Studies</div>
             </div>
 
             {/* 36 States & FCT */}
             <div className="flex flex-col items-center space-y-3">
-              <div className="w-14 h-14 rounded-full border-2 border-white flex items-center justify-center text-white">
-                <Award className="w-7 h-7 text-white" />
+              <div className="w-14 h-14 rounded-full border-2 border-[#86efac] bg-white/10 flex items-center justify-center text-[#86efac] shadow-xs">
+                <Award className="w-7 h-7" />
               </div>
               <div className="font-heading text-4xl sm:text-5xl font-black tracking-tight text-white">36</div>
-              <div className="text-white text-sm font-bold uppercase tracking-wider">States &amp; FCT Coverage</div>
+              <div className="text-[#dcfce7] text-sm font-bold uppercase tracking-wider">States &amp; FCT Coverage</div>
             </div>
 
             {/* 99.4% Regulatory Approval */}
             <div className="flex flex-col items-center space-y-3">
-              <div className="w-14 h-14 rounded-full border-2 border-white flex items-center justify-center text-white">
-                <Star className="w-7 h-7 text-white" />
+              <div className="w-14 h-14 rounded-full border-2 border-[#86efac] bg-white/10 flex items-center justify-center text-[#86efac] shadow-xs">
+                <Star className="w-7 h-7" />
               </div>
               <div className="font-heading text-4xl sm:text-5xl font-black tracking-tight text-white">99.4%</div>
-              <div className="text-white text-sm font-bold uppercase tracking-wider">Regulatory Acceptance</div>
+              <div className="text-[#dcfce7] text-sm font-bold uppercase tracking-wider">Regulatory Acceptance</div>
             </div>
           </div>
         </div>
@@ -552,11 +552,11 @@ export default function HomePage() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
               <div className="absolute bottom-6 left-6 right-6 text-white space-y-2">
-                <span className="text-xs font-bold text-white uppercase tracking-wider bg-[#16a34a] px-2.5 py-1 rounded inline-block">Ecology</span>
+                <span className="text-xs font-bold text-[#dcfce7] uppercase tracking-wider bg-[#16a34a] border border-[#86efac]/40 px-2.5 py-1 rounded inline-block">Ecology</span>
                 <h3 className="font-heading font-bold text-xl text-white">Mangrove Ecosystem Restoration</h3>
-                <Link href="/resources/blog" className="inline-flex items-center gap-1.5 text-xs font-bold text-white hover:underline transition-all pt-1">
+                <Link href="/resources/blog" className="inline-flex items-center gap-1.5 text-xs font-bold text-[#86efac] hover:text-white transition-all pt-1">
                   <span>View Details</span>
-                  <ArrowRight className="w-3.5 h-3.5 text-white" />
+                  <ArrowRight className="w-3.5 h-3.5 text-[#86efac]" />
                 </Link>
               </div>
             </div>
@@ -571,11 +571,11 @@ export default function HomePage() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
               <div className="absolute bottom-6 left-6 right-6 text-white space-y-2">
-                <span className="text-xs font-bold text-white uppercase tracking-wider bg-[#16a34a] px-2.5 py-1 rounded inline-block">Energy &amp; Climate</span>
+                <span className="text-xs font-bold text-[#dcfce7] uppercase tracking-wider bg-[#16a34a] border border-[#86efac]/40 px-2.5 py-1 rounded inline-block">Energy &amp; Climate</span>
                 <h3 className="font-heading font-bold text-xl text-white">Clean Energy Grid ESIA Oversight</h3>
-                <Link href="/resources/blog" className="inline-flex items-center gap-1.5 text-xs font-bold text-white hover:underline transition-all pt-1">
+                <Link href="/resources/blog" className="inline-flex items-center gap-1.5 text-xs font-bold text-[#86efac] hover:text-white transition-all pt-1">
                   <span>View Details</span>
-                  <ArrowRight className="w-3.5 h-3.5 text-white" />
+                  <ArrowRight className="w-3.5 h-3.5 text-[#86efac]" />
                 </Link>
               </div>
             </div>
@@ -590,11 +590,11 @@ export default function HomePage() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
               <div className="absolute bottom-6 left-6 right-6 text-white space-y-2">
-                <span className="text-xs font-bold text-white uppercase tracking-wider bg-[#16a34a] px-2.5 py-1 rounded inline-block">Compliance</span>
+                <span className="text-xs font-bold text-[#dcfce7] uppercase tracking-wider bg-[#16a34a] border border-[#86efac]/40 px-2.5 py-1 rounded inline-block">Compliance</span>
                 <h3 className="font-heading font-bold text-xl text-white">Industrial Effluent Baseline Audits</h3>
-                <Link href="/resources/blog" className="inline-flex items-center gap-1.5 text-xs font-bold text-white hover:underline transition-all pt-1">
+                <Link href="/resources/blog" className="inline-flex items-center gap-1.5 text-xs font-bold text-[#86efac] hover:text-white transition-all pt-1">
                   <span>View Details</span>
-                  <ArrowRight className="w-3.5 h-3.5 text-white" />
+                  <ArrowRight className="w-3.5 h-3.5 text-[#86efac]" />
                 </Link>
               </div>
             </div>
@@ -619,11 +619,11 @@ export default function HomePage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12 relative">
             {/* Step 1 */}
             <div className="flex flex-col items-center space-y-4">
-              <div className="w-20 h-20 rounded-full bg-[#16a34a] flex items-center justify-center text-white shadow-md">
-                <FileText className="w-10 h-10 text-white" />
+              <div className="w-20 h-20 rounded-full bg-[#16a34a] border-2 border-[#86efac] flex items-center justify-center text-[#86efac] shadow-md group-hover:scale-105 transition-transform">
+                <FileText className="w-10 h-10" />
               </div>
               <h3 className="font-heading font-bold text-xl text-[#0e1e17]">
-                01. Application &amp; Vetting
+                <span className="text-[#16a34a] font-extrabold mr-1">01.</span> Application &amp; Vetting
               </h3>
               <p className="text-sm text-gray-500 max-w-xs leading-relaxed">
                 Comprehensive evaluation of academic credentials, minimum 5 years field experience, and verifiable project portfolio.
@@ -632,11 +632,11 @@ export default function HomePage() {
 
             {/* Step 2 */}
             <div className="flex flex-col items-center space-y-4">
-              <div className="w-20 h-20 rounded-full bg-[#16a34a] flex items-center justify-center text-white shadow-md">
-                <ShieldCheck className="w-10 h-10 text-white" />
+              <div className="w-20 h-20 rounded-full bg-[#16a34a] border-2 border-[#86efac] flex items-center justify-center text-[#86efac] shadow-md group-hover:scale-105 transition-transform">
+                <ShieldCheck className="w-10 h-10" />
               </div>
               <h3 className="font-heading font-bold text-xl text-[#0e1e17]">
-                02. Technical Peer Review
+                <span className="text-[#16a34a] font-extrabold mr-1">02.</span> Technical Peer Review
               </h3>
               <p className="text-sm text-gray-500 max-w-xs leading-relaxed">
                 Rigorous panel examination by the Council of Fellows on ESIA methodology, field ethics, and statutory compliance.
@@ -645,11 +645,11 @@ export default function HomePage() {
 
             {/* Step 3 */}
             <div className="flex flex-col items-center space-y-4">
-              <div className="w-20 h-20 rounded-full bg-[#16a34a] flex items-center justify-center text-white shadow-md">
-                <Award className="w-10 h-10 text-white" />
+              <div className="w-20 h-20 rounded-full bg-[#16a34a] border-2 border-[#86efac] flex items-center justify-center text-[#86efac] shadow-md group-hover:scale-105 transition-transform">
+                <Award className="w-10 h-10" />
               </div>
               <h3 className="font-heading font-bold text-xl text-[#0e1e17]">
-                03. Accredited Practice Seal
+                <span className="text-[#16a34a] font-extrabold mr-1">03.</span> Accredited Practice Seal
               </h3>
               <p className="text-sm text-gray-500 max-w-xs leading-relaxed">
                 Conferment of statutory practice seal, cryptographic QR verification, and inclusion in the National Registry.
@@ -771,15 +771,15 @@ export default function HomePage() {
       <section className="bg-[#16a34a] text-white py-14">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-8">
           <h3 className="font-heading font-bold text-xl sm:text-2xl text-white tracking-wide">
-            Trusted by Federal Ministries, State Regulatory Agencies &amp; Industry
+            Trusted by <span className="text-white">Federal Ministries</span>, <span className="text-[#dcfce7]">State Regulatory Agencies</span> &amp; <span className="text-[#86efac]">Industry</span>
           </h3>
-          <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-white font-black text-sm sm:text-base">
-            <span className="bg-white/20 border border-white/40 text-white px-5 py-2.5 rounded-lg shadow-xs">FMEnv Nigeria</span>
-            <span className="bg-white/20 border border-white/40 text-white px-5 py-2.5 rounded-lg shadow-xs">NESREA</span>
-            <span className="bg-white/20 border border-white/40 text-white px-5 py-2.5 rounded-lg shadow-xs">NOSDRA</span>
-            <span className="bg-white/20 border border-white/40 text-white px-5 py-2.5 rounded-lg shadow-xs">UNEP Partner</span>
-            <span className="bg-white/20 border border-white/40 text-white px-5 py-2.5 rounded-lg shadow-xs">World Bank E&amp;S Hub</span>
-            <span className="bg-white/20 border border-white/40 text-white px-5 py-2.5 rounded-lg shadow-xs">NUPRC</span>
+          <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 font-bold text-sm sm:text-base">
+            <span className="bg-white/15 border border-[#86efac]/40 text-white px-5 py-2.5 rounded-lg shadow-xs hover:border-[#86efac] transition-colors">FMEnv Nigeria</span>
+            <span className="bg-white/15 border border-[#86efac]/40 text-[#dcfce7] px-5 py-2.5 rounded-lg shadow-xs hover:border-[#86efac] transition-colors">NESREA</span>
+            <span className="bg-white/15 border border-[#86efac]/40 text-white px-5 py-2.5 rounded-lg shadow-xs hover:border-[#86efac] transition-colors">NOSDRA</span>
+            <span className="bg-white/15 border border-[#86efac]/40 text-[#dcfce7] px-5 py-2.5 rounded-lg shadow-xs hover:border-[#86efac] transition-colors">UNEP Partner</span>
+            <span className="bg-white/15 border border-[#86efac]/40 text-white px-5 py-2.5 rounded-lg shadow-xs hover:border-[#86efac] transition-colors">World Bank E&amp;S Hub</span>
+            <span className="bg-white/15 border border-[#86efac]/40 text-[#dcfce7] px-5 py-2.5 rounded-lg shadow-xs hover:border-[#86efac] transition-colors">NUPRC</span>
           </div>
         </div>
       </section>
