@@ -25,11 +25,11 @@ export default function HomePage() {
       {/* =========================================================================
           1. HERO SECTION (Behance Structure with Authentic CESSPA Mandate)
       ========================================================================== */}
-      <section className="relative bg-[#072517] text-white overflow-hidden pt-12 pb-20 lg:pt-16 lg:pb-28">
+      <section className="relative bg-[#072517] text-white overflow-hidden min-h-[calc(100vh-5rem)] min-h-[calc(100dvh-5rem)] flex items-center py-10 lg:py-16">
         {/* Subtle background ambient light */}
         <div className="absolute top-0 right-1/4 w-96 h-96 bg-[#16a34a]/15 rounded-full blur-3xl pointer-events-none" />
 
-        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-4 xl:px-6 2xl:px-8 relative">
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-4 xl:px-6 2xl:px-8 relative w-full my-auto">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             {/* Left Vertical "FOLLOW US" Bar (Behance Style) */}
             <div className="hidden xl:flex lg:col-span-1 flex-col items-center gap-6 text-white/80">
@@ -100,7 +100,7 @@ export default function HomePage() {
                   width={700}
                   height={550}
                   priority
-                  className="w-full h-[360px] sm:h-[440px] object-cover group-hover:scale-105 transition-transform duration-700"
+                  className="w-full h-[360px] sm:h-[440px] lg:h-[460px] xl:h-[500px] 2xl:h-[540px] object-cover group-hover:scale-105 transition-transform duration-700"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#072517]/80 via-transparent to-transparent pointer-events-none" />
 
