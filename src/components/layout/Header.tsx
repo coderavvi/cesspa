@@ -192,38 +192,45 @@ export function Header() {
                     <Link
                       href={item.href}
                       className={cn(
-                        "flex items-center gap-1 xl:gap-1.5 px-2 py-1.5 xl:px-2.5 xl:py-2 2xl:px-3 text-xs xl:text-[13px] 2xl:text-sm font-semibold transition-all rounded-md whitespace-nowrap shrink-0",
+                        "flex items-center gap-1 xl:gap-1.5 px-2 py-1.5 xl:px-2.5 xl:py-2 2xl:px-3 text-xs xl:text-[13px] 2xl:text-sm font-semibold rounded-md whitespace-nowrap shrink-0 border transition-colors duration-150",
                         activeDropdown === item.label || isActive
-                          ? "text-[#4ade80] bg-[#16a34a]/25 border border-[#4ade80]/30 shadow-xs"
-                          : "text-white/90 hover:text-[#4ade80]"
+                          ? "text-[#4ade80] bg-[#16a34a]/25 border-[#4ade80]/30 shadow-xs"
+                          : "text-white/90 hover:text-[#4ade80] hover:bg-white/5 border-transparent"
                       )}
                     >
                       <span>{item.label}</span>
-                      <ChevronDown className="w-3 h-3 xl:w-3.5 xl:h-3.5 transition-transform group-hover:rotate-180 text-[#86efac] shrink-0" />
+                      <ChevronDown
+                        className={cn(
+                          "w-3 h-3 xl:w-3.5 xl:h-3.5 transition-transform duration-200 text-[#86efac] shrink-0",
+                          activeDropdown === item.label ? "rotate-180 text-[#4ade80]" : "rotate-0"
+                        )}
+                      />
                     </Link>
 
                     {activeDropdown === item.label && (
-                      <div className="absolute top-full left-0 w-72 bg-[#092e1d] border border-[#4ade80]/20 rounded-xl shadow-2xl py-2 mt-1 z-50 animate-in fade-in slide-in-from-top-2 duration-150">
-                        {item.dropdown?.map((sub) => (
-                          <Link
-                            key={sub.label}
-                            href={sub.href}
-                            className="flex items-start gap-3 px-4 py-2.5 hover:bg-white/10 transition-colors group"
-                            onClick={() => setActiveDropdown(null)}
-                          >
-                            <div className="p-1.5 rounded-lg bg-[#16a34a]/30 text-[#4ade80] border border-[#4ade80]/30 group-hover:bg-[#16a34a] group-hover:text-white transition-colors mt-0.5">
-                              <sub.icon className="w-4 h-4" />
-                            </div>
-                            <div>
-                              <div className="text-sm font-bold text-white group-hover:text-[#4ade80] transition-colors">
-                                {sub.label}
+                      <div className="absolute top-full left-0 pt-1.5 z-50">
+                        <div className="w-72 bg-[#092e1d] border border-[#4ade80]/20 rounded-xl shadow-2xl py-2">
+                          {item.dropdown?.map((sub) => (
+                            <Link
+                              key={sub.label}
+                              href={sub.href}
+                              className="flex items-start gap-3 px-4 py-2.5 hover:bg-white/10 transition-colors group"
+                              onClick={() => setActiveDropdown(null)}
+                            >
+                              <div className="p-1.5 rounded-lg bg-[#16a34a]/30 text-[#4ade80] border border-[#4ade80]/30 group-hover:bg-[#16a34a] group-hover:text-white transition-colors mt-0.5 shrink-0">
+                                <sub.icon className="w-4 h-4" />
                               </div>
-                              <div className="text-xs text-[#86efac]/80 mt-0.5 leading-snug">
-                                {sub.desc}
+                              <div>
+                                <div className="text-sm font-bold text-white group-hover:text-[#4ade80] transition-colors">
+                                  {sub.label}
+                                </div>
+                                <div className="text-xs text-[#86efac]/80 mt-0.5 leading-snug">
+                                  {sub.desc}
+                                </div>
                               </div>
-                            </div>
-                          </Link>
-                        ))}
+                            </Link>
+                          ))}
+                        </div>
                       </div>
                     )}
                   </div>
@@ -235,10 +242,10 @@ export function Header() {
                   key={item.label}
                   href={item.href}
                   className={cn(
-                    "px-2 py-1.5 xl:px-2.5 xl:py-2 2xl:px-3 text-xs xl:text-[13px] 2xl:text-sm font-semibold transition-all rounded-md whitespace-nowrap shrink-0",
+                    "px-2 py-1.5 xl:px-2.5 xl:py-2 2xl:px-3 text-xs xl:text-[13px] 2xl:text-sm font-semibold rounded-md whitespace-nowrap shrink-0 border transition-colors duration-150",
                     isActive
-                      ? "text-[#4ade80] font-bold bg-[#16a34a]/25 border border-[#4ade80]/30 shadow-xs"
-                      : "text-white/90 hover:text-[#4ade80] hover:bg-white/5"
+                      ? "text-[#4ade80] bg-[#16a34a]/25 border-[#4ade80]/30 shadow-xs"
+                      : "text-white/90 hover:text-[#4ade80] hover:bg-white/5 border-transparent"
                   )}
                 >
                   {item.label}
