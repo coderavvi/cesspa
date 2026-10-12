@@ -12,8 +12,8 @@ export const BRAND = {
     "Environmental sustainability must include people. Sustainable development protects both the environment and the people who depend on it.",
   formula: "Peace + Participation + Protection + Respect = More Responsible Development",
   contact: {
-    email: "info@cesspa.org.ng",
-    phone: "+234 (0) 9 291 4400 / +234 803 000 2377",
+    email: "secretariat@cesspa.org.ng",
+    phone: "+234 (0) 803 237 7721 / +234 (0) 9 291 4400",
     address: "Plot 742, Cadastral Zone B04, Jabi District, Abuja, FCT, Nigeria",
     website: "https://www.cesspa.org.ng",
     socials: {
@@ -44,31 +44,29 @@ export const BRAND = {
 export const NAV_ITEMS = [
   { label: "Home", href: "/" },
   {
-    label: "Who We Are",
+    label: "About",
     href: "/about",
     children: [
-      { label: "About Us", href: "/about" },
+      { label: "About CESSPA", href: "/about" },
+      { label: "Governing Board", href: "/about/board" },
+      { label: "Executive Council", href: "/about/executives" },
       { label: "President's Message", href: "/about/presidents-message" },
-      { label: "Board of Directors/Trustees", href: "/about/board" },
-      { label: "National Executives", href: "/about/executives" },
       { label: "Code of Ethics", href: "/about/code-of-ethics" },
-      { label: "Contact Us", href: "/about/contact" },
     ],
   },
   {
     label: "Membership",
     href: "/membership",
     children: [
-      { label: "Plan & Pricing", href: "/membership" },
+      { label: "Membership Grades", href: "/membership" },
+      { label: "Practitioner Directory", href: "/membership/directory" },
       { label: "Register New Member", href: "/membership/register" },
       { label: "Pay Annual Dues", href: "/membership/pay-dues" },
-      { label: "Code of Ethics", href: "/about/code-of-ethics" },
-      { label: "Official Brochure", href: "/membership/brochure" },
+      { label: "Membership Brochure", href: "/membership/brochure" },
     ],
   },
-  { label: "Chapters", href: "/chapters" },
   {
-    label: "Events & Programs",
+    label: "Events and Programs",
     href: "/events",
     children: [
       { label: "Event Calendar", href: "/events" },
@@ -85,9 +83,10 @@ export const NAV_ITEMS = [
       { label: "Video Gallery", href: "/resources/videos" },
     ],
   },
-  { label: "Directory", href: "/directory" },
-  { label: "Sponsorship", href: "/sponsorship" },
-  { label: "Donate", href: "/donate" },
+  {
+    label: "Secretariat",
+    href: "/secretariat",
+  },
 ];
 
 export const NIGERIA_ZONES = [

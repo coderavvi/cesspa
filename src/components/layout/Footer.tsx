@@ -118,15 +118,15 @@ export function Footer() {
             <div className="space-y-2.5 pt-2 text-xs text-gray-300">
               <div className="flex items-start gap-2.5">
                 <MapPin className="w-4 h-4 text-[#4ade80] shrink-0 mt-0.5" />
-                <span>Central Business District, FCT Abuja, Nigeria</span>
+                <span>Plot 742, Cadastral Zone B04, Jabi District, Abuja, Nigeria</span>
               </div>
               <div className="flex items-center gap-2.5">
                 <Phone className="w-4 h-4 text-[#4ade80] shrink-0" />
-                <span>+234 (0) 803 237 7721</span>
+                <a href="tel:+2348032377721" className="hover:text-[#4ade80] transition-colors">+234 (0) 803 237 7721</a>
               </div>
               <div className="flex items-center gap-2.5">
                 <Mail className="w-4 h-4 text-[#4ade80] shrink-0" />
-                <span>secretariat@cesspa.org.ng</span>
+                <a href="mailto:secretariat@cesspa.org.ng" className="hover:text-[#4ade80] transition-colors">secretariat@cesspa.org.ng</a>
               </div>
             </div>
           </div>
@@ -158,8 +158,8 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/resources/blog" className="hover:text-[#4ade80] transition-colors">
-                  Latest Blog
+                <Link href="/resources" className="hover:text-[#4ade80] transition-colors">
+                  Resources &amp; Publications
                 </Link>
               </li>
             </ul>
@@ -173,7 +173,7 @@ export function Footer() {
             <ul className="space-y-3 text-sm">
               <li>
                 <Link href="/membership" className="hover:text-[#4ade80] transition-colors">
-                  Certification & Membership
+                  Certification &amp; Membership
                 </Link>
               </li>
               <li>
@@ -188,12 +188,12 @@ export function Footer() {
               </li>
               <li>
                 <Link href="/events" className="hover:text-[#4ade80] transition-colors">
-                  Conferences & Events
+                  Events and Programs
                 </Link>
               </li>
               <li>
-                <Link href="/contact" className="hover:text-[#4ade80] transition-colors">
-                  Contact Support
+                <Link href="/secretariat" className="hover:text-[#4ade80] transition-colors">
+                  Secretariat
                 </Link>
               </li>
             </ul>

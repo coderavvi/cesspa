@@ -18,6 +18,11 @@ import {
   Award,
   BookOpen,
   Users,
+  Calendar,
+  Camera,
+  FileText,
+  Video,
+  Building2,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Logo } from "@/components/shared/Logo";
@@ -40,26 +45,38 @@ export function Header() {
       ],
     },
     {
-      label: "Services",
-      href: "/#services",
-      dropdown: [
-        { label: "ESIA Studies & Safeguards", href: "/#services", icon: ShieldCheck, desc: "Statutory environmental & social impacts" },
-        { label: "Audits & Compliance", href: "/#services", icon: Award, desc: "Statutory FMEnv & NESREA verification" },
-        { label: "Remediation & Ecology", href: "/#services", icon: Sparkles, desc: "Pollution response & ecosystem restoration" },
-      ],
-    },
-    { label: "Standards", href: "/#standards" },
-    {
       label: "Membership",
       href: "/membership",
       dropdown: [
         { label: "Membership Grades", href: "/membership", icon: Users, desc: "Fellows, Associates, and Corporate registers" },
         { label: "Practitioner Directory", href: "/membership/directory", icon: Award, desc: "Verify registered professional seals" },
+        { label: "Register New Member", href: "/membership/register", icon: ShieldCheck, desc: "Accreditation application portal" },
+        { label: "Pay Annual Dues", href: "/membership/pay-dues", icon: Sparkles, desc: "Annual dues payment & confirmation" },
         { label: "Membership Brochure", href: "/membership/brochure", icon: BookOpen, desc: "Charter, rights, and ethical mandates" },
       ],
     },
-    { label: "Insights", href: "/resources/blog" },
-    { label: "Contact", href: "/contact" },
+    {
+      label: "Events and Programs",
+      href: "/events",
+      dropdown: [
+        { label: "Event Calendar", href: "/events", icon: Calendar, desc: "National summits, workshops & forums" },
+        { label: "Event Photos", href: "/events/photos", icon: Camera, desc: "Photo gallery of past national convenings" },
+        { label: "Public Presentations", href: "/events/presentations", icon: FileText, desc: "Technical papers & stakeholder decks" },
+      ],
+    },
+    {
+      label: "Resources",
+      href: "/resources",
+      dropdown: [
+        { label: "Publications & Guidelines", href: "/resources", icon: BookOpen, desc: "Statutory compendiums & ESIA manuals" },
+        { label: "Insights & Articles", href: "/resources/blog", icon: Sparkles, desc: "Policy briefs & expert commentary" },
+        { label: "Video Gallery", href: "/resources/videos", icon: Video, desc: "Recorded webinars & technical briefings" },
+      ],
+    },
+    {
+      label: "Secretariat",
+      href: "/secretariat",
+    },
   ];
 
   return (
@@ -70,7 +87,7 @@ export function Header() {
           <div className="flex items-center gap-6">
             <span className="flex items-center gap-1.5 text-white/95 hover:text-white transition-colors">
               <MapPin className="w-3.5 h-3.5 text-[#4ade80]" />
-              Federal Capital Territory, Abuja, Nigeria
+              Plot 742, Cadastral Zone B04, Jabi, Abuja
             </span>
             <span className="text-white/20">|</span>
             <a
@@ -172,7 +189,8 @@ export function Header() {
                     onMouseEnter={() => setActiveDropdown(item.label)}
                     onMouseLeave={() => setActiveDropdown(null)}
                   >
-                    <button
+                    <Link
+                      href={item.href}
                       className={cn(
                         "flex items-center gap-1.5 px-3 py-2 text-sm font-semibold transition-all rounded-md",
                         activeDropdown === item.label || isActive
@@ -182,7 +200,7 @@ export function Header() {
                     >
                       {item.label}
                       <ChevronDown className="w-3.5 h-3.5 transition-transform group-hover:rotate-180 text-[#86efac]" />
-                    </button>
+                    </Link>
 
                     {activeDropdown === item.label && (
                       <div className="absolute top-full left-0 w-72 bg-[#092e1d] border border-[#4ade80]/20 rounded-xl shadow-2xl py-2 mt-1 z-50 animate-in fade-in slide-in-from-top-2 duration-150">
