@@ -59,7 +59,7 @@ export const NAV_ITEMS = [
     href: "/membership",
     children: [
       { label: "Membership Brochure", href: "/membership/brochure" },
-      { label: "Membership Prices", href: "/membership" },
+      { label: "Membership Plan and Pricing", href: "/membership" },
       { label: "Pay Annual Dues", href: "/membership/pay-dues" },
       { label: "Register New Member", href: "/membership/register" },
       { label: "Practitioner Directory", href: "/directory" },
