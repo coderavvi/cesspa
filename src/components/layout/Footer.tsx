@@ -177,7 +177,7 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/membership/directory" className="hover:text-[#4ade80] transition-colors">
+                <Link href="/directory" className="hover:text-[#4ade80] transition-colors">
                   Practitioner Directory
                 </Link>
               </li>

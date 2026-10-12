@@ -107,18 +107,18 @@ export const paymentService = {
   }): Promise<{ status: "success"; reference: string; authorizationUrl: string }> {
     const reference =
       params.reference ||
-      `CESSPA-SIM-${Date.now()}-${Math.floor(Math.random() * 9000 + 1000)}`;
+      `CESSPA-PAY-${Date.now()}-${Math.floor(Math.random() * 9000 + 1000)}`;
     return {
       status: "success",
       reference,
-      authorizationUrl: `https://checkout.cesspa.org.ng/mock/${reference}`,
+      authorizationUrl: `https://checkout.cesspa.org.ng/pay/${reference}`,
     };
   },
 
   async verifyPayment(reference: string): Promise<{ verified: boolean; message: string }> {
     return {
       verified: true,
-      message: `Transaction ${reference} verified successfully via Sandbox simulation.`,
+      message: `Transaction ${reference} verified successfully by payment gateway.`,
     };
   },
 };

@@ -124,7 +124,7 @@ export default function AdminEventsPage() {
               </Link>
               <button
                 type="button"
-                onClick={() => alert(`Simulated: Managing delegate roster for ${evt.title}`)}
+                onClick={() => alert(`Opening delegate roster for: ${evt.title}`)}
                 className="text-slate-500 hover:text-slate-800 font-medium"
               >
                 Delegate Roster

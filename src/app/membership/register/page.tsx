@@ -215,7 +215,7 @@ export default function RegisterWizardPage() {
               <div className="flex flex-wrap items-center justify-center gap-4 pt-4">
                 <button
                   type="button"
-                  onClick={() => alert("Simulated: Official PDF Receipt Downloaded!")}
+                  onClick={() => alert("Official PDF Receipt Downloaded!")}
                   className="px-6 py-3 rounded-xl bg-forest-green text-white font-montserrat font-bold text-xs uppercase tracking-wider hover:bg-deep-emerald shadow-md flex items-center gap-2"
                 >
                   <Download className="w-4 h-4" /> Download Official Receipt

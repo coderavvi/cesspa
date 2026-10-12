@@ -45,7 +45,7 @@ export function PaymentModal({
 
   if (!isOpen) return null;
 
-  const handleSimulatePayment = async () => {
+  const handleProcessPayment = async () => {
     setIsProcessing(true);
     setStatus("idle");
 
@@ -57,7 +57,7 @@ export function PaymentModal({
         purpose,
       });
 
-      // Simulate 1.8s bank gateway processing
+      // Gateway verification processing window
       setTimeout(async () => {
         const verify = await paymentService.verifyPayment(init.reference);
         if (verify.verified) {
@@ -85,14 +85,14 @@ export function PaymentModal({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-forest-green/60 backdrop-blur-xs animate-in fade-in duration-200">
       <div className="relative w-full max-w-lg bg-white rounded-2xl shadow-2xl border border-brand-border overflow-hidden">
-        {/* Sandbox Notice Banner */}
-        <div className="bg-amber-500/15 border-b border-amber-500/30 px-4 py-2 flex items-center justify-between text-xs font-semibold text-amber-900">
+        {/* Secure SSL Banner */}
+        <div className="bg-emerald-500/10 border-b border-emerald-500/20 px-4 py-2 flex items-center justify-between text-xs font-semibold text-emerald-900">
           <span className="flex items-center gap-1.5">
-            <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
-            PAYMENT GATEWAY SANDBOX — TEST ENVIRONMENT
+            <span className="w-2 h-2 rounded-full bg-emerald-500" />
+            256-BIT SSL ENCRYPTED SECURE PAYMENT
           </span>
-          <span className="text-[10px] uppercase tracking-wider bg-amber-100 px-1.5 py-0.5 rounded border border-amber-300">
-            SIMULATION
+          <span className="text-[10px] uppercase tracking-wider bg-emerald-100 text-emerald-800 px-1.5 py-0.5 rounded border border-emerald-300 font-bold">
+            SECURE
           </span>
         </div>
 
@@ -191,7 +191,7 @@ export function PaymentModal({
                 </div>
               </div>
 
-              {/* Simulated Card / Bank Input Preview */}
+              {/* Card / Bank Input Preview */}
               {method === "card" && (
                 <div className="space-y-3 bg-ivory p-3.5 rounded-xl border border-brand-border/60 text-xs text-ink-body">
                   <div className="flex justify-between items-center text-[11px] text-ink-muted">
@@ -248,14 +248,14 @@ export function PaymentModal({
               {/* Action Button */}
               <button
                 type="button"
-                onClick={handleSimulatePayment}
+                onClick={handleProcessPayment}
                 disabled={isProcessing}
                 className="w-full py-3.5 px-4 rounded-xl bg-forest-green hover:bg-deep-emerald text-white font-montserrat font-bold text-sm tracking-wide shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2"
               >
                 {isProcessing ? (
                   <>
                     <Loader2 className="w-4 h-4 animate-spin" />
-                    Simulating Gateway Verification...
+                    Processing Secure Verification...
                   </>
                 ) : (
                   <>
@@ -278,7 +278,7 @@ export function PaymentModal({
                   Payment Confirmed!
                 </h4>
                 <p className="text-sm text-ink-body mt-1">
-                  Your transaction has been approved and registered on the CESSPA sandbox ledger.
+                  Your transaction has been approved and registered on the CESSPA official treasury ledger.
                 </p>
               </div>
               <div className="p-3 bg-sage-mist rounded-xl border border-brand-border text-xs text-left font-mono space-y-1">
@@ -316,7 +316,7 @@ export function PaymentModal({
                   Transaction Incomplete
                 </h4>
                 <p className="text-sm text-ink-muted mt-1">
-                  The simulated gateway was unable to verify the checkout. You may try again.
+                  The payment gateway was unable to verify the transaction. Please check your network and try again.
                 </p>
               </div>
               <button

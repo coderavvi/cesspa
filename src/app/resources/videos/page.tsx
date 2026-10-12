@@ -153,7 +153,7 @@ export default function VideosPage() {
               </button>
             </div>
 
-            {/* Simulated Video Player */}
+            {/* Video Player Modal */}
             <div className="relative aspect-16/9 w-full rounded-2xl overflow-hidden bg-black flex flex-col items-center justify-center text-white space-y-3">
               <div className="w-20 h-20 rounded-full bg-heritage-gold text-forest-green flex items-center justify-center shadow-2xl animate-pulse">
                 <Play className="w-10 h-10 fill-current ml-1" />

@@ -28,7 +28,7 @@ export default function AdminContentPage() {
 
         <button
           type="button"
-          onClick={() => alert("Simulated: Opening Draft Article / Technical Guide Editor...")}
+          onClick={() => alert("Opening Draft Article / Technical Guide Editor...")}
           className="px-4 py-2 rounded-xl bg-forest-green hover:bg-deep-emerald text-white font-montserrat font-bold text-xs uppercase tracking-wider transition-colors flex items-center gap-1.5 shadow-xs"
         >
           <Plus className="w-4 h-4" /> Create New Post
@@ -87,7 +87,7 @@ export default function AdminContentPage() {
                       </Link>
                       <span>•</span>
                       <button
-                        onClick={() => alert(`Simulated: Editing ${item.title}`)}
+                        onClick={() => alert(`Editing article: ${item.title}`)}
                         className="text-slate-500 hover:text-slate-800 text-[11px]"
                       >
                         Edit
@@ -122,7 +122,7 @@ export default function AdminContentPage() {
                   </td>
                   <td className="py-3.5 px-4 text-right">
                     <button
-                      onClick={() => alert(`Simulated: Managing file asset for ${pub.title}`)}
+                      onClick={() => alert(`Managing file asset for: ${pub.title}`)}
                       className="text-forest-green hover:underline font-bold text-[11px]"
                     >
                       Update File

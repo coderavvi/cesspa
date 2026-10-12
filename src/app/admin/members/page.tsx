@@ -97,7 +97,7 @@ export default function AdminMembersPage() {
           </button>
           <button
             type="button"
-            onClick={() => alert("Simulated: Exporting Member Directory to CSV...")}
+            onClick={() => alert("Exporting Member Directory to CSV...")}
             className="px-4 py-2 rounded-xl border border-slate-300 bg-white hover:bg-slate-50 text-slate-700 font-montserrat font-bold text-xs uppercase tracking-wider transition-colors flex items-center gap-1.5"
           >
             <Download className="w-4 h-4" /> Export CSV

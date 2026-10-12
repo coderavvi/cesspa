@@ -371,7 +371,7 @@ export default function HomePage() {
                 </div>
                 <div className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-white border border-gray-200 text-sm font-semibold text-[#0e1e17] shadow-sm">
                   <CheckCircle2 className="w-4 h-4 text-[#16a34a]" />
-                  Cryptographic Practitioner Seals
+                  Certified Practitioner Seals
                 </div>
               </div>
 
@@ -652,7 +652,7 @@ export default function HomePage() {
                 <span className="text-[#16a34a] font-extrabold mr-1">03.</span> Accredited Practice Seal
               </h3>
               <p className="text-sm text-gray-500 max-w-xs leading-relaxed">
-                Conferment of statutory practice seal, cryptographic QR verification, and inclusion in the National Registry.
+                Conferment of statutory practice seal, official QR verification, and inclusion in the National Registry.
               </p>
             </div>
           </div>

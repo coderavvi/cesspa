@@ -150,7 +150,7 @@ export default function AdminSettingsPage() {
           <div className="p-5 rounded-2xl bg-amber-50 border border-amber-200 text-amber-900 text-xs space-y-1">
             <span className="font-montserrat font-bold uppercase block">Statutory Audit Mode</span>
             <p>
-              Administrative actions, application approvals, and certificate generation are cryptographically logged for annual report presentation to the Federal Ministry of Environment.
+              Administrative actions, application approvals, and certificate generation are officially audited and logged for annual report presentation to the Federal Ministry of Environment.
             </p>
           </div>
         </div>

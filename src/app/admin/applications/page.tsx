@@ -164,7 +164,7 @@ export default function AdminApplicationsPage() {
                     </div>
                     <button
                       type="button"
-                      onClick={() => alert(`Simulated: Previewing document ${doc.name}`)}
+                      onClick={() => alert(`Opening preview for document: ${doc.name}`)}
                       className="text-forest-green hover:underline font-bold text-[11px]"
                     >
                       Preview File

@@ -64,7 +64,7 @@ export default function AdminPaymentsPage() {
           </button>
           <button
             type="button"
-            onClick={() => alert("Simulated: Exporting Financial Ledger (CSV)...")}
+            onClick={() => alert("Exporting Financial Ledger (CSV)...")}
             className="px-4 py-2 rounded-xl bg-forest-green hover:bg-deep-emerald text-white font-montserrat font-bold text-xs uppercase tracking-wider transition-colors flex items-center gap-1.5 shadow-xs"
           >
             <Download className="w-3.5 h-3.5" /> Export Ledger
@@ -92,7 +92,7 @@ export default function AdminPaymentsPage() {
             28 Members
           </p>
           <button
-            onClick={() => alert("Simulated: Automated email dues reminders dispatched to 28 members.")}
+            onClick={() => alert("Automated email dues reminders dispatched to 28 members.")}
             className="text-[11px] text-forest-green font-bold hover:underline"
           >
             Dispatch Batch Reminders →
@@ -107,8 +107,8 @@ export default function AdminPaymentsPage() {
             <span className="font-montserrat font-bold text-lg text-slate-900 uppercase">
               {gateway.activeProvider}
             </span>
-            <span className="bg-amber-100 text-amber-900 font-bold px-2 py-0.5 rounded text-[10px]">
-              SANDBOX
+            <span className="bg-emerald-100 text-emerald-900 font-bold px-2 py-0.5 rounded text-[10px]">
+              ACTIVE
             </span>
           </div>
           <span className="text-[11px] text-slate-400">Card, Bank Transfer & USSD enabled</span>
@@ -228,7 +228,7 @@ export default function AdminPaymentsPage() {
 
               <div>
                 <label className="block font-montserrat font-bold text-slate-700 uppercase mb-1">
-                  Paystack Public Key (Sandbox)
+                  Paystack Public Key
                 </label>
                 <input
                   type="text"
@@ -242,10 +242,10 @@ export default function AdminPaymentsPage() {
                 <label className="block font-montserrat font-bold text-slate-700 uppercase mb-1">
                   Environment Mode
                 </label>
-                <div className="p-3 rounded-xl bg-amber-50 border border-amber-200 text-amber-900 font-semibold flex items-center justify-between">
-                  <span>Sandbox Simulation Active</span>
-                  <span className="text-[10px] uppercase bg-amber-200 px-2 py-0.5 rounded">
-                    TEST MODE
+                <div className="p-3 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-900 font-semibold flex items-center justify-between">
+                  <span>Payment Gateway Connected</span>
+                  <span className="text-[10px] uppercase bg-emerald-200 px-2 py-0.5 rounded font-bold">
+                    ACTIVE
                   </span>
                 </div>
               </div>

@@ -75,7 +75,7 @@ export const MOCK_TIERS: MembershipTier[] = [
       "Compliance with the CESSPA Code of Ethics",
     ],
     benefits: [
-      "Official Certified E&S Practitioner seal and cryptographic verification QR code",
+      "Official Certified E&S Practitioner seal and verified QR code authentication",
       "Listing on the public Find a Professional registry for government and donor projects",
       "Full voting rights at the National AGM",
       "Eligibility to hold national and chapter executive positions",

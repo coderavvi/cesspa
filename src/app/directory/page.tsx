@@ -305,7 +305,7 @@ export default function DirectoryPage() {
             {/* Footer Seal Verification */}
             <div className="pt-4 border-t border-brand-border flex items-center justify-between text-xs">
               <span className="flex items-center gap-1.5 text-leaf-green font-medium">
-                <ShieldCheck className="w-4 h-4" /> Cryptographic Integrity Verified
+                <ShieldCheck className="w-4 h-4" /> Verified CESSPA Certified Practitioner
               </span>
               <button
                 type="button"

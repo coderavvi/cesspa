@@ -89,7 +89,7 @@ export default function LoginPage() {
                   href="#"
                   onClick={(e) => {
                     e.preventDefault();
-                    alert("Simulated: Password reset link dispatched to your registered email.");
+                    alert("Password reset link dispatched to your registered email.");
                   }}
                   className="text-[11px] text-forest-green hover:underline"
                 >

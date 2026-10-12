@@ -58,11 +58,11 @@ export const NAV_ITEMS = [
     label: "Membership",
     href: "/membership",
     children: [
-      { label: "Membership Grades", href: "/membership" },
-      { label: "Practitioner Directory", href: "/membership/directory" },
-      { label: "Register New Member", href: "/membership/register" },
+      { label: "Brochure", href: "/membership/brochure" },
+      { label: "Membership Prices", href: "/membership" },
       { label: "Pay Annual Dues", href: "/membership/pay-dues" },
-      { label: "Membership Brochure", href: "/membership/brochure" },
+      { label: "Register New Member", href: "/membership/register" },
+      { label: "Directory", href: "/directory" },
     ],
   },
   {

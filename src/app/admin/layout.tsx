@@ -190,7 +190,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         <main className="p-4 sm:p-8 flex-1">{children}</main>
       </div>
 
-      {/* Command Palette Modal Simulation */}
+      {/* Command Palette Modal */}
       {commandPaletteOpen && (
         <div className="fixed inset-0 z-50 flex items-start justify-center pt-24 p-4 bg-slate-900/50 backdrop-blur-xs">
           <div className="max-w-md w-full bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden">

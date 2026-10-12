@@ -27,7 +27,7 @@ export default function AdminCertificatesPage() {
             ACCREDITATION & ISSUANCE
           </span>
           <h1 className="font-montserrat font-extrabold text-2xl text-slate-900 uppercase mt-0.5">
-            Certification & Cryptographic Seals
+            Certification & Official Seals
           </h1>
           <p className="text-xs sm:text-sm text-slate-500">
             Preview, generate, and verify authorized practice credentials.
@@ -81,7 +81,7 @@ export default function AdminCertificatesPage() {
             </span>
             <button
               type="button"
-              onClick={() => alert(`Simulated: Generating high-resolution printable PDF certificate for ${selectedCert.recipientName}`)}
+              onClick={() => alert(`Generating high-resolution printable PDF certificate for ${selectedCert.recipientName}`)}
               className="px-4 py-2 rounded-xl bg-forest-green hover:bg-deep-emerald text-white font-montserrat font-bold text-xs uppercase tracking-wider flex items-center gap-1.5 shadow-xs"
             >
               <Download className="w-3.5 h-3.5" /> Download Printable PDF
