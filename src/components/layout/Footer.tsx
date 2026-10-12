@@ -27,7 +27,7 @@ export function Footer() {
   return (
     <footer className="w-full bg-[#051d12] text-gray-300">
       {/* Pre-Footer Social Ribbon (Behance Style) */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10">
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-4 xl:px-6 2xl:px-8 pt-10">
         <div className="bg-[#16a34a] rounded-xl px-6 sm:px-10 py-5 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-lg border border-[#4ade80]/20">
           <div className="flex items-center gap-3">
             <span className="font-heading font-bold text-lg sm:text-xl text-white tracking-wide">
@@ -85,7 +85,7 @@ export function Footer() {
       </div>
 
       {/* Main Footer Columns */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-4 xl:px-6 2xl:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Col 1: Brand & Contacts */}
           <div className="space-y-4">

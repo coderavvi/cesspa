@@ -41,7 +41,7 @@ export default function SecretariatPage() {
           HERO BANNER
       ========================================================================== */}
       <section className="bg-linear-to-b from-[#051d12] to-[#072517] text-white py-16 lg:py-24 relative overflow-hidden border-b border-white/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-4 xl:px-6 2xl:px-8 relative z-10">
           <Eyebrow chip="NATIONAL HEADQUARTERS" lightMode={true}>
             ADMINISTRATIVE &amp; REGULATORY SECRETARIAT
           </Eyebrow>
@@ -213,7 +213,7 @@ export default function SecretariatPage() {
           INQUIRY FORM & OPERATIONAL DETAILS
       ========================================================================== */}
       <section className="py-20 bg-white border-t border-gray-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-4 xl:px-6 2xl:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
             {/* Left: Administrative Brief */}
             <div className="lg:col-span-5 space-y-6">

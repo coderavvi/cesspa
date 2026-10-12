@@ -29,7 +29,7 @@ export default function HomePage() {
         {/* Subtle background ambient light */}
         <div className="absolute top-0 right-1/4 w-96 h-96 bg-[#16a34a]/15 rounded-full blur-3xl pointer-events-none" />
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-4 xl:px-6 2xl:px-8 relative">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             {/* Left Vertical "FOLLOW US" Bar (Behance Style) */}
             <div className="hidden xl:flex lg:col-span-1 flex-col items-center gap-6 text-white/80">
@@ -153,7 +153,7 @@ export default function HomePage() {
           2. ABOUT SECTION ("Environmental Sustainable Forever Green Future")
       ========================================================================== */}
       <section className="py-20 lg:py-28 bg-[#f9fbf9]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-4 xl:px-6 2xl:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
             {/* Left: Spherical Biosphere / Hands Image */}
             <div className="lg:col-span-6 relative">
@@ -236,7 +236,7 @@ export default function HomePage() {
           3. CORE SERVICES ("CESSPA Provide Environment Best Leading Services")
       ========================================================================== */}
       <section id="services" className="py-20 lg:py-28 bg-white border-t border-gray-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-4 xl:px-6 2xl:px-8">
           {/* Header & Controls */}
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
             <div>
@@ -345,7 +345,7 @@ export default function HomePage() {
           4. SKILLS & IMPACT SECTION ("Getting A Greener Future Safe Environment")
       ========================================================================== */}
       <section id="standards" className="py-20 lg:py-28 bg-[#f9fbf9] border-t border-gray-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-4 xl:px-6 2xl:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             {/* Left: Content, Checkmarks & Progress Bars */}
             <div className="lg:col-span-6 space-y-6">
@@ -420,7 +420,7 @@ export default function HomePage() {
           5. STATS COUNTER BANNER (Solid Green Behance Full-Width Band)
       ========================================================================== */}
       <section className="bg-[#16a34a] text-white py-14">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-4 xl:px-6 2xl:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center text-white">
             {/* 2,500+ Certified Practitioners */}
             <div className="flex flex-col items-center space-y-3">
@@ -511,7 +511,7 @@ export default function HomePage() {
           7. FEATURED WORK / RECENT PROJECTS ("Finished the Latest Leading Environmental Works")
       ========================================================================== */}
       <section className="py-20 lg:py-28 bg-[#f9fbf9] border-t border-gray-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-4 xl:px-6 2xl:px-8">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
             <div>
               <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#16a34a] mb-3">
@@ -606,7 +606,7 @@ export default function HomePage() {
           8. WORKING PROCESS ("Building a Greener Future" / 3-Tier Pathway)
       ========================================================================== */}
       <section className="py-20 lg:py-28 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-4 xl:px-6 2xl:px-8 text-center">
           <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#16a34a] mb-3">
             <Trees className="w-4 h-4" />
             ACCREDITATION PATHWAY
@@ -663,7 +663,7 @@ export default function HomePage() {
           9. TESTIMONIALS SECTION ("Clients Best Feedback About CESSPA Provision")
       ========================================================================== */}
       <section className="py-20 lg:py-28 bg-[#f9fbf9] border-t border-gray-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-4 xl:px-6 2xl:px-8">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
             <div>
               <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#16a34a] mb-3">
@@ -769,7 +769,7 @@ export default function HomePage() {
           10. INSTITUTIONAL TRUST BAR ("Collaborating with Federal Agencies & Global Institutions")
       ========================================================================== */}
       <section className="bg-[#16a34a] text-white py-14">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-8">
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-4 xl:px-6 2xl:px-8 text-center space-y-8">
           <h3 className="font-heading font-bold text-xl sm:text-2xl text-white tracking-wide">
             Trusted by <span className="text-white">Federal Ministries</span>, <span className="text-[#dcfce7]">State Regulatory Agencies</span> &amp; <span className="text-[#86efac]">Industry</span>
           </h3>
@@ -788,7 +788,7 @@ export default function HomePage() {
           11. TEAM SECTION ("Meet Our Dedicated Members" / Executive Council)
       ========================================================================== */}
       <section className="py-20 lg:py-28 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-4 xl:px-6 2xl:px-8 text-center">
           <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#16a34a] mb-3">
             <Trees className="w-4 h-4" />
             NATIONAL LEADERSHIP
@@ -868,7 +868,7 @@ export default function HomePage() {
           12. LATEST INSIGHTS ("Building a Greener Future Together Forever")
       ========================================================================== */}
       <section className="py-20 lg:py-28 bg-[#f9fbf9] border-t border-gray-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-4 xl:px-6 2xl:px-8">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-16">
             <div>
               <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#16a34a] mb-3">
