@@ -44,11 +44,11 @@ export function Header() {
       label: "Membership",
       href: "/membership",
       dropdown: [
-        { label: "Brochure", href: "/membership/brochure", icon: BookOpen, desc: "Charter, rights, and ethical mandates" },
+        { label: "Membership Brochure", href: "/membership/brochure", icon: BookOpen, desc: "Charter, rights, and ethical mandates" },
         { label: "Membership Prices", href: "/membership", icon: Users, desc: "Fellows, Associates, and Corporate pricing tiers" },
         { label: "Pay Annual Dues", href: "/membership/pay-dues", icon: Sparkles, desc: "Annual dues payment & confirmation" },
         { label: "Register New Member", href: "/membership/register", icon: ShieldCheck, desc: "Accreditation application portal" },
-        { label: "Directory", href: "/directory", icon: Award, desc: "Verify registered professional seals" },
+        { label: "Practitioner Directory", href: "/directory", icon: Award, desc: "Verify registered professional seals" },
       ],
     },
     {
