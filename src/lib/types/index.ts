@@ -105,6 +105,22 @@ export interface EventItem {
   bannerImage?: string;
 }
 
+export interface EventRegistration {
+  id: string;
+  eventId: string;
+  eventTitle: string;
+  fullName: string;
+  email: string;
+  phone: string;
+  organization: string;
+  membershipId?: string;
+  feePaid: number;
+  reference: string;
+  registeredAt: string;
+  status: "Confirmed" | "Checked In" | "Cancelled";
+  attendanceType?: "In-Person" | "Virtual";
+}
+
 export interface NewsArticle {
   id: string;
   slug: string;

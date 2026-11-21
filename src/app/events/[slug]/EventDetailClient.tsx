@@ -13,15 +13,93 @@ import {
   CreditCard,
   ArrowLeft,
   Share2,
+  X,
+  ArrowRight,
+  ShieldCheck,
+  User,
+  Mail,
+  Phone,
+  Building,
 } from "lucide-react";
 import { Section } from "@/components/shared/Section";
 import { PaymentModal } from "@/components/shared/PaymentModal";
 import { EventItem } from "@/lib/types";
 import { formatDate, formatNaira } from "@/lib/utils";
+import { addEventRegistration } from "@/lib/registrations";
 
 export function EventDetailClient({ event }: { event: EventItem }) {
+  const [regModalOpen, setRegModalOpen] = useState(false);
   const [isPaymentOpen, setIsPaymentOpen] = useState(false);
   const [registered, setRegistered] = useState(false);
+  const [registeredRef, setRegisteredRef] = useState("");
+
+  const [delegateForm, setDelegateForm] = useState({
+    fullName: "",
+    email: "",
+    phone: "",
+    organization: "",
+    membershipId: "",
+    attendanceType: (event.isVirtual ? "Virtual" : "In-Person") as "In-Person" | "Virtual",
+  });
+
+  const handleOpenRegistration = () => {
+    setRegModalOpen(true);
+  };
+
+  const handleSubmitRegistrationForm = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!delegateForm.fullName || !delegateForm.email) {
+      alert("Please provide your full name and email.");
+      return;
+    }
+
+    setRegModalOpen(false);
+
+    if (event.fee === 0) {
+      // Complimentary / Free RSVP: Save registration directly
+      const ref = `CESSPA-RSVP-${Date.now().toString().slice(-6)}`;
+      addEventRegistration({
+        eventId: event.id,
+        eventTitle: event.title,
+        fullName: delegateForm.fullName,
+        email: delegateForm.email,
+        phone: delegateForm.phone || "—",
+        organization: delegateForm.organization || "Independent Practitioner",
+        membershipId: delegateForm.membershipId || undefined,
+        feePaid: 0,
+        reference: ref,
+        status: "Confirmed",
+        attendanceType: delegateForm.attendanceType,
+      });
+
+      setRegisteredRef(ref);
+      setRegistered(true);
+    } else {
+      // Paid delegate pass: Proceed to Paystack payment
+      setIsPaymentOpen(true);
+    }
+  };
+
+  const handlePaymentSuccess = (ref: string) => {
+    // Record paid registration
+    addEventRegistration({
+      eventId: event.id,
+      eventTitle: event.title,
+      fullName: delegateForm.fullName,
+      email: delegateForm.email,
+      phone: delegateForm.phone || "—",
+      organization: delegateForm.organization || "Delegate",
+      membershipId: delegateForm.membershipId || undefined,
+      feePaid: event.fee,
+      reference: ref,
+      status: "Confirmed",
+      attendanceType: delegateForm.attendanceType,
+    });
+
+    setRegisteredRef(ref);
+    setRegistered(true);
+    setIsPaymentOpen(false);
+  };
 
   return (
     <div className="w-full">
@@ -129,15 +207,15 @@ export function EventDetailClient({ event }: { event: EventItem }) {
                 <h2 className="font-montserrat font-extrabold text-xl text-ink-dark uppercase">
                   Distinguished Faculty & Speakers
                 </h2>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
                   {event.speakers.map((spk, idx) => (
-                    <div key={idx} className="p-4 rounded-2xl bg-sage-mist/50 border border-brand-border text-center space-y-2">
-                      <div className="w-14 h-14 mx-auto rounded-full bg-forest-green text-white flex items-center justify-center font-montserrat font-bold text-base shadow-xs">
-                        {spk.name.charAt(0)}
+                    <div key={idx} className="p-4 rounded-2xl bg-sage-mist/30 border border-brand-border/60 text-center space-y-2">
+                      <div className="w-16 h-16 rounded-full bg-forest-green/10 border-2 border-heritage-gold/40 mx-auto flex items-center justify-center font-montserrat font-bold text-forest-green text-lg">
+                        {spk.name.slice(0, 2).toUpperCase()}
                       </div>
                       <div>
                         <h4 className="font-montserrat font-bold text-sm text-ink-dark">{spk.name}</h4>
-                        <p className="text-[11px] text-forest-green font-medium">{spk.role}</p>
+                        <p className="text-xs text-forest-green font-medium">{spk.role}</p>
                         <p className="text-[10px] text-ink-muted">{spk.org}</p>
                       </div>
                     </div>
@@ -163,7 +241,7 @@ export function EventDetailClient({ event }: { event: EventItem }) {
                 <div className="flex justify-between items-baseline">
                   <span className="text-ink-muted">Standard Fee:</span>
                   <span className="font-montserrat font-extrabold text-2xl text-forest-green">
-                    {event.fee === 0 ? "Free / RSVP" : formatNaira(event.fee)}
+                    {event.fee === 0 ? "Complimentary" : formatNaira(event.fee)}
                   </span>
                 </div>
                 <div className="flex justify-between">
@@ -172,53 +250,218 @@ export function EventDetailClient({ event }: { event: EventItem }) {
                 </div>
                 <div className="flex justify-between">
                   <span className="text-ink-muted">Registered to Date:</span>
-                  <span className="font-semibold text-leaf-green">{event.registeredCount || 340} Confirmed</span>
+                  <span className="font-semibold text-leaf-green">{event.registeredCount || 6} Confirmed</span>
                 </div>
               </div>
 
               {registered ? (
-                <div className="p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-center space-y-2">
-                  <CheckCircle2 className="w-6 h-6 text-emerald-700 mx-auto" />
-                  <p className="text-xs font-bold text-emerald-800">Registration Confirmed!</p>
-                  <p className="text-[11px] text-ink-body">
-                    Your delegate badge ticket reference has been logged.
+                <div className="p-5 rounded-2xl bg-emerald-50 border border-emerald-200 text-center space-y-3">
+                  <CheckCircle2 className="w-8 h-8 text-emerald-700 mx-auto" />
+                  <div>
+                    <p className="text-sm font-bold text-emerald-900">Registration Confirmed!</p>
+                    <p className="text-xs text-emerald-700 mt-1">
+                      Welcome, <span className="font-semibold">{delegateForm.fullName}</span>. Your delegate seat is secured.
+                    </p>
+                  </div>
+                  {registeredRef && (
+                    <div className="p-2 rounded-md bg-white border border-emerald-200 font-mono text-[11px] text-emerald-800">
+                      Ticket Ref: {registeredRef}
+                    </div>
+                  )}
+                  <p className="text-[11px] text-emerald-600">
+                    A confirmation circular has been logged on the secretariat registry.
                   </p>
                 </div>
               ) : (
                 <button
                   type="button"
-                  onClick={() => setIsPaymentOpen(true)}
-                  className="w-full py-4 rounded-xl bg-forest-green hover:bg-deep-emerald text-white font-montserrat font-bold text-xs uppercase tracking-wider shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2"
+                  onClick={handleOpenRegistration}
+                  className="w-full py-4 rounded-xl bg-forest-green hover:bg-deep-emerald text-white font-montserrat font-bold text-xs uppercase tracking-wider shadow-md hover:shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer"
                 >
                   <CreditCard className="w-4 h-4 text-heritage-gold" />
-                  {event.fee === 0 ? "Confirm RSVP Registration" : "Purchase Delegate Pass"}
+                  {event.fee === 0 ? "Register Delegate Seat (Free)" : "Purchase Delegate Pass"}
                 </button>
               )}
 
               <div className="pt-2 text-center text-[11px] text-ink-muted">
-                Group bookings & corporate delegations: <a href="mailto:events@cesspa.org.ng" className="text-forest-green underline">events@cesspa.org.ng</a>
+                Group bookings &amp; corporate delegations: <a href="mailto:events@cesspa.org.ng" className="text-forest-green underline">events@cesspa.org.ng</a>
               </div>
             </div>
           </div>
         </div>
       </Section>
 
+      {/* Delegate Registration Information Modal */}
+      {regModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs">
+          <div className="max-w-lg w-full bg-white rounded-2xl p-6 sm:p-8 border border-slate-200 shadow-2xl space-y-5">
+            <div className="flex items-start justify-between pb-3 border-b border-slate-100">
+              <div>
+                <span className="text-[10px] font-mono font-bold text-emerald-700 uppercase tracking-widest block">
+                  Delegate Roster Registration
+                </span>
+                <h3 className="font-heading font-extrabold text-xl text-slate-900 mt-0.5">
+                  {event.title}
+                </h3>
+              </div>
+              <button
+                type="button"
+                onClick={() => setRegModalOpen(false)}
+                className="p-1 rounded-md text-slate-400 hover:text-slate-700"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            <form onSubmit={handleSubmitRegistrationForm} className="space-y-4 text-xs">
+              <div>
+                <label className="block font-medium text-slate-700 mb-1">Full Legal Name *</label>
+                <div className="relative">
+                  <User className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                  <input
+                    type="text"
+                    required
+                    value={delegateForm.fullName}
+                    onChange={(e) => setDelegateForm({ ...delegateForm, fullName: e.target.value })}
+                    placeholder="e.g. Dr. Amina Garba Bello"
+                    className="w-full pl-9 pr-3 py-2 rounded-md border border-slate-200 focus:outline-none focus:border-[#0B4A2B]"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="block font-medium text-slate-700 mb-1">Official Email Address *</label>
+                  <div className="relative">
+                    <Mail className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                    <input
+                      type="email"
+                      required
+                      value={delegateForm.email}
+                      onChange={(e) => setDelegateForm({ ...delegateForm, email: e.target.value })}
+                      placeholder="e.g. delegate@organisation.org"
+                      className="w-full pl-9 pr-3 py-2 rounded-md border border-slate-200 focus:outline-none focus:border-[#0B4A2B]"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block font-medium text-slate-700 mb-1">Phone Number *</label>
+                  <div className="relative">
+                    <Phone className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                    <input
+                      type="tel"
+                      required
+                      value={delegateForm.phone}
+                      onChange={(e) => setDelegateForm({ ...delegateForm, phone: e.target.value })}
+                      placeholder="e.g. +234 803 123 4567"
+                      className="w-full pl-9 pr-3 py-2 rounded-md border border-slate-200 focus:outline-none focus:border-[#0B4A2B]"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="block font-medium text-slate-700 mb-1">Organization / Employer</label>
+                  <div className="relative">
+                    <Building className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                    <input
+                      type="text"
+                      value={delegateForm.organization}
+                      onChange={(e) => setDelegateForm({ ...delegateForm, organization: e.target.value })}
+                      placeholder="e.g. Ministry / Firm / Consultant"
+                      className="w-full pl-9 pr-3 py-2 rounded-md border border-slate-200 focus:outline-none focus:border-[#0B4A2B]"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block font-medium text-slate-700 mb-1">Membership ID (If Member)</label>
+                  <input
+                    type="text"
+                    value={delegateForm.membershipId}
+                    onChange={(e) => setDelegateForm({ ...delegateForm, membershipId: e.target.value })}
+                    placeholder="e.g. CESSPA-2025-0104"
+                    className="w-full px-3 py-2 rounded-md border border-slate-200 font-mono text-xs focus:outline-none focus:border-[#0B4A2B]"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="block font-medium text-slate-700 mb-1">Attendance Mode</label>
+                <div className="grid grid-cols-2 gap-3">
+                  <button
+                    type="button"
+                    onClick={() => setDelegateForm({ ...delegateForm, attendanceType: "In-Person" })}
+                    className={`py-2 px-3 rounded-md border text-xs font-semibold transition-all ${
+                      delegateForm.attendanceType === "In-Person"
+                        ? "bg-[#0B4A2B] text-white border-[#0B4A2B]"
+                        : "bg-white text-slate-700 border-slate-200 hover:bg-slate-50"
+                    }`}
+                  >
+                    In-Person Venue
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setDelegateForm({ ...delegateForm, attendanceType: "Virtual" })}
+                    className={`py-2 px-3 rounded-md border text-xs font-semibold transition-all ${
+                      delegateForm.attendanceType === "Virtual"
+                        ? "bg-[#0B4A2B] text-white border-[#0B4A2B]"
+                        : "bg-white text-slate-700 border-slate-200 hover:bg-slate-50"
+                    }`}
+                  >
+                    Virtual Online Stream
+                  </button>
+                </div>
+              </div>
+
+              <div className="p-3 rounded-md bg-slate-50 border border-slate-200 flex items-center justify-between">
+                <span className="text-slate-600 font-medium">Registration Tariff:</span>
+                <span className="font-heading font-extrabold text-base text-[#0B4A2B]">
+                  {event.fee === 0 ? "Complimentary" : formatNaira(event.fee)}
+                </span>
+              </div>
+
+              <div className="pt-2 flex items-center justify-end gap-2">
+                <button
+                  type="button"
+                  onClick={() => setRegModalOpen(false)}
+                  className="px-3 py-2 rounded-md border border-slate-200 text-slate-700 hover:bg-slate-50 font-medium"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="px-4 py-2 rounded-md bg-[#0B4A2B] hover:bg-[#08331F] text-white font-semibold inline-flex items-center gap-1.5 transition-colors"
+                >
+                  <span>{event.fee === 0 ? "Confirm RSVP Registration" : "Proceed to Payment"}</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* Paystack Payment Modal */}
       <PaymentModal
         isOpen={isPaymentOpen}
         onClose={() => setIsPaymentOpen(false)}
-        title={event.title}
+        title={`Delegate Pass: ${event.title}`}
         purpose="Conference Ticket"
         amount={event.fee || 1000}
-        customerName="Practitioner Delegate"
-        customerEmail="delegate@cesspa.org.ng"
+        customerName={delegateForm.fullName}
+        customerEmail={delegateForm.email}
         metadata={{
+          eventId: event.id,
           eventSlug: event.slug,
           cpdPoints: event.cpdPoints,
+          attendanceType: delegateForm.attendanceType,
+          organization: delegateForm.organization,
+          membershipId: delegateForm.membershipId,
         }}
-        onSuccess={() => {
-          setRegistered(true);
-          setIsPaymentOpen(false);
-        }}
+        onSuccess={handlePaymentSuccess}
       />
     </div>
   );

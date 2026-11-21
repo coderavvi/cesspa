@@ -19,10 +19,23 @@ import {
   Upload,
   Image as ImageIcon,
   FileImage,
+  Download,
+  UserCheck,
+  UserPlus,
+  Phone,
+  Mail,
+  Building,
+  CheckCircle2,
 } from "lucide-react";
 import { MOCK_EVENTS } from "@/lib/data/mockData";
-import { EventItem } from "@/lib/types";
+import { EventItem, EventRegistration } from "@/lib/types";
 import { formatDate, formatNaira } from "@/lib/utils";
+import {
+  getStoredRegistrations,
+  saveRegistrations,
+  updateRegistrationStatus,
+  addEventRegistration,
+} from "@/lib/registrations";
 
 // Client-side image compression helper to keep localStorage fast and prevent storage limit errors
 function compressImage(file: File): Promise<string> {
@@ -63,6 +76,24 @@ export default function AdminEventsPage() {
   const [mounted, setMounted] = useState(false);
   const [uploadingFlyer, setUploadingFlyer] = useState(false);
 
+  // Delegate Roster States
+  const [registrations, setRegistrations] = useState<EventRegistration[]>([]);
+  const [rosterModalOpen, setRosterModalOpen] = useState(false);
+  const [rosterEvent, setRosterEvent] = useState<EventItem | null>(null);
+  const [rosterQuery, setRosterQuery] = useState("");
+  const [rosterFilter, setRosterFilter] = useState("All");
+  const [manualAddModalOpen, setManualAddModalOpen] = useState(false);
+
+  const [newAttendee, setNewAttendee] = useState({
+    fullName: "",
+    email: "",
+    phone: "",
+    organization: "",
+    membershipId: "",
+    attendanceType: "In-Person" as "In-Person" | "Virtual",
+    feePaid: "0",
+  });
+
   const fileInputRef = useRef<HTMLInputElement>(null);
   const inspectorFileInputRef = useRef<HTMLInputElement>(null);
 
@@ -101,16 +132,31 @@ export default function AdminEventsPage() {
           if (Array.isArray(parsed) && parsed.length > 0) {
             setEvents(parsed);
             setSelectedEvent(parsed[0]);
-            return;
+          } else {
+            setEvents(MOCK_EVENTS);
+            setSelectedEvent(MOCK_EVENTS[0] || null);
           }
+        } else {
+          setEvents(MOCK_EVENTS);
+          setSelectedEvent(MOCK_EVENTS[0] || null);
         }
+
+        // Load attendee registrations
+        setRegistrations(getStoredRegistrations());
       }
-    } catch (e) {
-      // fallback
+    } catch {
+      setEvents(MOCK_EVENTS);
+      setSelectedEvent(MOCK_EVENTS[0] || null);
     }
 
-    setEvents(MOCK_EVENTS);
-    setSelectedEvent(MOCK_EVENTS[0] || null);
+    const handleRegistrationsUpdate = () => {
+      setRegistrations(getStoredRegistrations());
+    };
+
+    window.addEventListener("cesspa_registrations_updated", handleRegistrationsUpdate);
+    return () => {
+      window.removeEventListener("cesspa_registrations_updated", handleRegistrationsUpdate);
+    };
   }, []);
 
   // Helper to persist events & notify listeners
@@ -121,7 +167,7 @@ export default function AdminEventsPage() {
         localStorage.setItem("cesspa_admin_events", JSON.stringify(updated));
         window.dispatchEvent(new Event("cesspa_events_updated"));
       }
-    } catch (e) {
+    } catch {
       // ignore
     }
   };
@@ -135,7 +181,7 @@ export default function AdminEventsPage() {
         localStorage.setItem("cesspa_homepage_events_enabled", nextState ? "true" : "false");
         window.dispatchEvent(new Event("cesspa_events_updated"));
       }
-    } catch (e) {
+    } catch {
       // ignore
     }
   };
@@ -167,7 +213,7 @@ export default function AdminEventsPage() {
       setUploadingFlyer(true);
       const compressedDataUrl = await compressImage(file);
       setNewEvent((prev) => ({ ...prev, bannerImage: compressedDataUrl }));
-    } catch (err) {
+    } catch {
       alert("Unable to process the image. Please select a valid JPEG, PNG, or WebP file.");
     } finally {
       setUploadingFlyer(false);
@@ -191,7 +237,7 @@ export default function AdminEventsPage() {
 
       persistEvents(updated);
       setSelectedEvent({ ...selectedEvent, bannerImage: compressedDataUrl });
-    } catch (err) {
+    } catch {
       alert("Unable to process the image flyer.");
     } finally {
       setUploadingFlyer(false);
@@ -214,6 +260,100 @@ export default function AdminEventsPage() {
     const refreshed = { ...selectedEvent };
     delete refreshed.bannerImage;
     setSelectedEvent(refreshed);
+  };
+
+  // Attendees count helper
+  const getEventAttendees = (eventId: string) => {
+    return registrations.filter((r) => r.eventId === eventId);
+  };
+
+  // Toggle check-in status
+  const handleToggleCheckIn = (id: string) => {
+    const item = registrations.find((r) => r.id === id);
+    if (!item) return;
+    const nextStatus = item.status === "Checked In" ? "Confirmed" : "Checked In";
+    const updated = updateRegistrationStatus(id, nextStatus);
+    setRegistrations(updated);
+  };
+
+  // Export attendee roster to CSV
+  const handleExportRosterCSV = (targetEvent: EventItem) => {
+    const attendees = getEventAttendees(targetEvent.id);
+    if (attendees.length === 0) {
+      alert("No registered delegates found for this event yet.");
+      return;
+    }
+
+    const headers = [
+      "Registration ID",
+      "Full Name",
+      "Email Address",
+      "Phone Number",
+      "Organization",
+      "Membership ID",
+      "Attendance Mode",
+      "Fee Paid (NGN)",
+      "Ticket Reference",
+      "Registered Date",
+      "Status",
+    ];
+
+    const rows = attendees.map((a) => [
+      a.id,
+      `"${a.fullName}"`,
+      `"${a.email}"`,
+      `"${a.phone}"`,
+      `"${a.organization}"`,
+      `"${a.membershipId || "N/A"}"`,
+      a.attendanceType || "In-Person",
+      a.feePaid,
+      a.reference,
+      a.registeredAt,
+      a.status,
+    ]);
+
+    const csvContent = [headers.join(","), ...rows.map((r) => r.join(","))].join("\n");
+    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.setAttribute("href", url);
+    link.setAttribute("download", `CESSPA-Delegates-${targetEvent.slug}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  // Handle Manual Delegate Addition
+  const handleAddManualDelegate = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!rosterEvent) return;
+
+    const ref = `CESSPA-VIP-${Date.now().toString().slice(-6)}`;
+    const added = addEventRegistration({
+      eventId: rosterEvent.id,
+      eventTitle: rosterEvent.title,
+      fullName: newAttendee.fullName,
+      email: newAttendee.email,
+      phone: newAttendee.phone || "—",
+      organization: newAttendee.organization || "Secretariat Guest",
+      membershipId: newAttendee.membershipId || undefined,
+      feePaid: Number(newAttendee.feePaid) || 0,
+      reference: ref,
+      status: "Confirmed",
+      attendanceType: newAttendee.attendanceType,
+    });
+
+    setRegistrations(getStoredRegistrations());
+    setManualAddModalOpen(false);
+    setNewAttendee({
+      fullName: "",
+      email: "",
+      phone: "",
+      organization: "",
+      membershipId: "",
+      attendanceType: "In-Person",
+      feePaid: "0",
+    });
   };
 
   const filtered = events.filter((e) => {
@@ -286,6 +426,32 @@ export default function AdminEventsPage() {
     }
   };
 
+  // Active event attendees
+  const selectedEventAttendees = selectedEvent ? getEventAttendees(selectedEvent.id) : [];
+
+  // Roster modal filtered list
+  const modalAttendees = rosterEvent
+    ? getEventAttendees(rosterEvent.id).filter((a) => {
+        const q = rosterQuery.toLowerCase();
+        const matchesQ =
+          !q ||
+          a.fullName.toLowerCase().includes(q) ||
+          a.email.toLowerCase().includes(q) ||
+          a.organization.toLowerCase().includes(q) ||
+          a.reference.toLowerCase().includes(q);
+        const matchesFilter =
+          rosterFilter === "All" ||
+          (rosterFilter === "In-Person" && a.attendanceType === "In-Person") ||
+          (rosterFilter === "Virtual" && a.attendanceType === "Virtual") ||
+          (rosterFilter === "Checked In" && a.status === "Checked In");
+        return matchesQ && matchesFilter;
+      })
+    : [];
+
+  const rosterRevenue = rosterEvent
+    ? getEventAttendees(rosterEvent.id).reduce((acc, curr) => acc + curr.feePaid, 0)
+    : 0;
+
   return (
     <div className="space-y-8">
       {/* Header */}
@@ -295,7 +461,7 @@ export default function AdminEventsPage() {
             Events &amp; Continuous Professional Development
           </h1>
           <p className="text-xs text-slate-500 mt-1">
-            Publish and manage summits, chapter technical sessions, event flyers, and accredited masterclasses
+            Publish and manage summits, chapter technical sessions, delegate rosters, and accredited masterclasses
           </p>
         </div>
 
@@ -373,6 +539,7 @@ export default function AdminEventsPage() {
                 <th className="py-2.5 px-3">Category</th>
                 <th className="py-2.5 px-3">Date &amp; Venue</th>
                 <th className="py-2.5 px-3">CPD Points</th>
+                <th className="py-2.5 px-3">Delegates</th>
                 <th className="py-2.5 px-3">Fee</th>
                 <th className="py-2.5 px-3 text-right">Homepage</th>
               </tr>
@@ -381,6 +548,7 @@ export default function AdminEventsPage() {
               {filtered.map((evt) => {
                 const isSelected = selectedEvent?.id === evt.id;
                 const isShownOnHome = evt.showOnHomepage !== false;
+                const attendeesCount = getEventAttendees(evt.id).length;
                 return (
                   <tr
                     key={evt.id}
@@ -417,6 +585,21 @@ export default function AdminEventsPage() {
                     </td>
                     <td className="py-3 px-3 font-mono font-semibold text-[#0B4A2B]">
                       {evt.cpdPoints} pts
+                    </td>
+                    <td className="py-3 px-3">
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setRosterEvent(evt);
+                          setRosterModalOpen(true);
+                        }}
+                        title="Click to view full attendee roster"
+                        className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md font-mono text-[11px] font-semibold text-[#0B4A2B] bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 transition-colors"
+                      >
+                        <Users className="w-3 h-3 text-[#0B4A2B]" />
+                        <span>{attendeesCount} delegates</span>
+                      </button>
                     </td>
                     <td className="py-3 px-3 font-mono font-medium text-slate-900">
                       {evt.fee === 0 ? "Free" : formatNaira(evt.fee)}
@@ -538,6 +721,46 @@ export default function AdminEventsPage() {
                 )}
               </div>
 
+              {/* Registered Delegates Card (Dedicated Inspection Hub) */}
+              <div className="p-4 rounded-lg border border-slate-200 bg-slate-50/70 space-y-3">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <Users className="w-4 h-4 text-[#0B4A2B]" />
+                    <span className="text-xs font-semibold text-slate-900 font-heading">
+                      Registered Delegates Roster
+                    </span>
+                  </div>
+                  <span className="font-mono text-xs font-bold text-[#0B4A2B] px-2 py-0.5 rounded-md bg-emerald-50 border border-emerald-200">
+                    {selectedEventAttendees.length} registered
+                  </span>
+                </div>
+                <p className="text-[11px] text-slate-500 leading-relaxed">
+                  View attendee names, organization affiliations, Paystack references, and check in delegates for verified CPD credit logs.
+                </p>
+                <div className="flex items-center gap-2 pt-1">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setRosterEvent(selectedEvent);
+                      setRosterModalOpen(true);
+                    }}
+                    className="flex-1 py-2 px-3 rounded-md bg-[#0B4A2B] hover:bg-[#08331F] text-white text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors"
+                  >
+                    <Users className="w-3.5 h-3.5" />
+                    <span>View Delegate Roster ({selectedEventAttendees.length})</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => handleExportRosterCSV(selectedEvent)}
+                    title="Export attendee list to CSV"
+                    className="py-2 px-3 rounded-md border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 text-xs font-medium flex items-center gap-1 transition-colors"
+                  >
+                    <Download className="w-3.5 h-3.5 text-slate-500" />
+                    <span>CSV</span>
+                  </button>
+                </div>
+              </div>
+
               {/* Homepage Visibility Status Card */}
               <div className="p-3 rounded-md border border-slate-200 bg-slate-50/50 space-y-2">
                 <div className="flex items-center justify-between">
@@ -584,7 +807,7 @@ export default function AdminEventsPage() {
                 </div>
                 <div className="flex justify-between py-1">
                   <span className="text-slate-500">Roster Capacity:</span>
-                  <span>{selectedEvent.registeredCount || 0} registered ({selectedEvent.capacity} seats max)</span>
+                  <span>{selectedEventAttendees.length} registered ({selectedEvent.capacity} seats max)</span>
                 </div>
               </div>
 
@@ -649,6 +872,305 @@ export default function AdminEventsPage() {
           )}
         </div>
       </div>
+
+      {/* Delegate Roster Modal */}
+      {rosterModalOpen && rosterEvent && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-xs">
+          <div className="max-w-4xl w-full bg-white rounded-lg p-6 border border-slate-200 shadow-2xl space-y-5 max-h-[90vh] overflow-y-auto">
+            {/* Modal Header */}
+            <div className="flex items-start justify-between pb-4 border-b border-slate-200">
+              <div>
+                <div className="flex items-center gap-2">
+                  <span className="font-mono text-[10px] uppercase font-bold text-[#0B4A2B] bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200">
+                    {rosterEvent.category} • {rosterEvent.cpdPoints} CPD Points
+                  </span>
+                  <span className="text-xs text-slate-400 font-mono">
+                    {formatDate(rosterEvent.date)}
+                  </span>
+                </div>
+                <h3 className="font-heading font-bold text-lg text-slate-900 mt-1">
+                  Delegate Roster: {rosterEvent.title}
+                </h3>
+              </div>
+              <button
+                type="button"
+                onClick={() => setRosterModalOpen(false)}
+                className="p-1 rounded-md text-slate-400 hover:text-slate-700"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            {/* Metrics Bar */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 p-4 rounded-lg bg-slate-50 border border-slate-200 text-xs">
+              <div>
+                <span className="text-[10px] uppercase font-mono text-slate-400 block">Total Registered</span>
+                <span className="font-heading font-bold text-xl text-slate-900">
+                  {getEventAttendees(rosterEvent.id).length}
+                </span>
+              </div>
+              <div>
+                <span className="text-[10px] uppercase font-mono text-slate-400 block">In-Person</span>
+                <span className="font-heading font-bold text-xl text-[#0B4A2B]">
+                  {getEventAttendees(rosterEvent.id).filter((a) => a.attendanceType === "In-Person").length}
+                </span>
+              </div>
+              <div>
+                <span className="text-[10px] uppercase font-mono text-slate-400 block">Virtual Stream</span>
+                <span className="font-heading font-bold text-xl text-slate-700">
+                  {getEventAttendees(rosterEvent.id).filter((a) => a.attendanceType === "Virtual").length}
+                </span>
+              </div>
+              <div>
+                <span className="text-[10px] uppercase font-mono text-slate-400 block">Tariff Inflow</span>
+                <span className="font-heading font-bold text-xl text-[#0B4A2B]">
+                  {formatNaira(rosterRevenue)}
+                </span>
+              </div>
+            </div>
+
+            {/* Filter & Action Bar */}
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-1">
+              <div className="flex items-center gap-2 flex-1 max-w-sm">
+                <div className="relative flex-1">
+                  <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                  <input
+                    type="text"
+                    value={rosterQuery}
+                    onChange={(e) => setRosterQuery(e.target.value)}
+                    placeholder="Search delegate by name, email, org, or ref..."
+                    className="w-full pl-8 pr-3 py-1.5 rounded-md border border-slate-200 text-xs focus:outline-none focus:border-[#0B4A2B]"
+                  />
+                </div>
+                <select
+                  value={rosterFilter}
+                  onChange={(e) => setRosterFilter(e.target.value)}
+                  className="px-2.5 py-1.5 rounded-md border border-slate-200 text-xs text-slate-700 focus:outline-none focus:border-[#0B4A2B] bg-white"
+                >
+                  <option value="All">All Modes</option>
+                  <option value="In-Person">In-Person</option>
+                  <option value="Virtual">Virtual</option>
+                  <option value="Checked In">Checked In</option>
+                </select>
+              </div>
+
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => setManualAddModalOpen(true)}
+                  className="px-3 py-1.5 rounded-md border border-slate-200 hover:bg-slate-50 text-slate-700 text-xs font-medium flex items-center gap-1.5 transition-colors"
+                >
+                  <UserPlus className="w-3.5 h-3.5 text-[#0B4A2B]" />
+                  <span>Add Delegate</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => handleExportRosterCSV(rosterEvent)}
+                  className="px-3 py-1.5 rounded-md bg-[#0B4A2B] hover:bg-[#08331F] text-white text-xs font-semibold flex items-center gap-1.5 transition-colors"
+                >
+                  <Download className="w-3.5 h-3.5" />
+                  <span>Export CSV</span>
+                </button>
+              </div>
+            </div>
+
+            {/* Delegates Table */}
+            {modalAttendees.length > 0 ? (
+              <div className="overflow-x-auto border border-slate-200 rounded-md">
+                <table className="w-full text-left text-xs">
+                  <thead>
+                    <tr className="bg-slate-50 border-b border-slate-200 text-slate-500 uppercase text-[10px] font-medium">
+                      <th className="py-2.5 px-3">Delegate Name</th>
+                      <th className="py-2.5 px-3">Organization</th>
+                      <th className="py-2.5 px-3">Contact</th>
+                      <th className="py-2.5 px-3">Attendance</th>
+                      <th className="py-2.5 px-3">Tariff</th>
+                      <th className="py-2.5 px-3">Reference</th>
+                      <th className="py-2.5 px-3 text-right">Check-In Status</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-100 text-slate-700">
+                    {modalAttendees.map((a) => (
+                      <tr key={a.id} className="hover:bg-slate-50/70 transition-colors">
+                        <td className="py-3 px-3">
+                          <div className="font-semibold text-slate-900">{a.fullName}</div>
+                          {a.membershipId && (
+                            <div className="font-mono text-[10px] text-[#0B4A2B]">{a.membershipId}</div>
+                          )}
+                        </td>
+                        <td className="py-3 px-3 text-slate-600">
+                          {a.organization}
+                        </td>
+                        <td className="py-3 px-3">
+                          <div className="text-slate-800">{a.email}</div>
+                          <div className="text-[11px] text-slate-400 font-mono">{a.phone}</div>
+                        </td>
+                        <td className="py-3 px-3">
+                          <span
+                            className={`px-2 py-0.5 rounded-md text-[10px] font-semibold ${
+                              a.attendanceType === "Virtual"
+                                ? "bg-sky-50 text-sky-800 border border-sky-200"
+                                : "bg-emerald-50 text-[#0B4A2B] border border-emerald-200"
+                            }`}
+                          >
+                            {a.attendanceType || "In-Person"}
+                          </span>
+                        </td>
+                        <td className="py-3 px-3 font-mono font-medium">
+                          {a.feePaid === 0 ? "Free" : formatNaira(a.feePaid)}
+                        </td>
+                        <td className="py-3 px-3 font-mono text-[11px] text-slate-500">
+                          {a.reference}
+                        </td>
+                        <td className="py-3 px-3 text-right">
+                          <button
+                            type="button"
+                            onClick={() => handleToggleCheckIn(a.id)}
+                            title="Click to toggle check-in status"
+                            className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-semibold transition-colors ${
+                              a.status === "Checked In"
+                                ? "bg-emerald-600 text-white hover:bg-emerald-700"
+                                : "bg-slate-100 text-slate-700 hover:bg-slate-200 border border-slate-200"
+                            }`}
+                          >
+                            <UserCheck className="w-3 h-3" />
+                            <span>{a.status === "Checked In" ? "Checked In" : "Mark Present"}</span>
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            ) : (
+              <div className="py-12 text-center text-xs text-slate-400 border border-dashed border-slate-200 rounded-md">
+                No registered delegates match the filter criteria.
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* Manual Add Delegate Modal */}
+      {manualAddModalOpen && rosterEvent && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs">
+          <div className="max-w-md w-full bg-white rounded-lg p-6 border border-slate-200 shadow-xl space-y-4">
+            <div className="flex items-start justify-between pb-3 border-b border-slate-200">
+              <h3 className="font-heading font-bold text-sm text-slate-900">
+                Register Delegate (Secretariat Desk)
+              </h3>
+              <button
+                type="button"
+                onClick={() => setManualAddModalOpen(false)}
+                className="p-1 rounded-md text-slate-400 hover:text-slate-700"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            <form onSubmit={handleAddManualDelegate} className="space-y-3 text-xs">
+              <div>
+                <label className="block text-slate-700 font-medium mb-1">Full Name *</label>
+                <input
+                  type="text"
+                  required
+                  value={newAttendee.fullName}
+                  onChange={(e) => setNewAttendee({ ...newAttendee, fullName: e.target.value })}
+                  placeholder="e.g. Prof. Oladipo Adeleke"
+                  className="w-full px-3 py-1.5 rounded-md border border-slate-200 focus:outline-none focus:border-[#0B4A2B]"
+                />
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-slate-700 font-medium mb-1">Email *</label>
+                  <input
+                    type="email"
+                    required
+                    value={newAttendee.email}
+                    onChange={(e) => setNewAttendee({ ...newAttendee, email: e.target.value })}
+                    placeholder="delegate@domain.com"
+                    className="w-full px-3 py-1.5 rounded-md border border-slate-200 focus:outline-none focus:border-[#0B4A2B]"
+                  />
+                </div>
+                <div>
+                  <label className="block text-slate-700 font-medium mb-1">Phone</label>
+                  <input
+                    type="tel"
+                    value={newAttendee.phone}
+                    onChange={(e) => setNewAttendee({ ...newAttendee, phone: e.target.value })}
+                    placeholder="+234 803 000 0000"
+                    className="w-full px-3 py-1.5 rounded-md border border-slate-200 focus:outline-none focus:border-[#0B4A2B]"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-slate-700 font-medium mb-1">Organization</label>
+                  <input
+                    type="text"
+                    value={newAttendee.organization}
+                    onChange={(e) => setNewAttendee({ ...newAttendee, organization: e.target.value })}
+                    placeholder="e.g. Federal Ministry"
+                    className="w-full px-3 py-1.5 rounded-md border border-slate-200 focus:outline-none focus:border-[#0B4A2B]"
+                  />
+                </div>
+                <div>
+                  <label className="block text-slate-700 font-medium mb-1">Membership ID</label>
+                  <input
+                    type="text"
+                    value={newAttendee.membershipId}
+                    onChange={(e) => setNewAttendee({ ...newAttendee, membershipId: e.target.value })}
+                    placeholder="CESSPA-2025-0104"
+                    className="w-full px-3 py-1.5 rounded-md border border-slate-200 font-mono focus:outline-none focus:border-[#0B4A2B]"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-slate-700 font-medium mb-1">Mode</label>
+                  <select
+                    value={newAttendee.attendanceType}
+                    onChange={(e) => setNewAttendee({ ...newAttendee, attendanceType: e.target.value as any })}
+                    className="w-full px-2.5 py-1.5 rounded-md border border-slate-200 focus:outline-none focus:border-[#0B4A2B] bg-white"
+                  >
+                    <option value="In-Person">In-Person</option>
+                    <option value="Virtual">Virtual Stream</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-slate-700 font-medium mb-1">Fee Settled (₦)</label>
+                  <input
+                    type="number"
+                    value={newAttendee.feePaid}
+                    onChange={(e) => setNewAttendee({ ...newAttendee, feePaid: e.target.value })}
+                    className="w-full px-3 py-1.5 rounded-md border border-slate-200 font-mono focus:outline-none focus:border-[#0B4A2B]"
+                  />
+                </div>
+              </div>
+
+              <div className="pt-3 border-t border-slate-200 flex items-center justify-end gap-2">
+                <button
+                  type="button"
+                  onClick={() => setManualAddModalOpen(false)}
+                  className="px-3 py-1.5 rounded-md border border-slate-200 text-slate-700 hover:bg-slate-50"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="px-4 py-1.5 rounded-md bg-[#0B4A2B] hover:bg-[#08331F] text-white font-semibold"
+                >
+                  Confirm Delegate Registration
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
 
       {/* Post Upcoming Event Modal */}
       {createModalOpen && (
