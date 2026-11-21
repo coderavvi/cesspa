@@ -91,10 +91,7 @@ export interface EventItem {
   date: string;
   time: string;
   location: string;
-  isVirtual: boolean;
-  venueName?: string;
   fee: number;
-  cpdPoints: number;
   description: string;
   agenda?: { time: string; topic: string; speaker: string }[];
   speakers?: { name: string; role: string; org: string; avatarUrl?: string }[];
@@ -103,6 +100,9 @@ export interface EventItem {
   capacity?: number;
   registeredCount?: number;
   bannerImage?: string;
+  isVirtual?: boolean;
+  venueName?: string;
+  cpdPoints?: number;
 }
 
 export interface EventRegistration {
@@ -112,13 +112,9 @@ export interface EventRegistration {
   fullName: string;
   email: string;
   phone: string;
-  organization: string;
-  membershipId?: string;
   feePaid: number;
   reference: string;
   registeredAt: string;
-  status: "Confirmed" | "Checked In" | "Cancelled";
-  attendanceType?: "In-Person" | "Virtual";
 }
 
 export interface NewsArticle {

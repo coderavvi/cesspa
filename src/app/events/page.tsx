@@ -10,8 +10,6 @@ import {
   ArrowRight,
   Filter,
   Search,
-  Award,
-  Video,
 } from "lucide-react";
 import { Section } from "@/components/shared/Section";
 import { Eyebrow } from "@/components/shared/Eyebrow";
@@ -67,15 +65,14 @@ export default function EventsPage() {
     <div className="w-full">
       <section className="bg-forest-green text-white py-16 lg:py-20 relative overflow-hidden">
         <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <Eyebrow chip="PROGRAMS & CPD" lightMode={true}>
-            CONTINUOUS PROFESSIONAL DEVELOPMENT
+          <Eyebrow chip="PROGRAMS" lightMode={true}>
+            EVENTS &amp; CONFERENCES
           </Eyebrow>
           <h1 className="font-montserrat font-extrabold text-3xl sm:text-4xl md:text-5xl text-white uppercase mt-2 max-w-3xl">
-            CESSPA Events & Conferences
+            CESSPA Events &amp; Conferences
           </h1>
           <p className="text-sm sm:text-base text-sage-mist/90 max-w-2xl mt-4 leading-relaxed">
-            Participate in high-impact national conferences, technical ESIA masterclasses, and virtual webinars.
-            Accumulate verifiable CPD points required for annual certification renewal.
+            Participate in national conferences, technical workshops, and association meetings across Nigeria.
           </p>
         </div>
       </section>
@@ -149,9 +146,8 @@ export default function EventsPage() {
                   <span className="font-montserrat font-bold text-leaf-green bg-sage-mist px-3 py-1 rounded-full uppercase">
                     {event.category}
                   </span>
-                  <span className="flex items-center gap-1 font-semibold text-forest-green bg-forest-green/10 px-2.5 py-1 rounded-md">
-                    <Award className="w-3.5 h-3.5 text-heritage-gold" />
-                    {event.cpdPoints} CPD Points
+                  <span className="font-montserrat font-bold text-forest-green text-xs">
+                    {event.fee === 0 ? "Free" : formatNaira(event.fee)}
                   </span>
                 </div>
 

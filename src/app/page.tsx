@@ -821,7 +821,7 @@ export default function HomePage() {
       </section>
 
       {/* =========================================================================
-          UPCOMING EVENTS & CPD ACCREDITED MASTERCLASSES (Admin Toggleable)
+          UPCOMING EVENTS (Admin Toggleable)
       ========================================================================== */}
       <UpcomingEventsSection />
 

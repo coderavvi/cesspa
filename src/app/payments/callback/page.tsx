@@ -172,27 +172,19 @@ function PaymentCallbackContent() {
           <button
             type="button"
             onClick={() => window.print()}
-            className="w-full sm:w-auto px-4 py-2 rounded-md border border-slate-200 hover:bg-slate-50 text-slate-700 text-xs font-medium inline-flex items-center justify-center gap-1.5 transition-colors"
+            className="w-full sm:w-auto px-4 py-2 rounded-md border border-slate-200 hover:bg-slate-50 text-slate-700 text-xs font-medium inline-flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
           >
             <Download className="w-3.5 h-3.5 text-slate-500" />
             <span>Print Receipt</span>
           </button>
 
-          <div className="flex items-center gap-2 w-full sm:w-auto">
-            <Link
-              href="/admin/payments"
-              className="w-full sm:w-auto px-4 py-2 rounded-md border border-slate-200 hover:bg-slate-50 text-slate-700 text-xs font-medium text-center transition-colors"
-            >
-              Admin Ledger
-            </Link>
-            <Link
-              href="/"
-              className="w-full sm:w-auto px-4 py-2 rounded-md bg-[#0B4A2B] hover:bg-[#08331F] text-white text-xs font-semibold inline-flex items-center justify-center gap-1.5 transition-colors"
-            >
-              <span>Done</span>
-              <ArrowRight className="w-3.5 h-3.5" />
-            </Link>
-          </div>
+          <Link
+            href="/"
+            className="w-full sm:w-auto px-5 py-2 rounded-md bg-[#0B4A2B] hover:bg-[#08331F] text-white text-xs font-semibold inline-flex items-center justify-center gap-1.5 transition-colors"
+          >
+            <span>Return to Home</span>
+            <ArrowRight className="w-3.5 h-3.5" />
+          </Link>
         </div>
       </div>
     </div>

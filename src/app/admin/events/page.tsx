@@ -7,10 +7,8 @@ import {
   Search,
   Calendar,
   MapPin,
-  Award,
   Users,
   X,
-  Check,
   ExternalLink,
   Trash2,
   Eye,
@@ -19,23 +17,12 @@ import {
   Upload,
   Image as ImageIcon,
   FileImage,
-  Download,
-  UserCheck,
-  UserPlus,
-  Phone,
-  Mail,
-  Building,
-  CheckCircle2,
+  ArrowRight,
 } from "lucide-react";
 import { MOCK_EVENTS } from "@/lib/data/mockData";
-import { EventItem, EventRegistration } from "@/lib/types";
+import { EventItem } from "@/lib/types";
 import { formatDate, formatNaira } from "@/lib/utils";
-import {
-  getStoredRegistrations,
-  saveRegistrations,
-  updateRegistrationStatus,
-  addEventRegistration,
-} from "@/lib/registrations";
+import { getStoredRegistrations } from "@/lib/registrations";
 
 // Client-side image compression helper to keep localStorage fast and prevent storage limit errors
 function compressImage(file: File): Promise<string> {
@@ -73,26 +60,8 @@ export default function AdminEventsPage() {
   const [categoryFilter, setCategoryFilter] = useState("All");
   const [createModalOpen, setCreateModalOpen] = useState(false);
   const [homepageGlobalEnabled, setHomepageGlobalEnabled] = useState(true);
-  const [mounted, setMounted] = useState(false);
   const [uploadingFlyer, setUploadingFlyer] = useState(false);
-
-  // Delegate Roster States
-  const [registrations, setRegistrations] = useState<EventRegistration[]>([]);
-  const [rosterModalOpen, setRosterModalOpen] = useState(false);
-  const [rosterEvent, setRosterEvent] = useState<EventItem | null>(null);
-  const [rosterQuery, setRosterQuery] = useState("");
-  const [rosterFilter, setRosterFilter] = useState("All");
-  const [manualAddModalOpen, setManualAddModalOpen] = useState(false);
-
-  const [newAttendee, setNewAttendee] = useState({
-    fullName: "",
-    email: "",
-    phone: "",
-    organization: "",
-    membershipId: "",
-    attendanceType: "In-Person" as "In-Person" | "Virtual",
-    feePaid: "0",
-  });
+  const [registrationsCount, setRegistrationsCount] = useState<Record<string, number>>({});
 
   const fileInputRef = useRef<HTMLInputElement>(null);
   const inspectorFileInputRef = useRef<HTMLInputElement>(null);
@@ -103,9 +72,8 @@ export default function AdminEventsPage() {
     category: "Webinar" as EventItem["category"],
     date: "2026-12-15",
     time: "10:00 AM - 01:00 PM WAT",
-    location: "Virtual (Zoom Conference Room)",
+    location: "Online via Zoom",
     fee: "0",
-    cpdPoints: "4",
     capacity: "250",
     description: "",
     speaker: "Dr. Joshua M. Akor",
@@ -114,9 +82,21 @@ export default function AdminEventsPage() {
     bannerImage: "",
   });
 
+  const refreshRegistrations = () => {
+    try {
+      const regs = getStoredRegistrations();
+      const counts: Record<string, number> = {};
+      regs.forEach((r) => {
+        counts[r.eventId] = (counts[r.eventId] || 0) + 1;
+      });
+      setRegistrationsCount(counts);
+    } catch {
+      // ignore
+    }
+  };
+
   // Load persisted state from localStorage on mount
   useEffect(() => {
-    setMounted(true);
     try {
       if (typeof window !== "undefined") {
         const storedGlobal = localStorage.getItem("cesspa_homepage_events_enabled");
@@ -141,21 +121,20 @@ export default function AdminEventsPage() {
           setSelectedEvent(MOCK_EVENTS[0] || null);
         }
 
-        // Load attendee registrations
-        setRegistrations(getStoredRegistrations());
+        refreshRegistrations();
       }
     } catch {
       setEvents(MOCK_EVENTS);
       setSelectedEvent(MOCK_EVENTS[0] || null);
     }
 
-    const handleRegistrationsUpdate = () => {
-      setRegistrations(getStoredRegistrations());
+    const handleUpdate = () => {
+      refreshRegistrations();
     };
 
-    window.addEventListener("cesspa_registrations_updated", handleRegistrationsUpdate);
+    window.addEventListener("cesspa_registrations_updated", handleUpdate);
     return () => {
-      window.removeEventListener("cesspa_registrations_updated", handleRegistrationsUpdate);
+      window.removeEventListener("cesspa_registrations_updated", handleUpdate);
     };
   }, []);
 
@@ -262,100 +241,6 @@ export default function AdminEventsPage() {
     setSelectedEvent(refreshed);
   };
 
-  // Attendees count helper
-  const getEventAttendees = (eventId: string) => {
-    return registrations.filter((r) => r.eventId === eventId);
-  };
-
-  // Toggle check-in status
-  const handleToggleCheckIn = (id: string) => {
-    const item = registrations.find((r) => r.id === id);
-    if (!item) return;
-    const nextStatus = item.status === "Checked In" ? "Confirmed" : "Checked In";
-    const updated = updateRegistrationStatus(id, nextStatus);
-    setRegistrations(updated);
-  };
-
-  // Export attendee roster to CSV
-  const handleExportRosterCSV = (targetEvent: EventItem) => {
-    const attendees = getEventAttendees(targetEvent.id);
-    if (attendees.length === 0) {
-      alert("No registered delegates found for this event yet.");
-      return;
-    }
-
-    const headers = [
-      "Registration ID",
-      "Full Name",
-      "Email Address",
-      "Phone Number",
-      "Organization",
-      "Membership ID",
-      "Attendance Mode",
-      "Fee Paid (NGN)",
-      "Ticket Reference",
-      "Registered Date",
-      "Status",
-    ];
-
-    const rows = attendees.map((a) => [
-      a.id,
-      `"${a.fullName}"`,
-      `"${a.email}"`,
-      `"${a.phone}"`,
-      `"${a.organization}"`,
-      `"${a.membershipId || "N/A"}"`,
-      a.attendanceType || "In-Person",
-      a.feePaid,
-      a.reference,
-      a.registeredAt,
-      a.status,
-    ]);
-
-    const csvContent = [headers.join(","), ...rows.map((r) => r.join(","))].join("\n");
-    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.setAttribute("href", url);
-    link.setAttribute("download", `CESSPA-Delegates-${targetEvent.slug}.csv`);
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
-
-  // Handle Manual Delegate Addition
-  const handleAddManualDelegate = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!rosterEvent) return;
-
-    const ref = `CESSPA-VIP-${Date.now().toString().slice(-6)}`;
-    const added = addEventRegistration({
-      eventId: rosterEvent.id,
-      eventTitle: rosterEvent.title,
-      fullName: newAttendee.fullName,
-      email: newAttendee.email,
-      phone: newAttendee.phone || "—",
-      organization: newAttendee.organization || "Secretariat Guest",
-      membershipId: newAttendee.membershipId || undefined,
-      feePaid: Number(newAttendee.feePaid) || 0,
-      reference: ref,
-      status: "Confirmed",
-      attendanceType: newAttendee.attendanceType,
-    });
-
-    setRegistrations(getStoredRegistrations());
-    setManualAddModalOpen(false);
-    setNewAttendee({
-      fullName: "",
-      email: "",
-      phone: "",
-      organization: "",
-      membershipId: "",
-      attendanceType: "In-Person",
-      feePaid: "0",
-    });
-  };
-
   const filtered = events.filter((e) => {
     const matchQ =
       !query ||
@@ -376,21 +261,17 @@ export default function AdminEventsPage() {
       date: newEvent.date,
       time: newEvent.time,
       location: newEvent.location,
-      isVirtual:
-        newEvent.location.toLowerCase().includes("virtual") ||
-        newEvent.location.toLowerCase().includes("zoom"),
       fee: Number(newEvent.fee) || 0,
-      cpdPoints: Number(newEvent.cpdPoints) || 0,
       capacity: Number(newEvent.capacity) || 100,
       registeredCount: 0,
       showOnHomepage: newEvent.showOnHomepage,
       bannerImage: newEvent.bannerImage ? newEvent.bannerImage : undefined,
-      description: newEvent.description || "CESSPA statutory continuous professional development session.",
+      description: newEvent.description || "CESSPA association event.",
       agenda: [
         {
           time: "10:00 AM",
-          topic: newEvent.agendaTopic || "Session Keynote & Context",
-          speaker: newEvent.speaker || "Lead Presenter",
+          topic: newEvent.agendaTopic || "Keynote Session",
+          speaker: newEvent.speaker || "Lead Speaker",
         },
       ],
     };
@@ -406,9 +287,8 @@ export default function AdminEventsPage() {
       category: "Webinar",
       date: "2026-12-15",
       time: "10:00 AM - 01:00 PM WAT",
-      location: "Virtual (Zoom Conference Room)",
+      location: "Online via Zoom",
       fee: "0",
-      cpdPoints: "4",
       capacity: "250",
       description: "",
       speaker: "Dr. Joshua M. Akor",
@@ -419,6 +299,7 @@ export default function AdminEventsPage() {
   };
 
   const handleDeleteEvent = (id: string) => {
+    if (!confirm("Are you sure you want to delete this event?")) return;
     const updated = events.filter((e) => e.id !== id);
     persistEvents(updated);
     if (selectedEvent?.id === id) {
@@ -426,42 +307,16 @@ export default function AdminEventsPage() {
     }
   };
 
-  // Active event attendees
-  const selectedEventAttendees = selectedEvent ? getEventAttendees(selectedEvent.id) : [];
-
-  // Roster modal filtered list
-  const modalAttendees = rosterEvent
-    ? getEventAttendees(rosterEvent.id).filter((a) => {
-        const q = rosterQuery.toLowerCase();
-        const matchesQ =
-          !q ||
-          a.fullName.toLowerCase().includes(q) ||
-          a.email.toLowerCase().includes(q) ||
-          a.organization.toLowerCase().includes(q) ||
-          a.reference.toLowerCase().includes(q);
-        const matchesFilter =
-          rosterFilter === "All" ||
-          (rosterFilter === "In-Person" && a.attendanceType === "In-Person") ||
-          (rosterFilter === "Virtual" && a.attendanceType === "Virtual") ||
-          (rosterFilter === "Checked In" && a.status === "Checked In");
-        return matchesQ && matchesFilter;
-      })
-    : [];
-
-  const rosterRevenue = rosterEvent
-    ? getEventAttendees(rosterEvent.id).reduce((acc, curr) => acc + curr.feePaid, 0)
-    : 0;
-
   return (
     <div className="space-y-8">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-4 pb-4 border-b border-slate-200">
         <div>
           <h1 className="font-heading font-bold text-2xl text-slate-900 tracking-tight">
-            Events &amp; Continuous Professional Development
+            Events Management
           </h1>
           <p className="text-xs text-slate-500 mt-1">
-            Publish and manage summits, chapter technical sessions, delegate rosters, and accredited masterclasses
+            Publish upcoming conferences, workshops, webinars, and manage homepage visibility
           </p>
         </div>
 
@@ -470,8 +325,8 @@ export default function AdminEventsPage() {
           <button
             type="button"
             onClick={handleToggleGlobalHomepage}
-            title="Toggle whether upcoming events are visible to public visitors on the homepage"
-            className={`px-3 py-1.5 rounded-md border text-xs font-medium flex items-center gap-2 transition-colors ${
+            title="Toggle whether the upcoming events section is shown on the homepage"
+            className={`px-3 py-1.5 rounded-md border text-xs font-medium flex items-center gap-2 transition-colors cursor-pointer ${
               homepageGlobalEnabled
                 ? "border-emerald-300 bg-emerald-50 text-[#0B4A2B] hover:bg-emerald-100"
                 : "border-slate-300 bg-slate-50 text-slate-600 hover:bg-slate-100"
@@ -492,9 +347,9 @@ export default function AdminEventsPage() {
           <button
             type="button"
             onClick={() => setCreateModalOpen(true)}
-            className="px-3.5 py-1.5 rounded-md bg-[#0B4A2B] hover:bg-[#08331F] text-white text-xs font-semibold flex items-center gap-1.5 transition-colors"
+            className="px-3.5 py-1.5 rounded-md bg-[#0B4A2B] hover:bg-[#08331F] text-white text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer"
           >
-            <Plus className="w-3.5 h-3.5" /> Post Upcoming Event
+            <Plus className="w-3.5 h-3.5" /> Post Event
           </button>
         </div>
       </div>
@@ -507,7 +362,7 @@ export default function AdminEventsPage() {
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search by event title or venue..."
+            placeholder="Search by event title or location..."
             className="w-full pl-8 pr-3 py-1.5 rounded-md border border-slate-200 text-xs text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-[#0B4A2B]"
           />
         </div>
@@ -517,18 +372,18 @@ export default function AdminEventsPage() {
           <select
             value={categoryFilter}
             onChange={(e) => setCategoryFilter(e.target.value)}
-            className="px-2.5 py-1.5 rounded-md border border-slate-200 text-xs text-slate-700 focus:outline-none focus:border-[#0B4A2B] bg-white"
+            className="px-2.5 py-1.5 rounded-md border border-slate-200 text-xs text-slate-700 focus:outline-none focus:border-[#0B4A2B] bg-white cursor-pointer"
           >
             <option value="All">All Categories</option>
-            <option value="Conference">National Conference / AGM</option>
-            <option value="Webinar">Technical Webinar</option>
-            <option value="Workshop">Safeguards Masterclass</option>
-            <option value="Chapter Event">Chapter Forum</option>
+            <option value="Conference">Conference / AGM</option>
+            <option value="Webinar">Webinar</option>
+            <option value="Workshop">Workshop</option>
+            <option value="Chapter Event">Chapter Event</option>
           </select>
         </div>
       </div>
 
-      {/* Main Workspace (Asymmetric Split: Events Table on Left, Inspector on Right) */}
+      {/* Main Workspace: Events Table on Left, Selected Event Inspector on Right */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         {/* Left Column: Events Table (7 cols) */}
         <div className="lg:col-span-7 overflow-x-auto">
@@ -537,9 +392,8 @@ export default function AdminEventsPage() {
               <tr className="border-b border-slate-200 text-slate-400 uppercase text-[10px] font-medium">
                 <th className="py-2.5 px-3">Event &amp; Flyer</th>
                 <th className="py-2.5 px-3">Category</th>
-                <th className="py-2.5 px-3">Date &amp; Venue</th>
-                <th className="py-2.5 px-3">CPD Points</th>
-                <th className="py-2.5 px-3">Delegates</th>
+                <th className="py-2.5 px-3">Date &amp; Location</th>
+                <th className="py-2.5 px-3">Registered</th>
                 <th className="py-2.5 px-3">Fee</th>
                 <th className="py-2.5 px-3 text-right">Homepage</th>
               </tr>
@@ -548,7 +402,7 @@ export default function AdminEventsPage() {
               {filtered.map((evt) => {
                 const isSelected = selectedEvent?.id === evt.id;
                 const isShownOnHome = evt.showOnHomepage !== false;
-                const attendeesCount = getEventAttendees(evt.id).length;
+                const count = registrationsCount[evt.id] || evt.registeredCount || 0;
                 return (
                   <tr
                     key={evt.id}
@@ -583,23 +437,11 @@ export default function AdminEventsPage() {
                       <div>{formatDate(evt.date)}</div>
                       <div className="text-[10px] text-slate-400 truncate max-w-[130px]">{evt.location}</div>
                     </td>
-                    <td className="py-3 px-3 font-mono font-semibold text-[#0B4A2B]">
-                      {evt.cpdPoints} pts
-                    </td>
-                    <td className="py-3 px-3">
-                      <button
-                        type="button"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          setRosterEvent(evt);
-                          setRosterModalOpen(true);
-                        }}
-                        title="Click to view full attendee roster"
-                        className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md font-mono text-[11px] font-semibold text-[#0B4A2B] bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 transition-colors"
-                      >
-                        <Users className="w-3 h-3 text-[#0B4A2B]" />
-                        <span>{attendeesCount} delegates</span>
-                      </button>
+                    <td className="py-3 px-3 font-mono text-slate-700">
+                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-slate-100 font-semibold text-[11px]">
+                        <Users className="w-3 h-3 text-slate-500" />
+                        {count}
+                      </span>
                     </td>
                     <td className="py-3 px-3 font-mono font-medium text-slate-900">
                       {evt.fee === 0 ? "Free" : formatNaira(evt.fee)}
@@ -609,7 +451,7 @@ export default function AdminEventsPage() {
                         type="button"
                         onClick={(e) => handleToggleEventHomepage(evt.id, e)}
                         title={isShownOnHome ? "Click to hide from homepage" : "Click to show on homepage"}
-                        className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md text-[11px] font-medium border transition-colors ${
+                        className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md text-[11px] font-medium border transition-colors cursor-pointer ${
                           isShownOnHome
                             ? "bg-emerald-50 border-emerald-200 text-[#0B4A2B] hover:bg-emerald-100"
                             : "bg-slate-100 border-slate-200 text-slate-400 hover:text-slate-700"
@@ -640,14 +482,9 @@ export default function AdminEventsPage() {
           {selectedEvent ? (
             <div className="space-y-6">
               <div className="pb-3 border-b border-slate-200">
-                <div className="flex items-center justify-between">
-                  <span className="font-mono text-xs font-bold text-[#0B4A2B]">
-                    {selectedEvent.category}
-                  </span>
-                  <span className="text-[10px] px-2 py-0.5 rounded-md bg-slate-100 font-mono font-semibold text-slate-700">
-                    {selectedEvent.cpdPoints} CPD Points
-                  </span>
-                </div>
+                <span className="font-mono text-xs font-bold text-[#0B4A2B]">
+                  {selectedEvent.category}
+                </span>
                 <h2 className="font-heading font-bold text-base text-slate-900 mt-1">
                   {selectedEvent.title}
                 </h2>
@@ -661,13 +498,13 @@ export default function AdminEventsPage() {
                 <div className="flex items-center justify-between">
                   <span className="text-[11px] font-medium text-slate-600 flex items-center gap-1.5">
                     <FileImage className="w-3.5 h-3.5 text-[#0B4A2B]" />
-                    Event Flyer / Banner
+                    Event Flyer
                   </span>
                   {selectedEvent.bannerImage && (
                     <button
                       type="button"
                       onClick={handleRemoveInspectorFlyer}
-                      className="text-[11px] text-rose-600 hover:underline"
+                      className="text-[11px] text-rose-600 hover:underline cursor-pointer"
                     >
                       Remove flyer
                     </button>
@@ -703,12 +540,12 @@ export default function AdminEventsPage() {
                     </div>
                     <div className="text-xs text-slate-600 font-medium">No event flyer uploaded</div>
                     <p className="text-[11px] text-slate-400 max-w-xs mx-auto">
-                      Upload an official flyer to display on the homepage event card and public event page.
+                      Upload an event flyer to display on the homepage and event registration page.
                     </p>
                     <div>
                       <label className="cursor-pointer px-3 py-1.5 rounded-md bg-[#0B4A2B] hover:bg-[#08331F] text-white text-xs font-semibold inline-flex items-center gap-1.5 transition-colors">
                         <Upload className="w-3.5 h-3.5" />
-                        <span>{uploadingFlyer ? "Processing..." : "Upload Event Flyer"}</span>
+                        <span>{uploadingFlyer ? "Processing..." : "Upload Flyer"}</span>
                         <input
                           type="file"
                           accept="image/*"
@@ -721,43 +558,30 @@ export default function AdminEventsPage() {
                 )}
               </div>
 
-              {/* Registered Delegates Card (Dedicated Inspection Hub) */}
-              <div className="p-4 rounded-lg border border-slate-200 bg-slate-50/70 space-y-3">
+              {/* Registered Delegates Card with direct navigation to Insights */}
+              <div className="p-4 rounded-lg border border-slate-200 bg-slate-50/70 space-y-2">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <Users className="w-4 h-4 text-[#0B4A2B]" />
                     <span className="text-xs font-semibold text-slate-900 font-heading">
-                      Registered Delegates Roster
+                      Registered Delegates
                     </span>
                   </div>
                   <span className="font-mono text-xs font-bold text-[#0B4A2B] px-2 py-0.5 rounded-md bg-emerald-50 border border-emerald-200">
-                    {selectedEventAttendees.length} registered
+                    {registrationsCount[selectedEvent.id] || selectedEvent.registeredCount || 0} registered
                   </span>
                 </div>
-                <p className="text-[11px] text-slate-500 leading-relaxed">
-                  View attendee names, organization affiliations, Paystack references, and check in delegates for verified CPD credit logs.
+                <p className="text-[11px] text-slate-500">
+                  Full list of registered delegates for this event can be viewed and exported under the Insights tab.
                 </p>
-                <div className="flex items-center gap-2 pt-1">
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setRosterEvent(selectedEvent);
-                      setRosterModalOpen(true);
-                    }}
-                    className="flex-1 py-2 px-3 rounded-md bg-[#0B4A2B] hover:bg-[#08331F] text-white text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors"
+                <div className="pt-1">
+                  <Link
+                    href="/admin/content?tab=registrations"
+                    className="w-full py-2 px-3 rounded-md bg-white border border-slate-200 hover:border-[#0B4A2B] text-slate-700 text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
                   >
-                    <Users className="w-3.5 h-3.5" />
-                    <span>View Delegate Roster ({selectedEventAttendees.length})</span>
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => handleExportRosterCSV(selectedEvent)}
-                    title="Export attendee list to CSV"
-                    className="py-2 px-3 rounded-md border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 text-xs font-medium flex items-center gap-1 transition-colors"
-                  >
-                    <Download className="w-3.5 h-3.5 text-slate-500" />
-                    <span>CSV</span>
-                  </button>
+                    <span>View Registered Delegates in Insights</span>
+                    <ArrowRight className="w-3.5 h-3.5 text-[#0B4A2B]" />
+                  </Link>
                 </div>
               </div>
 
@@ -782,7 +606,7 @@ export default function AdminEventsPage() {
                   <button
                     type="button"
                     onClick={() => handleToggleEventHomepage(selectedEvent.id)}
-                    className="px-2.5 py-1 rounded-md text-xs font-medium border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 transition-colors shrink-0"
+                    className="px-2.5 py-1 rounded-md text-xs font-medium border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 transition-colors shrink-0 cursor-pointer"
                   >
                     {selectedEvent.showOnHomepage !== false ? "Hide from Homepage" : "Show on Homepage"}
                   </button>
@@ -792,22 +616,18 @@ export default function AdminEventsPage() {
               {/* Event Metadata */}
               <div className="space-y-2 text-xs divide-y divide-slate-100 text-slate-700">
                 <div className="flex justify-between py-1">
-                  <span className="text-slate-500">Location / Platform:</span>
+                  <span className="text-slate-500">Location:</span>
                   <span className="font-medium text-slate-900 text-right">{selectedEvent.location}</span>
                 </div>
                 <div className="flex justify-between py-1">
-                  <span className="text-slate-500">Attendance Type:</span>
-                  <span>{selectedEvent.isVirtual ? "Virtual / Online" : "Physical In-Person"}</span>
-                </div>
-                <div className="flex justify-between py-1">
-                  <span className="text-slate-500">Registration Tariff:</span>
+                  <span className="text-slate-500">Registration Fee:</span>
                   <span className="font-semibold text-slate-900">
-                    {selectedEvent.fee === 0 ? "Complimentary for Members" : formatNaira(selectedEvent.fee)}
+                    {selectedEvent.fee === 0 ? "Free" : formatNaira(selectedEvent.fee)}
                   </span>
                 </div>
                 <div className="flex justify-between py-1">
-                  <span className="text-slate-500">Roster Capacity:</span>
-                  <span>{selectedEventAttendees.length} registered ({selectedEvent.capacity} seats max)</span>
+                  <span className="text-slate-500">Capacity:</span>
+                  <span>{selectedEvent.capacity || 200} seats</span>
                 </div>
               </div>
 
@@ -816,20 +636,20 @@ export default function AdminEventsPage() {
               {/* Description */}
               <div className="space-y-1 text-xs">
                 <span className="text-[10px] font-mono uppercase text-slate-400 block">
-                  Program Brief
+                  Description
                 </span>
                 <p className="text-slate-600 leading-relaxed text-[11px]">
                   {selectedEvent.description}
                 </p>
               </div>
 
-              {/* Agenda Highlights */}
+              {/* Agenda */}
               {selectedEvent.agenda && selectedEvent.agenda.length > 0 && (
                 <>
                   <div className="h-px bg-slate-200" />
                   <div className="space-y-2 text-xs">
                     <span className="text-[10px] font-mono uppercase text-slate-400 block">
-                      Program Agenda
+                      Agenda
                     </span>
                     <div className="space-y-1.5">
                       {selectedEvent.agenda.map((item, idx) => (
@@ -853,7 +673,7 @@ export default function AdminEventsPage() {
                 <Link
                   href={`/events/${selectedEvent.slug}`}
                   target="_blank"
-                  className="px-3 py-1.5 rounded-md border border-slate-200 hover:bg-slate-50 text-slate-700 text-xs font-medium flex items-center gap-1.5 transition-colors"
+                  className="px-3 py-1.5 rounded-md border border-slate-200 hover:bg-slate-50 text-slate-700 text-xs font-medium flex items-center gap-1.5 transition-colors cursor-pointer"
                 >
                   <ExternalLink className="w-3.5 h-3.5 text-slate-400" /> Public Page
                 </Link>
@@ -861,9 +681,9 @@ export default function AdminEventsPage() {
                 <button
                   type="button"
                   onClick={() => handleDeleteEvent(selectedEvent.id)}
-                  className="px-2.5 py-1.5 rounded-md text-rose-600 hover:bg-rose-50 text-xs font-medium flex items-center gap-1 transition-colors"
+                  className="px-2.5 py-1.5 rounded-md text-rose-600 hover:bg-rose-50 text-xs font-medium flex items-center gap-1 transition-colors cursor-pointer"
                 >
-                  <Trash2 className="w-3.5 h-3.5" /> Remove
+                  <Trash2 className="w-3.5 h-3.5" /> Remove Event
                 </button>
               </div>
             </div>
@@ -872,305 +692,6 @@ export default function AdminEventsPage() {
           )}
         </div>
       </div>
-
-      {/* Delegate Roster Modal */}
-      {rosterModalOpen && rosterEvent && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-xs">
-          <div className="max-w-4xl w-full bg-white rounded-lg p-6 border border-slate-200 shadow-2xl space-y-5 max-h-[90vh] overflow-y-auto">
-            {/* Modal Header */}
-            <div className="flex items-start justify-between pb-4 border-b border-slate-200">
-              <div>
-                <div className="flex items-center gap-2">
-                  <span className="font-mono text-[10px] uppercase font-bold text-[#0B4A2B] bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200">
-                    {rosterEvent.category} • {rosterEvent.cpdPoints} CPD Points
-                  </span>
-                  <span className="text-xs text-slate-400 font-mono">
-                    {formatDate(rosterEvent.date)}
-                  </span>
-                </div>
-                <h3 className="font-heading font-bold text-lg text-slate-900 mt-1">
-                  Delegate Roster: {rosterEvent.title}
-                </h3>
-              </div>
-              <button
-                type="button"
-                onClick={() => setRosterModalOpen(false)}
-                className="p-1 rounded-md text-slate-400 hover:text-slate-700"
-              >
-                <X className="w-5 h-5" />
-              </button>
-            </div>
-
-            {/* Metrics Bar */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 p-4 rounded-lg bg-slate-50 border border-slate-200 text-xs">
-              <div>
-                <span className="text-[10px] uppercase font-mono text-slate-400 block">Total Registered</span>
-                <span className="font-heading font-bold text-xl text-slate-900">
-                  {getEventAttendees(rosterEvent.id).length}
-                </span>
-              </div>
-              <div>
-                <span className="text-[10px] uppercase font-mono text-slate-400 block">In-Person</span>
-                <span className="font-heading font-bold text-xl text-[#0B4A2B]">
-                  {getEventAttendees(rosterEvent.id).filter((a) => a.attendanceType === "In-Person").length}
-                </span>
-              </div>
-              <div>
-                <span className="text-[10px] uppercase font-mono text-slate-400 block">Virtual Stream</span>
-                <span className="font-heading font-bold text-xl text-slate-700">
-                  {getEventAttendees(rosterEvent.id).filter((a) => a.attendanceType === "Virtual").length}
-                </span>
-              </div>
-              <div>
-                <span className="text-[10px] uppercase font-mono text-slate-400 block">Tariff Inflow</span>
-                <span className="font-heading font-bold text-xl text-[#0B4A2B]">
-                  {formatNaira(rosterRevenue)}
-                </span>
-              </div>
-            </div>
-
-            {/* Filter & Action Bar */}
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-1">
-              <div className="flex items-center gap-2 flex-1 max-w-sm">
-                <div className="relative flex-1">
-                  <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
-                  <input
-                    type="text"
-                    value={rosterQuery}
-                    onChange={(e) => setRosterQuery(e.target.value)}
-                    placeholder="Search delegate by name, email, org, or ref..."
-                    className="w-full pl-8 pr-3 py-1.5 rounded-md border border-slate-200 text-xs focus:outline-none focus:border-[#0B4A2B]"
-                  />
-                </div>
-                <select
-                  value={rosterFilter}
-                  onChange={(e) => setRosterFilter(e.target.value)}
-                  className="px-2.5 py-1.5 rounded-md border border-slate-200 text-xs text-slate-700 focus:outline-none focus:border-[#0B4A2B] bg-white"
-                >
-                  <option value="All">All Modes</option>
-                  <option value="In-Person">In-Person</option>
-                  <option value="Virtual">Virtual</option>
-                  <option value="Checked In">Checked In</option>
-                </select>
-              </div>
-
-              <div className="flex items-center gap-2">
-                <button
-                  type="button"
-                  onClick={() => setManualAddModalOpen(true)}
-                  className="px-3 py-1.5 rounded-md border border-slate-200 hover:bg-slate-50 text-slate-700 text-xs font-medium flex items-center gap-1.5 transition-colors"
-                >
-                  <UserPlus className="w-3.5 h-3.5 text-[#0B4A2B]" />
-                  <span>Add Delegate</span>
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => handleExportRosterCSV(rosterEvent)}
-                  className="px-3 py-1.5 rounded-md bg-[#0B4A2B] hover:bg-[#08331F] text-white text-xs font-semibold flex items-center gap-1.5 transition-colors"
-                >
-                  <Download className="w-3.5 h-3.5" />
-                  <span>Export CSV</span>
-                </button>
-              </div>
-            </div>
-
-            {/* Delegates Table */}
-            {modalAttendees.length > 0 ? (
-              <div className="overflow-x-auto border border-slate-200 rounded-md">
-                <table className="w-full text-left text-xs">
-                  <thead>
-                    <tr className="bg-slate-50 border-b border-slate-200 text-slate-500 uppercase text-[10px] font-medium">
-                      <th className="py-2.5 px-3">Delegate Name</th>
-                      <th className="py-2.5 px-3">Organization</th>
-                      <th className="py-2.5 px-3">Contact</th>
-                      <th className="py-2.5 px-3">Attendance</th>
-                      <th className="py-2.5 px-3">Tariff</th>
-                      <th className="py-2.5 px-3">Reference</th>
-                      <th className="py-2.5 px-3 text-right">Check-In Status</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-slate-100 text-slate-700">
-                    {modalAttendees.map((a) => (
-                      <tr key={a.id} className="hover:bg-slate-50/70 transition-colors">
-                        <td className="py-3 px-3">
-                          <div className="font-semibold text-slate-900">{a.fullName}</div>
-                          {a.membershipId && (
-                            <div className="font-mono text-[10px] text-[#0B4A2B]">{a.membershipId}</div>
-                          )}
-                        </td>
-                        <td className="py-3 px-3 text-slate-600">
-                          {a.organization}
-                        </td>
-                        <td className="py-3 px-3">
-                          <div className="text-slate-800">{a.email}</div>
-                          <div className="text-[11px] text-slate-400 font-mono">{a.phone}</div>
-                        </td>
-                        <td className="py-3 px-3">
-                          <span
-                            className={`px-2 py-0.5 rounded-md text-[10px] font-semibold ${
-                              a.attendanceType === "Virtual"
-                                ? "bg-sky-50 text-sky-800 border border-sky-200"
-                                : "bg-emerald-50 text-[#0B4A2B] border border-emerald-200"
-                            }`}
-                          >
-                            {a.attendanceType || "In-Person"}
-                          </span>
-                        </td>
-                        <td className="py-3 px-3 font-mono font-medium">
-                          {a.feePaid === 0 ? "Free" : formatNaira(a.feePaid)}
-                        </td>
-                        <td className="py-3 px-3 font-mono text-[11px] text-slate-500">
-                          {a.reference}
-                        </td>
-                        <td className="py-3 px-3 text-right">
-                          <button
-                            type="button"
-                            onClick={() => handleToggleCheckIn(a.id)}
-                            title="Click to toggle check-in status"
-                            className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-[11px] font-semibold transition-colors ${
-                              a.status === "Checked In"
-                                ? "bg-emerald-600 text-white hover:bg-emerald-700"
-                                : "bg-slate-100 text-slate-700 hover:bg-slate-200 border border-slate-200"
-                            }`}
-                          >
-                            <UserCheck className="w-3 h-3" />
-                            <span>{a.status === "Checked In" ? "Checked In" : "Mark Present"}</span>
-                          </button>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            ) : (
-              <div className="py-12 text-center text-xs text-slate-400 border border-dashed border-slate-200 rounded-md">
-                No registered delegates match the filter criteria.
-              </div>
-            )}
-          </div>
-        </div>
-      )}
-
-      {/* Manual Add Delegate Modal */}
-      {manualAddModalOpen && rosterEvent && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs">
-          <div className="max-w-md w-full bg-white rounded-lg p-6 border border-slate-200 shadow-xl space-y-4">
-            <div className="flex items-start justify-between pb-3 border-b border-slate-200">
-              <h3 className="font-heading font-bold text-sm text-slate-900">
-                Register Delegate (Secretariat Desk)
-              </h3>
-              <button
-                type="button"
-                onClick={() => setManualAddModalOpen(false)}
-                className="p-1 rounded-md text-slate-400 hover:text-slate-700"
-              >
-                <X className="w-4 h-4" />
-              </button>
-            </div>
-
-            <form onSubmit={handleAddManualDelegate} className="space-y-3 text-xs">
-              <div>
-                <label className="block text-slate-700 font-medium mb-1">Full Name *</label>
-                <input
-                  type="text"
-                  required
-                  value={newAttendee.fullName}
-                  onChange={(e) => setNewAttendee({ ...newAttendee, fullName: e.target.value })}
-                  placeholder="e.g. Prof. Oladipo Adeleke"
-                  className="w-full px-3 py-1.5 rounded-md border border-slate-200 focus:outline-none focus:border-[#0B4A2B]"
-                />
-              </div>
-
-              <div className="grid grid-cols-2 gap-3">
-                <div>
-                  <label className="block text-slate-700 font-medium mb-1">Email *</label>
-                  <input
-                    type="email"
-                    required
-                    value={newAttendee.email}
-                    onChange={(e) => setNewAttendee({ ...newAttendee, email: e.target.value })}
-                    placeholder="delegate@domain.com"
-                    className="w-full px-3 py-1.5 rounded-md border border-slate-200 focus:outline-none focus:border-[#0B4A2B]"
-                  />
-                </div>
-                <div>
-                  <label className="block text-slate-700 font-medium mb-1">Phone</label>
-                  <input
-                    type="tel"
-                    value={newAttendee.phone}
-                    onChange={(e) => setNewAttendee({ ...newAttendee, phone: e.target.value })}
-                    placeholder="+234 803 000 0000"
-                    className="w-full px-3 py-1.5 rounded-md border border-slate-200 focus:outline-none focus:border-[#0B4A2B]"
-                  />
-                </div>
-              </div>
-
-              <div className="grid grid-cols-2 gap-3">
-                <div>
-                  <label className="block text-slate-700 font-medium mb-1">Organization</label>
-                  <input
-                    type="text"
-                    value={newAttendee.organization}
-                    onChange={(e) => setNewAttendee({ ...newAttendee, organization: e.target.value })}
-                    placeholder="e.g. Federal Ministry"
-                    className="w-full px-3 py-1.5 rounded-md border border-slate-200 focus:outline-none focus:border-[#0B4A2B]"
-                  />
-                </div>
-                <div>
-                  <label className="block text-slate-700 font-medium mb-1">Membership ID</label>
-                  <input
-                    type="text"
-                    value={newAttendee.membershipId}
-                    onChange={(e) => setNewAttendee({ ...newAttendee, membershipId: e.target.value })}
-                    placeholder="CESSPA-2025-0104"
-                    className="w-full px-3 py-1.5 rounded-md border border-slate-200 font-mono focus:outline-none focus:border-[#0B4A2B]"
-                  />
-                </div>
-              </div>
-
-              <div className="grid grid-cols-2 gap-3">
-                <div>
-                  <label className="block text-slate-700 font-medium mb-1">Mode</label>
-                  <select
-                    value={newAttendee.attendanceType}
-                    onChange={(e) => setNewAttendee({ ...newAttendee, attendanceType: e.target.value as any })}
-                    className="w-full px-2.5 py-1.5 rounded-md border border-slate-200 focus:outline-none focus:border-[#0B4A2B] bg-white"
-                  >
-                    <option value="In-Person">In-Person</option>
-                    <option value="Virtual">Virtual Stream</option>
-                  </select>
-                </div>
-                <div>
-                  <label className="block text-slate-700 font-medium mb-1">Fee Settled (₦)</label>
-                  <input
-                    type="number"
-                    value={newAttendee.feePaid}
-                    onChange={(e) => setNewAttendee({ ...newAttendee, feePaid: e.target.value })}
-                    className="w-full px-3 py-1.5 rounded-md border border-slate-200 font-mono focus:outline-none focus:border-[#0B4A2B]"
-                  />
-                </div>
-              </div>
-
-              <div className="pt-3 border-t border-slate-200 flex items-center justify-end gap-2">
-                <button
-                  type="button"
-                  onClick={() => setManualAddModalOpen(false)}
-                  className="px-3 py-1.5 rounded-md border border-slate-200 text-slate-700 hover:bg-slate-50"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  className="px-4 py-1.5 rounded-md bg-[#0B4A2B] hover:bg-[#08331F] text-white font-semibold"
-                >
-                  Confirm Delegate Registration
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
 
       {/* Post Upcoming Event Modal */}
       {createModalOpen && (
@@ -1183,7 +704,7 @@ export default function AdminEventsPage() {
               <button
                 type="button"
                 onClick={() => setCreateModalOpen(false)}
-                className="p-1 rounded-md text-slate-400 hover:text-slate-700"
+                className="p-1 rounded-md text-slate-400 hover:text-slate-700 cursor-pointer"
               >
                 <X className="w-4 h-4" />
               </button>
@@ -1202,9 +723,9 @@ export default function AdminEventsPage() {
                 />
               </div>
 
-              {/* Event Flyer Image Upload Section */}
+              {/* Event Flyer Image Upload */}
               <div className="p-3 rounded-md border border-slate-200 bg-slate-50/50 space-y-2">
-                <label className="block text-slate-700 font-medium">Event Flyer / Banner</label>
+                <label className="block text-slate-700 font-medium">Event Flyer</label>
                 <div className="flex flex-col sm:flex-row gap-3 items-start">
                   {newEvent.bannerImage ? (
                     <div className="relative border border-slate-200 rounded-md overflow-hidden w-full sm:w-44 h-28 bg-white shrink-0">
@@ -1216,7 +737,7 @@ export default function AdminEventsPage() {
                       <button
                         type="button"
                         onClick={() => setNewEvent({ ...newEvent, bannerImage: "" })}
-                        className="absolute top-1 right-1 p-1 rounded-md bg-white/90 text-rose-600 hover:bg-white shadow-xs"
+                        className="absolute top-1 right-1 p-1 rounded-md bg-white/90 text-rose-600 hover:bg-white shadow-xs cursor-pointer"
                         title="Remove flyer"
                       >
                         <X className="w-3.5 h-3.5" />
@@ -1243,7 +764,7 @@ export default function AdminEventsPage() {
                         />
                       </label>
                       <span className="block text-[10px] text-slate-400 mt-1">
-                        Uploads JPEG, PNG, or WebP. Automatically scaled for fast loading.
+                        Select a JPEG, PNG, or WebP file.
                       </span>
                     </div>
 
@@ -1252,7 +773,7 @@ export default function AdminEventsPage() {
                         type="url"
                         value={newEvent.bannerImage.startsWith("data:") ? "" : newEvent.bannerImage}
                         onChange={(e) => setNewEvent({ ...newEvent, bannerImage: e.target.value })}
-                        placeholder="Or paste external image URL..."
+                        placeholder="Or paste image URL..."
                         className="w-full px-2.5 py-1 rounded-md border border-slate-200 text-[11px] focus:outline-none focus:border-[#0B4A2B] bg-white"
                       />
                     </div>
@@ -1266,23 +787,21 @@ export default function AdminEventsPage() {
                   <select
                     value={newEvent.category}
                     onChange={(e) => setNewEvent({ ...newEvent, category: e.target.value as any })}
-                    className="w-full px-2.5 py-1.5 rounded-md border border-slate-200 text-xs focus:outline-none focus:border-[#0B4A2B] bg-white"
+                    className="w-full px-2.5 py-1.5 rounded-md border border-slate-200 text-xs focus:outline-none focus:border-[#0B4A2B] bg-white cursor-pointer"
                   >
-                    <option value="Webinar">Technical Webinar</option>
-                    <option value="Conference">National Conference / AGM</option>
-                    <option value="Workshop">Safeguards Masterclass</option>
-                    <option value="Chapter Event">Chapter Forum</option>
+                    <option value="Webinar">Webinar</option>
+                    <option value="Conference">Conference / AGM</option>
+                    <option value="Workshop">Workshop</option>
+                    <option value="Chapter Event">Chapter Event</option>
                   </select>
                 </div>
 
                 <div>
-                  <label className="block text-slate-700 font-medium mb-1">CPD Points</label>
+                  <label className="block text-slate-700 font-medium mb-1">Capacity Limit</label>
                   <input
                     type="number"
-                    required
-                    value={newEvent.cpdPoints}
-                    onChange={(e) => setNewEvent({ ...newEvent, cpdPoints: e.target.value })}
-                    placeholder="e.g. 4"
+                    value={newEvent.capacity}
+                    onChange={(e) => setNewEvent({ ...newEvent, capacity: e.target.value })}
                     className="w-full px-3 py-1.5 rounded-md border border-slate-200 text-xs focus:outline-none focus:border-[#0B4A2B]"
                   />
                 </div>
@@ -1301,7 +820,7 @@ export default function AdminEventsPage() {
                 </div>
 
                 <div>
-                  <label className="block text-slate-700 font-medium mb-1">Time Window</label>
+                  <label className="block text-slate-700 font-medium mb-1">Time</label>
                   <input
                     type="text"
                     required
@@ -1314,7 +833,7 @@ export default function AdminEventsPage() {
               </div>
 
               <div>
-                <label className="block text-slate-700 font-medium mb-1">Location / Venue</label>
+                <label className="block text-slate-700 font-medium mb-1">Location</label>
                 <input
                   type="text"
                   required
@@ -1325,26 +844,14 @@ export default function AdminEventsPage() {
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-3">
-                <div>
-                  <label className="block text-slate-700 font-medium mb-1">Delegate Fee (₦, 0 for free)</label>
-                  <input
-                    type="number"
-                    value={newEvent.fee}
-                    onChange={(e) => setNewEvent({ ...newEvent, fee: e.target.value })}
-                    className="w-full px-3 py-1.5 rounded-md border border-slate-200 text-xs focus:outline-none focus:border-[#0B4A2B]"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-slate-700 font-medium mb-1">Capacity Limit</label>
-                  <input
-                    type="number"
-                    value={newEvent.capacity}
-                    onChange={(e) => setNewEvent({ ...newEvent, capacity: e.target.value })}
-                    className="w-full px-3 py-1.5 rounded-md border border-slate-200 text-xs focus:outline-none focus:border-[#0B4A2B]"
-                  />
-                </div>
+              <div>
+                <label className="block text-slate-700 font-medium mb-1">Registration Fee (₦, 0 for free)</label>
+                <input
+                  type="number"
+                  value={newEvent.fee}
+                  onChange={(e) => setNewEvent({ ...newEvent, fee: e.target.value })}
+                  className="w-full px-3 py-1.5 rounded-md border border-slate-200 text-xs focus:outline-none focus:border-[#0B4A2B]"
+                />
               </div>
 
               <div>
@@ -1353,7 +860,7 @@ export default function AdminEventsPage() {
                   rows={3}
                   value={newEvent.description}
                   onChange={(e) => setNewEvent({ ...newEvent, description: e.target.value })}
-                  placeholder="Summary of learning outcomes, regulatory focal points, and target audience..."
+                  placeholder="Brief summary of event..."
                   className="w-full p-2.5 rounded-md border border-slate-200 text-xs focus:outline-none focus:border-[#0B4A2B]"
                 />
               </div>
@@ -1375,7 +882,7 @@ export default function AdminEventsPage() {
                     type="text"
                     value={newEvent.agendaTopic}
                     onChange={(e) => setNewEvent({ ...newEvent, agendaTopic: e.target.value })}
-                    placeholder="e.g. Modernizing Ecological Baselines"
+                    placeholder="e.g. Environmental Standards Overview"
                     className="w-full px-3 py-1.5 rounded-md border border-slate-200 text-xs focus:outline-none focus:border-[#0B4A2B]"
                   />
                 </div>
@@ -1386,14 +893,14 @@ export default function AdminEventsPage() {
                 <div>
                   <span className="block font-medium text-slate-800">Show on Homepage</span>
                   <span className="block text-[11px] text-slate-500">
-                    Feature this event in the upcoming events section so visitors can see the flyer and register.
+                    Display this event in the upcoming events section on the homepage.
                   </span>
                 </div>
                 <input
                   type="checkbox"
                   checked={newEvent.showOnHomepage}
                   onChange={(e) => setNewEvent({ ...newEvent, showOnHomepage: e.target.checked })}
-                  className="w-4 h-4 text-[#0B4A2B] rounded border-slate-300 focus:ring-[#0B4A2B]"
+                  className="w-4 h-4 text-[#0B4A2B] rounded border-slate-300 focus:ring-[#0B4A2B] cursor-pointer"
                 />
               </div>
 
@@ -1401,15 +908,15 @@ export default function AdminEventsPage() {
                 <button
                   type="button"
                   onClick={() => setCreateModalOpen(false)}
-                  className="px-3 py-1.5 rounded-md border border-slate-200 text-slate-700 text-xs font-medium hover:bg-slate-50"
+                  className="px-3 py-1.5 rounded-md border border-slate-200 text-slate-700 text-xs font-medium hover:bg-slate-50 cursor-pointer"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-1.5 rounded-md bg-[#0B4A2B] text-white text-xs font-semibold hover:bg-[#08331F]"
+                  className="px-4 py-1.5 rounded-md bg-[#0B4A2B] text-white text-xs font-semibold hover:bg-[#08331F] cursor-pointer"
                 >
-                  Publish to Calendar
+                  Publish Event
                 </button>
               </div>
             </form>

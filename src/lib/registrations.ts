@@ -61,14 +61,11 @@ export function addEventRegistration(
 }
 
 /**
- * Update check-in status of an attendee
+ * Remove an event registration
  */
-export function updateRegistrationStatus(
-  id: string,
-  status: EventRegistration["status"]
-): EventRegistration[] {
+export function removeRegistration(id: string): EventRegistration[] {
   const all = getStoredRegistrations();
-  const updated = all.map((r) => (r.id === id ? { ...r, status } : r));
+  const updated = all.filter((r) => r.id !== id);
   saveRegistrations(updated);
   return updated;
 }

@@ -7,7 +7,6 @@ import {
   Calendar,
   MapPin,
   Clock,
-  Award,
   Users,
   CheckCircle2,
   CreditCard,
@@ -19,7 +18,6 @@ import {
   User,
   Mail,
   Phone,
-  Building,
 } from "lucide-react";
 import { Section } from "@/components/shared/Section";
 import { PaymentModal } from "@/components/shared/PaymentModal";
@@ -37,9 +35,6 @@ export function EventDetailClient({ event }: { event: EventItem }) {
     fullName: "",
     email: "",
     phone: "",
-    organization: "",
-    membershipId: "",
-    attendanceType: (event.isVirtual ? "Virtual" : "In-Person") as "In-Person" | "Virtual",
   });
 
   const handleOpenRegistration = () => {
@@ -48,52 +43,43 @@ export function EventDetailClient({ event }: { event: EventItem }) {
 
   const handleSubmitRegistrationForm = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!delegateForm.fullName || !delegateForm.email) {
-      alert("Please provide your full name and email.");
+    if (!delegateForm.fullName || !delegateForm.email || !delegateForm.phone) {
+      alert("Please provide your full name, email, and phone number.");
       return;
     }
 
     setRegModalOpen(false);
 
     if (event.fee === 0) {
-      // Complimentary / Free RSVP: Save registration directly
-      const ref = `CESSPA-RSVP-${Date.now().toString().slice(-6)}`;
+      // Complimentary / Free Registration
+      const ref = `CESSPA-REG-${Date.now().toString().slice(-6)}`;
       addEventRegistration({
         eventId: event.id,
         eventTitle: event.title,
         fullName: delegateForm.fullName,
         email: delegateForm.email,
-        phone: delegateForm.phone || "—",
-        organization: delegateForm.organization || "Independent Practitioner",
-        membershipId: delegateForm.membershipId || undefined,
+        phone: delegateForm.phone,
         feePaid: 0,
         reference: ref,
-        status: "Confirmed",
-        attendanceType: delegateForm.attendanceType,
       });
 
       setRegisteredRef(ref);
       setRegistered(true);
     } else {
-      // Paid delegate pass: Proceed to Paystack payment
+      // Paid registration: Proceed to Paystack payment
       setIsPaymentOpen(true);
     }
   };
 
   const handlePaymentSuccess = (ref: string) => {
-    // Record paid registration
     addEventRegistration({
       eventId: event.id,
       eventTitle: event.title,
       fullName: delegateForm.fullName,
       email: delegateForm.email,
-      phone: delegateForm.phone || "—",
-      organization: delegateForm.organization || "Delegate",
-      membershipId: delegateForm.membershipId || undefined,
+      phone: delegateForm.phone,
       feePaid: event.fee,
       reference: ref,
-      status: "Confirmed",
-      attendanceType: delegateForm.attendanceType,
     });
 
     setRegisteredRef(ref);
@@ -116,9 +102,6 @@ export function EventDetailClient({ event }: { event: EventItem }) {
           <div className="flex flex-wrap items-center gap-3">
             <span className="bg-heritage-gold text-forest-green font-montserrat font-bold text-[10px] uppercase tracking-wider px-2.5 py-1 rounded">
               {event.category}
-            </span>
-            <span className="text-sage-mist text-xs">
-              Accredited for {event.cpdPoints} CPD Points
             </span>
           </div>
 
@@ -168,7 +151,7 @@ export function EventDetailClient({ event }: { event: EventItem }) {
               </p>
               <div className="p-4 rounded-xl bg-sage-mist/50 border border-brand-border/60 text-xs text-ink-dark flex items-center gap-2">
                 <CheckCircle2 className="w-4 h-4 text-leaf-green shrink-0" />
-                <span>Attendance certificate and CPD log endorsed by the CESSPA Practice Directorate.</span>
+                <span>Official registration confirmed by CESSPA secretariat.</span>
               </div>
             </div>
 
@@ -298,7 +281,7 @@ export function EventDetailClient({ event }: { event: EventItem }) {
             <div className="flex items-start justify-between pb-3 border-b border-slate-100">
               <div>
                 <span className="text-[10px] font-mono font-bold text-emerald-700 uppercase tracking-widest block">
-                  Delegate Roster Registration
+                  Event Registration
                 </span>
                 <h3 className="font-heading font-extrabold text-xl text-slate-900 mt-0.5">
                   {event.title}
@@ -307,7 +290,7 @@ export function EventDetailClient({ event }: { event: EventItem }) {
               <button
                 type="button"
                 onClick={() => setRegModalOpen(false)}
-                className="p-1 rounded-md text-slate-400 hover:text-slate-700"
+                className="p-1 rounded-md text-slate-400 hover:text-slate-700 cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -315,7 +298,7 @@ export function EventDetailClient({ event }: { event: EventItem }) {
 
             <form onSubmit={handleSubmitRegistrationForm} className="space-y-4 text-xs">
               <div>
-                <label className="block font-medium text-slate-700 mb-1">Full Legal Name *</label>
+                <label className="block font-medium text-slate-700 mb-1">Full Name *</label>
                 <div className="relative">
                   <User className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
                   <input
@@ -323,103 +306,46 @@ export function EventDetailClient({ event }: { event: EventItem }) {
                     required
                     value={delegateForm.fullName}
                     onChange={(e) => setDelegateForm({ ...delegateForm, fullName: e.target.value })}
-                    placeholder="e.g. Dr. Amina Garba Bello"
+                    placeholder="Enter your full name"
                     className="w-full pl-9 pr-3 py-2 rounded-md border border-slate-200 focus:outline-none focus:border-[#0B4A2B]"
                   />
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <div>
-                  <label className="block font-medium text-slate-700 mb-1">Official Email Address *</label>
-                  <div className="relative">
-                    <Mail className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
-                    <input
-                      type="email"
-                      required
-                      value={delegateForm.email}
-                      onChange={(e) => setDelegateForm({ ...delegateForm, email: e.target.value })}
-                      placeholder="e.g. delegate@organisation.org"
-                      className="w-full pl-9 pr-3 py-2 rounded-md border border-slate-200 focus:outline-none focus:border-[#0B4A2B]"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block font-medium text-slate-700 mb-1">Phone Number *</label>
-                  <div className="relative">
-                    <Phone className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
-                    <input
-                      type="tel"
-                      required
-                      value={delegateForm.phone}
-                      onChange={(e) => setDelegateForm({ ...delegateForm, phone: e.target.value })}
-                      placeholder="e.g. +234 803 123 4567"
-                      className="w-full pl-9 pr-3 py-2 rounded-md border border-slate-200 focus:outline-none focus:border-[#0B4A2B]"
-                    />
-                  </div>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                <div>
-                  <label className="block font-medium text-slate-700 mb-1">Organization / Employer</label>
-                  <div className="relative">
-                    <Building className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
-                    <input
-                      type="text"
-                      value={delegateForm.organization}
-                      onChange={(e) => setDelegateForm({ ...delegateForm, organization: e.target.value })}
-                      placeholder="e.g. Ministry / Firm / Consultant"
-                      className="w-full pl-9 pr-3 py-2 rounded-md border border-slate-200 focus:outline-none focus:border-[#0B4A2B]"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block font-medium text-slate-700 mb-1">Membership ID (If Member)</label>
+              <div>
+                <label className="block font-medium text-slate-700 mb-1">Email Address *</label>
+                <div className="relative">
+                  <Mail className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
                   <input
-                    type="text"
-                    value={delegateForm.membershipId}
-                    onChange={(e) => setDelegateForm({ ...delegateForm, membershipId: e.target.value })}
-                    placeholder="e.g. CESSPA-2025-0104"
-                    className="w-full px-3 py-2 rounded-md border border-slate-200 font-mono text-xs focus:outline-none focus:border-[#0B4A2B]"
+                    type="email"
+                    required
+                    value={delegateForm.email}
+                    onChange={(e) => setDelegateForm({ ...delegateForm, email: e.target.value })}
+                    placeholder="Enter your email"
+                    className="w-full pl-9 pr-3 py-2 rounded-md border border-slate-200 focus:outline-none focus:border-[#0B4A2B]"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block font-medium text-slate-700 mb-1">Attendance Mode</label>
-                <div className="grid grid-cols-2 gap-3">
-                  <button
-                    type="button"
-                    onClick={() => setDelegateForm({ ...delegateForm, attendanceType: "In-Person" })}
-                    className={`py-2 px-3 rounded-md border text-xs font-semibold transition-all ${
-                      delegateForm.attendanceType === "In-Person"
-                        ? "bg-[#0B4A2B] text-white border-[#0B4A2B]"
-                        : "bg-white text-slate-700 border-slate-200 hover:bg-slate-50"
-                    }`}
-                  >
-                    In-Person Venue
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setDelegateForm({ ...delegateForm, attendanceType: "Virtual" })}
-                    className={`py-2 px-3 rounded-md border text-xs font-semibold transition-all ${
-                      delegateForm.attendanceType === "Virtual"
-                        ? "bg-[#0B4A2B] text-white border-[#0B4A2B]"
-                        : "bg-white text-slate-700 border-slate-200 hover:bg-slate-50"
-                    }`}
-                  >
-                    Virtual Online Stream
-                  </button>
+                <label className="block font-medium text-slate-700 mb-1">Phone Number *</label>
+                <div className="relative">
+                  <Phone className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                  <input
+                    type="tel"
+                    required
+                    value={delegateForm.phone}
+                    onChange={(e) => setDelegateForm({ ...delegateForm, phone: e.target.value })}
+                    placeholder="e.g. 08012345678"
+                    className="w-full pl-9 pr-3 py-2 rounded-md border border-slate-200 focus:outline-none focus:border-[#0B4A2B]"
+                  />
                 </div>
               </div>
 
               <div className="p-3 rounded-md bg-slate-50 border border-slate-200 flex items-center justify-between">
-                <span className="text-slate-600 font-medium">Registration Tariff:</span>
+                <span className="text-slate-600 font-medium">Registration Fee:</span>
                 <span className="font-heading font-extrabold text-base text-[#0B4A2B]">
-                  {event.fee === 0 ? "Complimentary" : formatNaira(event.fee)}
+                  {event.fee === 0 ? "Free" : formatNaira(event.fee)}
                 </span>
               </div>
 
@@ -427,15 +353,15 @@ export function EventDetailClient({ event }: { event: EventItem }) {
                 <button
                   type="button"
                   onClick={() => setRegModalOpen(false)}
-                  className="px-3 py-2 rounded-md border border-slate-200 text-slate-700 hover:bg-slate-50 font-medium"
+                  className="px-3 py-2 rounded-md border border-slate-200 text-slate-700 hover:bg-slate-50 font-medium cursor-pointer"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 rounded-md bg-[#0B4A2B] hover:bg-[#08331F] text-white font-semibold inline-flex items-center gap-1.5 transition-colors"
+                  className="px-4 py-2 rounded-md bg-[#0B4A2B] hover:bg-[#08331F] text-white font-semibold inline-flex items-center gap-1.5 transition-colors cursor-pointer"
                 >
-                  <span>{event.fee === 0 ? "Confirm RSVP Registration" : "Proceed to Payment"}</span>
+                  <span>{event.fee === 0 ? "Complete Registration" : "Proceed to Payment"}</span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </button>
               </div>
@@ -448,7 +374,7 @@ export function EventDetailClient({ event }: { event: EventItem }) {
       <PaymentModal
         isOpen={isPaymentOpen}
         onClose={() => setIsPaymentOpen(false)}
-        title={`Delegate Pass: ${event.title}`}
+        title={`Event Registration: ${event.title}`}
         purpose="Conference Ticket"
         amount={event.fee || 1000}
         customerName={delegateForm.fullName}
@@ -456,10 +382,7 @@ export function EventDetailClient({ event }: { event: EventItem }) {
         metadata={{
           eventId: event.id,
           eventSlug: event.slug,
-          cpdPoints: event.cpdPoints,
-          attendanceType: delegateForm.attendanceType,
-          organization: delegateForm.organization,
-          membershipId: delegateForm.membershipId,
+          phone: delegateForm.phone,
         }}
         onSuccess={handlePaymentSuccess}
       />
