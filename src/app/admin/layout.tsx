@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import {
   LayoutDashboard,
@@ -134,10 +135,15 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         <div className="flex flex-col h-full overflow-y-auto">
           {/* Workspace Switcher / Header */}
           <div className="h-14 px-5 border-b border-slate-200 flex items-center justify-between">
-            <Link href="/admin" className="flex items-center gap-2">
-              <span className="w-6 h-6 rounded-md bg-[#0B4A2B] text-white font-heading font-bold text-xs flex items-center justify-center">
-                C
-              </span>
+            <Link href="/admin" className="flex items-center gap-2.5">
+              <div className="relative w-7 h-7 rounded-full overflow-hidden border border-emerald-600/30 bg-white shrink-0">
+                <Image
+                  src="/images/brand/logo.png"
+                  alt="CESSPA Logo"
+                  fill
+                  className="object-cover"
+                />
+              </div>
               <span className="font-heading font-bold text-sm tracking-tight text-slate-900">
                 CESSPA Admin
               </span>
