@@ -27,9 +27,9 @@ export function Section({
   }[variant];
 
   const maxStyles = {
-    default: "max-w-[1360px]",
+    default: "max-w-[1440px]",
     narrow: "max-w-[920px]",
-    wide: "max-w-[1440px]",
+    wide: "max-w-[1536px]",
     full: "max-w-none px-0",
   }[containerSize];
 
@@ -55,7 +55,7 @@ export function Section({
       {/* Container */}
       <div
         className={cn(
-          "relative z-10 mx-auto px-4 sm:px-6 lg:px-8",
+          "relative z-10 mx-auto px-4 sm:px-6 lg:px-4 xl:px-6 2xl:px-8",
           maxStyles,
           containerClassName
         )}

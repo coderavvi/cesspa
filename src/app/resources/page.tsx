@@ -75,7 +75,7 @@ export default function ResourcesPage() {
 
                 <button
                   type="button"
-                  onClick={() => alert(`Simulated: Downloading ${pub.title}...`)}
+                  onClick={() => alert(`Downloading ${pub.title}...`)}
                   className="px-5 py-2.5 rounded-xl bg-forest-green hover:bg-deep-emerald text-white font-montserrat font-bold text-xs uppercase tracking-wider transition-all flex items-center gap-2 shadow-sm"
                 >
                   <Download className="w-3.5 h-3.5 text-heritage-gold" /> Download PDF
