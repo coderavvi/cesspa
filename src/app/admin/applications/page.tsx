@@ -2,15 +2,11 @@
 
 import React, { useState } from "react";
 import {
-  FileCheck,
-  CheckCircle2,
-  XCircle,
-  HelpCircle,
-  Eye,
-  FileText,
-  Download,
   X,
-  ShieldCheck,
+  Check,
+  Download,
+  Search,
+  ExternalLink,
 } from "lucide-react";
 import { MOCK_APPLICATIONS } from "@/lib/data/mockData";
 import { Application } from "@/lib/types";
@@ -18,7 +14,19 @@ import { formatDate } from "@/lib/utils";
 
 export default function AdminApplicationsPage() {
   const [applications, setApplications] = useState<Application[]>(MOCK_APPLICATIONS);
-  const [selectedApp, setSelectedApp] = useState<Application | null>(null);
+  const [selectedApp, setSelectedApp] = useState<Application | null>(applications[0]);
+  const [query, setQuery] = useState("");
+  const [statusFilter, setStatusFilter] = useState("All");
+
+  const filtered = applications.filter((app) => {
+    const matchQ =
+      !query ||
+      app.applicantName.toLowerCase().includes(query.toLowerCase()) ||
+      app.applicationNumber.toLowerCase().includes(query.toLowerCase());
+    const matchStatus =
+      statusFilter === "All" || app.status === statusFilter;
+    return matchQ && matchStatus;
+  });
 
   const handleUpdateStatus = (id: string, newStatus: Application["status"]) => {
     setApplications((prev) =>
@@ -31,182 +39,229 @@ export default function AdminApplicationsPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-4 pb-4 border-b border-slate-200">
         <div>
-          <span className="text-xs font-montserrat font-bold text-heritage-gold uppercase tracking-wider block">
-            EVALUATION QUEUE
-          </span>
-          <h1 className="font-montserrat font-extrabold text-2xl text-slate-900 uppercase mt-0.5">
+          <h1 className="font-heading font-bold text-2xl text-slate-900 tracking-tight">
             Membership Applications
           </h1>
-          <p className="text-xs sm:text-sm text-slate-500">
-            Dossiers submitted for peer evaluation by the Zonal Accreditation Panels.
+          <p className="text-xs text-slate-500 mt-1">
+            Article 3 &amp; Table 1 Credential Review Queue • 30-Day Decision Window
           </p>
+        </div>
+
+        <div className="text-xs text-slate-500">
+          {applications.filter((a) => a.status !== "Approved").length} pending action
         </div>
       </div>
 
-      {/* Applications Review Queue Table */}
-      <div className="rounded-2xl bg-white border border-slate-200 shadow-xs overflow-hidden">
-        <div className="overflow-x-auto">
+      {/* Filter Row */}
+      <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pb-2 border-b border-slate-200">
+        <div className="relative flex-1 max-w-sm">
+          <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+          <input
+            type="text"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Search applicant or number..."
+            className="w-full pl-8 pr-3 py-1.5 rounded-md border border-slate-200 text-xs text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-[#0B4A2B]"
+          />
+        </div>
+
+        <div className="flex items-center gap-2 text-xs">
+          <span className="text-slate-500 text-[11px]">Status:</span>
+          <select
+            value={statusFilter}
+            onChange={(e) => setStatusFilter(e.target.value)}
+            className="px-2.5 py-1.5 rounded-md border border-slate-200 text-xs text-slate-700 focus:outline-none focus:border-[#0B4A2B] bg-white"
+          >
+            <option value="All">All Applications</option>
+            <option value="Pending Review">Pending Review</option>
+            <option value="Under Evaluation">Under Evaluation</option>
+            <option value="Approved">Approved</option>
+            <option value="Rejected">Rejected</option>
+          </select>
+        </div>
+      </div>
+
+      {/* Main Workspace (Asymmetric Layout: Table on left, Inspector on right) */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        {/* Left Column: Application Table (7 cols) */}
+        <div className="lg:col-span-7 overflow-x-auto">
           <table className="w-full text-left text-xs">
             <thead>
-              <tr className="bg-slate-50 border-b border-slate-200 text-slate-400 font-montserrat uppercase text-[10px]">
-                <th className="py-3 px-4">Application #</th>
-                <th className="py-3 px-4">Applicant</th>
-                <th className="py-3 px-4">Applied Category</th>
-                <th className="py-3 px-4">Specialisation</th>
-                <th className="py-3 px-4">Submitted</th>
-                <th className="py-3 px-4">Status</th>
-                <th className="py-3 px-4 text-right">Panel Actions</th>
+              <tr className="border-b border-slate-200 text-slate-400 uppercase text-[10px] font-medium">
+                <th className="py-2.5 px-3">Application</th>
+                <th className="py-2.5 px-3">Applicant</th>
+                <th className="py-2.5 px-3">Applied Grade</th>
+                <th className="py-2.5 px-3">Submitted</th>
+                <th className="py-2.5 px-3">Status</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100 text-slate-700">
-              {applications.map((app) => (
-                <tr key={app.id} className="hover:bg-slate-50/70">
-                  <td className="py-3.5 px-4 font-mono font-bold text-forest-green">
-                    {app.applicationNumber}
-                  </td>
-                  <td className="py-3.5 px-4">
-                    <strong className="text-slate-900 block">{app.applicantName}</strong>
-                    <span className="text-[11px] text-slate-400">{app.email}</span>
-                  </td>
-                  <td className="py-3.5 px-4 font-medium">{app.tier}</td>
-                  <td className="py-3.5 px-4 max-w-[200px] truncate">{app.specialisation}</td>
-                  <td className="py-3.5 px-4 text-slate-500">{formatDate(app.submittedDate)}</td>
-                  <td className="py-3.5 px-4">
-                    <span
-                      className={`px-2 py-0.5 rounded text-[10px] font-montserrat font-bold uppercase ${
-                        app.status === "Approved"
-                          ? "bg-emerald-100 text-emerald-800"
-                          : app.status === "Rejected"
-                          ? "bg-rose-100 text-rose-800"
-                          : "bg-amber-100 text-amber-800"
-                      }`}
-                    >
-                      {app.status}
-                    </span>
-                  </td>
-                  <td className="py-3.5 px-4 text-right">
-                    <button
-                      type="button"
-                      onClick={() => setSelectedApp(app)}
-                      className="px-3 py-1 rounded-lg bg-forest-green hover:bg-deep-emerald text-white font-montserrat font-bold text-[10px] uppercase transition-colors"
-                    >
-                      Review Dossier
-                    </button>
-                  </td>
-                </tr>
-              ))}
+              {filtered.map((app) => {
+                const isSelected = selectedApp?.id === app.id;
+                return (
+                  <tr
+                    key={app.id}
+                    onClick={() => setSelectedApp(app)}
+                    className={`cursor-pointer transition-colors ${
+                      isSelected ? "bg-slate-100/70" : "hover:bg-slate-50/70"
+                    }`}
+                  >
+                    <td className="py-3 px-3 font-mono font-medium text-[#0B4A2B]">
+                      {app.applicationNumber}
+                    </td>
+                    <td className="py-3 px-3">
+                      <div className="font-semibold text-slate-900">{app.applicantName}</div>
+                      <div className="text-[11px] text-slate-400 truncate max-w-[150px]">{app.email}</div>
+                    </td>
+                    <td className="py-3 px-3 font-medium text-slate-800">
+                      {app.tier}
+                    </td>
+                    <td className="py-3 px-3 text-slate-500 whitespace-nowrap">
+                      {formatDate(app.submittedDate)}
+                    </td>
+                    <td className="py-3 px-3">
+                      <span
+                        className={`text-[10px] px-1.5 py-0.5 rounded-md font-medium ${
+                          app.status === "Approved"
+                            ? "bg-slate-100 text-[#0B4A2B]"
+                            : app.status === "Rejected"
+                            ? "bg-rose-50 text-rose-700"
+                            : "bg-amber-50 text-amber-800"
+                        }`}
+                      >
+                        {app.status}
+                      </span>
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>
-      </div>
 
-      {/* Review Dossier Modal */}
-      {selectedApp && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs animate-in fade-in">
-          <div className="max-w-2xl w-full bg-white rounded-3xl p-6 sm:p-8 shadow-2xl border border-slate-200 space-y-6">
-            <div className="flex items-start justify-between border-b border-slate-100 pb-4">
-              <div>
-                <span className="font-mono text-xs font-bold text-forest-green">
-                  {selectedApp.applicationNumber}
-                </span>
-                <h3 className="font-montserrat font-extrabold text-xl text-slate-900">
-                  {selectedApp.applicantName}
-                </h3>
-                <span className="text-xs text-slate-500">
-                  Applying for <strong>{selectedApp.tier}</strong>
-                </span>
-              </div>
-              <button
-                onClick={() => setSelectedApp(null)}
-                className="p-1 rounded-lg text-slate-400 hover:text-slate-700"
-              >
-                <X className="w-5 h-5" />
-              </button>
-            </div>
-
-            {/* Applicant Details */}
-            <div className="grid grid-cols-2 gap-3 text-xs">
-              <div className="p-3 rounded-xl bg-slate-50 space-y-0.5">
-                <span className="text-slate-400 text-[10px]">Email Address:</span>
-                <p className="font-mono font-medium text-slate-900">{selectedApp.email}</p>
-              </div>
-              <div className="p-3 rounded-xl bg-slate-50 space-y-0.5">
-                <span className="text-slate-400 text-[10px]">Phone Line:</span>
-                <p className="font-medium text-slate-900">{selectedApp.phone}</p>
-              </div>
-              <div className="p-3 rounded-xl bg-slate-50 space-y-0.5">
-                <span className="text-slate-400 text-[10px]">Credentials & Experience:</span>
-                <p className="font-medium text-slate-900">{selectedApp.qualifications}</p>
-              </div>
-              <div className="p-3 rounded-xl bg-slate-50 space-y-0.5">
-                <span className="text-slate-400 text-[10px]">Submission Date:</span>
-                <p className="font-medium text-slate-900">{formatDate(selectedApp.submittedDate)}</p>
-              </div>
-            </div>
-
-            {/* Documents Inspection */}
-            <div>
-              <span className="font-montserrat font-bold text-xs uppercase text-slate-700 block mb-2">
-                Attached Verification Dossier ({selectedApp.documents.length} files):
-              </span>
-              <div className="space-y-2">
-                {selectedApp.documents.map((doc, idx) => (
-                  <div
-                    key={idx}
-                    className="p-3 rounded-xl border border-slate-200 bg-slate-50/70 flex items-center justify-between text-xs"
-                  >
-                    <div className="flex items-center gap-2">
-                      <FileText className="w-4 h-4 text-forest-green" />
-                      <span className="font-medium text-slate-900">{doc.name}</span>
-                      <span className="text-slate-400 font-mono text-[11px]">({doc.size})</span>
-                    </div>
-                    <button
-                      type="button"
-                      onClick={() => alert(`Simulated: Previewing document ${doc.name}`)}
-                      className="text-forest-green hover:underline font-bold text-[11px]"
-                    >
-                      Preview File
-                    </button>
+        {/* Right Column: Selected Dossier Inspector (5 cols) */}
+        <div className="lg:col-span-5 space-y-6">
+          {selectedApp ? (
+            <div className="space-y-6">
+              <div className="flex items-start justify-between pb-3 border-b border-slate-200">
+                <div>
+                  <span className="font-mono text-xs text-[#0B4A2B] font-bold">
+                    {selectedApp.applicationNumber}
+                  </span>
+                  <h2 className="font-heading font-bold text-lg text-slate-900 mt-0.5">
+                    {selectedApp.applicantName}
+                  </h2>
+                  <div className="text-xs text-slate-500 mt-0.5">
+                    Applying for: <strong className="text-slate-800">{selectedApp.tier}</strong>
                   </div>
-                ))}
+                </div>
+
+                <span
+                  className={`text-[10px] px-2 py-0.5 rounded-md font-medium ${
+                    selectedApp.status === "Approved"
+                      ? "bg-slate-100 text-[#0B4A2B]"
+                      : selectedApp.status === "Rejected"
+                      ? "bg-rose-50 text-rose-700"
+                      : "bg-amber-50 text-amber-800"
+                  }`}
+                >
+                  {selectedApp.status}
+                </span>
+              </div>
+
+              {/* Dossier Details */}
+              <div className="space-y-2 text-xs divide-y divide-slate-100 text-slate-700">
+                <div className="flex justify-between py-1">
+                  <span className="text-slate-500">Email:</span>
+                  <span className="font-mono">{selectedApp.email}</span>
+                </div>
+                <div className="flex justify-between py-1">
+                  <span className="text-slate-500">Phone:</span>
+                  <span>{selectedApp.phone}</span>
+                </div>
+                <div className="flex justify-between py-1">
+                  <span className="text-slate-500">Track &amp; Node:</span>
+                  <span>{selectedApp.specialisation}</span>
+                </div>
+                <div className="flex justify-between py-1">
+                  <span className="text-slate-500">Qualifications:</span>
+                  <span>{selectedApp.qualifications}</span>
+                </div>
+                <div className="flex justify-between py-1">
+                  <span className="text-slate-500">Submission Date:</span>
+                  <span>{formatDate(selectedApp.submittedDate)}</span>
+                </div>
+              </div>
+
+              <div className="h-px bg-slate-200" />
+
+              {/* Verification Documents */}
+              <div className="space-y-2">
+                <span className="text-[10px] font-mono uppercase text-slate-400 block">
+                  Submitted Credentials (Table 1 Evidence)
+                </span>
+                <div className="space-y-1.5 text-xs">
+                  {selectedApp.documents.map((doc, idx) => (
+                    <div
+                      key={idx}
+                      className="p-2 rounded-md border border-slate-200 flex items-center justify-between"
+                    >
+                      <div>
+                        <span className="font-medium text-slate-900 block">{doc.name}</span>
+                        <span className="text-[10px] text-slate-500">{doc.type} • {doc.size}</span>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => alert(`Downloading verified document: ${doc.name}`)}
+                        className="px-2 py-1 text-[11px] text-[#0B4A2B] hover:underline"
+                      >
+                        View
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="h-px bg-slate-200" />
+
+              {/* Committee Decision Actions (Article 3 Section II: 30-day review decision) */}
+              <div className="space-y-2">
+                <span className="text-[10px] font-mono uppercase text-slate-400 block">
+                  Membership Committee Action
+                </span>
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => handleUpdateStatus(selectedApp.id, "Approved")}
+                    className="flex-1 py-1.5 rounded-md bg-[#0B4A2B] hover:bg-[#08331F] text-white text-xs font-semibold transition-colors"
+                  >
+                    Approve Admission
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => handleUpdateStatus(selectedApp.id, "Information Requested")}
+                    className="px-3 py-1.5 rounded-md border border-slate-200 hover:bg-slate-50 text-slate-700 text-xs font-medium transition-colors"
+                  >
+                    Request Evidence
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => handleUpdateStatus(selectedApp.id, "Rejected")}
+                    className="px-3 py-1.5 rounded-md border border-slate-200 hover:bg-rose-50 text-rose-700 text-xs font-medium transition-colors"
+                  >
+                    Reject
+                  </button>
+                </div>
               </div>
             </div>
-
-            {/* Panel Adjudication Controls */}
-            <div className="pt-4 border-t border-slate-100 flex flex-wrap items-center justify-between gap-3">
-              <span className="text-xs text-slate-500">
-                Current Status: <strong className="uppercase text-slate-800">{selectedApp.status}</strong>
-              </span>
-
-              <div className="flex items-center gap-2">
-                <button
-                  type="button"
-                  onClick={() => handleUpdateStatus(selectedApp.id, "Information Requested")}
-                  className="px-3.5 py-2 rounded-xl border border-slate-200 text-slate-700 font-montserrat font-bold text-xs uppercase hover:bg-slate-50"
-                >
-                  Request Info
-                </button>
-                <button
-                  type="button"
-                  onClick={() => handleUpdateStatus(selectedApp.id, "Rejected")}
-                  className="px-3.5 py-2 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-montserrat font-bold text-xs uppercase"
-                >
-                  Reject
-                </button>
-                <button
-                  type="button"
-                  onClick={() => handleUpdateStatus(selectedApp.id, "Approved")}
-                  className="px-4 py-2 rounded-xl bg-forest-green hover:bg-deep-emerald text-white font-montserrat font-bold text-xs uppercase shadow-xs flex items-center gap-1.5"
-                >
-                  <CheckCircle2 className="w-4 h-4" /> Approve & Enrol
-                </button>
-              </div>
-            </div>
-          </div>
+          ) : (
+            <div className="text-xs text-slate-400">Select an application from the queue.</div>
+          )}
         </div>
-      )}
+      </div>
     </div>
   );
 }

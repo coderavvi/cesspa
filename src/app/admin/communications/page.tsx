@@ -1,10 +1,11 @@
 "use client";
 
 import React, { useState } from "react";
-import { Mail, Send, Users, CheckCircle2, AlertCircle } from "lucide-react";
+import { Send, Check, Mail } from "lucide-react";
 
 export default function AdminCommunicationsPage() {
-  const [targetAudience, setTargetAudience] = useState("All Active Members (512)");
+  const [targetAudience, setTargetAudience] = useState("All Financial Members (512)");
+  const [noticeType, setNoticeType] = useState("Official Secretariat Circular");
   const [subject, setSubject] = useState("");
   const [message, setMessage] = useState("");
   const [sentSuccess, setSentSuccess] = useState(false);
@@ -15,33 +16,38 @@ export default function AdminCommunicationsPage() {
   };
 
   return (
-    <div className="space-y-6">
-      <div>
-        <span className="text-xs font-montserrat font-bold text-heritage-gold uppercase tracking-wider block">
-          BROADCAST & ADVOCACY
-        </span>
-        <h1 className="font-montserrat font-extrabold text-2xl text-slate-900 uppercase mt-0.5">
-          Communications & Newsletter Composer
-        </h1>
-        <p className="text-xs sm:text-sm text-slate-500">
-          Dispatch official bulletins, regulatory alerts, and AGM communiques across membership segments.
-        </p>
+    <div className="space-y-8">
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-4 pb-4 border-b border-slate-200">
+        <div>
+          <h1 className="font-heading font-bold text-2xl text-slate-900 tracking-tight">
+            Communications &amp; Circulars
+          </h1>
+          <p className="text-xs text-slate-500 mt-1">
+            Article 6: Official communications issued through Secretariat channels
+          </p>
+        </div>
+
+        <div className="text-xs text-slate-500 font-mono">
+          512 Recipients
+        </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-        <div className="lg:col-span-8 bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-xs space-y-4">
-          <h3 className="font-montserrat font-extrabold text-lg text-slate-900 uppercase">
-            Compose Broadcast Communique
-          </h3>
+      {/* Main Workspace */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        {/* Left Column: Composer (7 cols) */}
+        <div className="lg:col-span-7 space-y-4">
+          <h2 className="font-heading font-bold text-base text-slate-900">
+            Draft Official Notice
+          </h2>
 
           {sentSuccess ? (
-            <div className="text-center py-10 space-y-3">
-              <CheckCircle2 className="w-12 h-12 text-leaf-green mx-auto" />
-              <h4 className="font-montserrat font-bold text-lg text-forest-green">
-                Broadcast Dispatched Successfully
-              </h4>
-              <p className="text-xs text-slate-600 max-w-sm mx-auto">
-                Communique delivered to {targetAudience}. Delivery telemetry has been archived in the council log.
+            <div className="p-6 bg-slate-50 border border-slate-200 rounded-lg space-y-3 text-xs">
+              <div className="flex items-center gap-2 text-[#0B4A2B] font-semibold">
+                <Check className="w-4 h-4" /> Notice Dispatched to {targetAudience}
+              </div>
+              <p className="text-slate-600">
+                Official circular was recorded in the Secretariat dispatch registry and transmitted to recipient inboxes.
               </p>
               <button
                 type="button"
@@ -50,91 +56,118 @@ export default function AdminCommunicationsPage() {
                   setSubject("");
                   setMessage("");
                 }}
-                className="px-5 py-2 rounded-xl bg-forest-green text-white font-montserrat font-bold text-xs uppercase"
+                className="px-3 py-1.5 rounded-md bg-[#0B4A2B] text-white font-semibold hover:bg-[#08331F]"
               >
-                Compose Another Broadcast
+                Draft New Circular
               </button>
             </div>
           ) : (
-            <form onSubmit={handleSend} className="space-y-4 text-xs">
-              <div>
-                <label className="block font-montserrat font-bold text-slate-700 uppercase mb-1">
-                  Target Recipient Segment *
-                </label>
-                <select
-                  value={targetAudience}
-                  onChange={(e) => setTargetAudience(e.target.value)}
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-forest-green bg-white"
-                >
-                  <option value="All Active Members (512)">All Active Members (512)</option>
-                  <option value="Certified Professionals Only (260)">Certified Professionals Only (260)</option>
-                  <option value="Fellows (FCESSPA) (49)">Fellows of the Association (49)</option>
-                  <option value="Overdue Dues Practitioners (28)">Overdue Dues Notice Segment (28)</option>
-                  <option value="National Executives & Trustees (12)">Executive Council & Trustees (12)</option>
-                  <option value="South West Chapter (198)">South West Regional Chapter (198)</option>
-                  <option value="North Central Chapter (142)">North Central Regional Chapter (142)</option>
-                </select>
+            <form onSubmit={handleSend} className="space-y-3 text-xs">
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-slate-700 font-medium mb-1">Notice Type</label>
+                  <select
+                    value={noticeType}
+                    onChange={(e) => setNoticeType(e.target.value)}
+                    className="w-full px-2.5 py-1.5 rounded-md border border-slate-200 text-xs focus:outline-none focus:border-[#0B4A2B] bg-white"
+                  >
+                    <option value="Official Secretariat Circular">Official Secretariat Circular</option>
+                    <option value="Annual General Meeting (AGM) Summons">AGM Summons (Article 6 &amp; 12)</option>
+                    <option value="National Executive Council (NEC) Notice">NEC Meeting Notice (Quarterly)</option>
+                    <option value="Technical Council Communique">Technical Council Communique</option>
+                    <option value="Annual Dues Renewal Notice">Annual Dues Renewal Notice</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-slate-700 font-medium mb-1">Target Audience</label>
+                  <select
+                    value={targetAudience}
+                    onChange={(e) => setTargetAudience(e.target.value)}
+                    className="w-full px-2.5 py-1.5 rounded-md border border-slate-200 text-xs focus:outline-none focus:border-[#0B4A2B] bg-white"
+                  >
+                    <option value="All Financial Members (512)">All Financial Members (512)</option>
+                    <option value="Fellows & Full Members Only (Voting Eligible)">Fellows &amp; Full Members Only (Voting Eligible)</option>
+                    <option value="State Chapter Executives (SEC)">State Chapter Executives (SEC)</option>
+                    <option value="National Executive Council (NEC)">National Executive Council (NEC)</option>
+                    <option value="Overdue Dues Notice (28 Members)">Overdue Members (28)</option>
+                  </select>
+                </div>
               </div>
 
               <div>
-                <label className="block font-montserrat font-bold text-slate-700 uppercase mb-1">
-                  Subject Line *
-                </label>
+                <label className="block text-slate-700 font-medium mb-1">Subject Header</label>
                 <input
                   type="text"
                   required
                   value={subject}
                   onChange={(e) => setSubject(e.target.value)}
-                  placeholder="e.g. [CESSPA ADVISORY] Regulatory Update: 2026 ESIA Scoping Protocols"
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-forest-green text-xs"
+                  placeholder="e.g. Notice of 2026 Annual General Meeting & Statutory Agenda"
+                  className="w-full px-3 py-1.5 rounded-md border border-slate-200 text-xs focus:outline-none focus:border-[#0B4A2B]"
                 />
               </div>
 
               <div>
-                <label className="block font-montserrat font-bold text-slate-700 uppercase mb-1">
-                  Communique Body (Rich Text) *
-                </label>
+                <label className="block text-slate-700 font-medium mb-1">Circular Content</label>
                 <textarea
                   rows={8}
                   required
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
-                  placeholder="Enter the official communique content..."
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-forest-green text-xs font-mono"
+                  placeholder="Enter the official resolution, agenda, or administrative instructions..."
+                  className="w-full p-3 rounded-md border border-slate-200 text-xs focus:outline-none focus:border-[#0B4A2B]"
                 />
               </div>
 
-              <button
-                type="submit"
-                className="w-full py-3.5 rounded-xl bg-forest-green hover:bg-deep-emerald text-white font-montserrat font-bold text-xs uppercase tracking-wider transition-colors flex items-center justify-center gap-2 shadow-sm"
-              >
-                <Send className="w-4 h-4 text-heritage-gold" /> Dispatch Broadcast to {targetAudience}
-              </button>
+              <div className="pt-2 flex items-center justify-end">
+                <button
+                  type="submit"
+                  className="px-4 py-2 rounded-md bg-[#0B4A2B] hover:bg-[#08331F] text-white font-semibold text-xs flex items-center gap-1.5 transition-colors"
+                >
+                  <Send className="w-3.5 h-3.5" /> Dispatch Notice
+                </button>
+              </div>
             </form>
           )}
         </div>
 
-        {/* Previous Broadcasts Sidebar */}
-        <div className="lg:col-span-4 space-y-4">
-          <div className="bg-white rounded-3xl p-6 border border-slate-200 shadow-xs space-y-4">
-            <h4 className="font-montserrat font-extrabold text-sm text-slate-900 uppercase">
-              Recent Sent Broadcasts
-            </h4>
-            <div className="space-y-3 text-xs">
-              {[
-                { title: "2026 Annual Dues Notice & Portal Launch", date: "Sep 28", sent: "542 delivered" },
-                { title: "Invitation: National Conference & AGM Abuja", date: "Sep 15", sent: "512 delivered" },
-                { title: "Technical Working Committee Inception Communique", date: "Aug 20", sent: "480 delivered" },
-              ].map((item, idx) => (
-                <div key={idx} className="p-3 bg-slate-50 rounded-xl space-y-1 border border-slate-100">
-                  <strong className="text-slate-900 block">{item.title}</strong>
-                  <div className="flex justify-between text-[11px] text-slate-400">
-                    <span>{item.date}</span>
-                    <span className="text-forest-green font-medium">{item.sent}</span>
-                  </div>
+        {/* Right Column: Historical Circular Log (5 cols) */}
+        <div className="lg:col-span-5 space-y-4">
+          <h2 className="font-heading font-bold text-base text-slate-900 pb-2 border-b border-slate-200">
+            Dispatch Registry
+          </h2>
+
+          <div className="space-y-3 text-xs">
+            {[
+              {
+                title: "Call for Nominations: Fellowship Committee 2026",
+                audience: "Fellows & Full Members",
+                date: "Nov 02, 2026",
+                ref: "CESSPA/SEC/2026/089",
+              },
+              {
+                title: "Q3 State Chapter Remittance Notification (25% Share)",
+                audience: "State Chapter Executives",
+                date: "Oct 15, 2026",
+                ref: "CESSPA/FIN/2026/044",
+              },
+              {
+                title: "Adoption of Reviewed National By-Laws",
+                audience: "All Financial Members",
+                date: "Sep 28, 2026",
+                ref: "CESSPA/GOV/2026/012",
+              },
+            ].map((item, idx) => (
+              <div key={idx} className="p-3 bg-white border border-slate-200 rounded-md space-y-1">
+                <div className="flex items-start justify-between gap-2">
+                  <span className="font-semibold text-slate-900">{item.title}</span>
+                  <span className="text-[10px] text-slate-400 whitespace-nowrap">{item.date}</span>
                 </div>
-              ))}
-            </div>
+                <div className="text-[11px] text-slate-500">
+                  Target: {item.audience} • Ref: {item.ref}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>

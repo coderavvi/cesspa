@@ -69,6 +69,17 @@ export function EventDetailClient({ event }: { event: EventItem }) {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
           {/* Main Content (Description, Agenda, Speakers) */}
           <div className="lg:col-span-8 space-y-10">
+            {/* Event Flyer Banner */}
+            {event.bannerImage && (
+              <div className="bg-white rounded-3xl p-3 border border-brand-border shadow-xs overflow-hidden">
+                <img
+                  src={event.bannerImage}
+                  alt={event.title}
+                  className="w-full max-h-96 object-cover rounded-2xl"
+                />
+              </div>
+            )}
+
             {/* Overview */}
             <div className="bg-white rounded-3xl p-6 sm:p-8 border border-brand-border shadow-xs space-y-4">
               <h2 className="font-montserrat font-extrabold text-xl text-ink-dark uppercase">

@@ -470,7 +470,7 @@ export default function RegisterWizardPage() {
 
                   {/* Tier Radio Cards */}
                   <div className="space-y-2.5">
-                    {MOCK_TIERS.map((tier) => (
+                    {MOCK_TIERS.filter((t) => t.code !== "honorary").map((tier) => (
                       <label
                         key={tier.id}
                         className={`flex items-center justify-between p-4 rounded-xl border cursor-pointer transition-all ${
@@ -489,41 +489,52 @@ export default function RegisterWizardPage() {
                             className="text-forest-green focus:ring-0"
                           />
                           <div>
-                            <span className="font-montserrat font-bold text-sm text-ink-dark block">
-                              {tier.name}
-                            </span>
+                            <div className="flex items-center gap-2">
+                              <span className="font-montserrat font-bold text-sm text-ink-dark">
+                                {tier.name}
+                              </span>
+                              <span className="font-mono text-[10px] font-bold text-forest-green bg-slate-100 px-1.5 py-0.5 rounded">
+                                {tier.designation}
+                              </span>
+                            </div>
                             <span className="text-xs text-ink-muted">{tier.tagline}</span>
                           </div>
                         </div>
 
                         <div className="text-right">
-                          <span className="font-montserrat font-extrabold text-base text-forest-green block">
-                            {formatNaira(tier.annualFee, false)}
+                          <span className="font-montserrat font-extrabold text-sm text-forest-green block">
+                            Reg: {tier.registrationFee === 0 ? "Exempt" : formatNaira(tier.registrationFee)}
                           </span>
-                          <span className="text-[10px] text-ink-muted">/{tier.period}</span>
+                          <span className="text-[10px] text-ink-muted">
+                            {tier.annualDues > 0 ? `Dues: ${formatNaira(tier.annualDues)}/yr` : "Dues: N/A"}
+                          </span>
                         </div>
                       </label>
                     ))}
                   </div>
 
                   {/* Summary Box */}
-                  <div className="p-4 rounded-2xl bg-sage-mist/60 border border-brand-border space-y-2 text-xs">
+                  <div className="p-4 rounded-xl bg-slate-50 border border-brand-border space-y-2 text-xs">
                     <div className="flex justify-between">
                       <span className="text-ink-muted">Applicant:</span>
                       <span className="font-semibold text-ink-dark">{formData.fullName || "Practitioner"}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-ink-muted">Email:</span>
-                      <span className="font-semibold text-ink-dark">{formData.email || "applicant@example.com"}</span>
+                      <span className="text-ink-muted">Category Applied:</span>
+                      <span className="font-semibold text-forest-green">{selectedTierObj.name} ({selectedTierObj.designation})</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-ink-muted">Selected Tier:</span>
-                      <span className="font-semibold text-forest-green">{selectedTierObj.name}</span>
+                      <span className="text-ink-muted">Registration Fee:</span>
+                      <span className="font-semibold text-ink-dark">{formatNaira(selectedTierObj.registrationFee)}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-ink-muted">Annual Dues (upon admission):</span>
+                      <span className="font-semibold text-ink-dark">{selectedTierObj.annualDues > 0 ? formatNaira(selectedTierObj.annualDues) : "Exempt"}</span>
                     </div>
                     <div className="pt-2 border-t border-brand-border flex justify-between items-baseline">
-                      <span className="font-montserrat font-bold text-sm text-ink-dark">Amount Due:</span>
+                      <span className="font-montserrat font-bold text-sm text-ink-dark">Registration Fee Due Now:</span>
                       <span className="font-montserrat font-extrabold text-xl text-forest-green">
-                        {formatNaira(selectedTierObj.annualFee)}
+                        {formatNaira(selectedTierObj.registrationFee)}
                       </span>
                     </div>
                   </div>

@@ -8,15 +8,27 @@ export type GeopoliticalZone =
   | "South South"
   | "South West";
 
+export type MembershipCategory =
+  | "Professional Fellow"
+  | "Honorary Fellow"
+  | "Full Member"
+  | "Affiliate Member"
+  | "Student Member"
+  | "Corporate Member"
+  | "Life Member";
+
 export interface Member {
   id: string;
   membershipId: string;
   fullName: string;
   email: string;
   phone: string;
-  tier: "Student" | "Associate" | "Certified Professional" | "Fellow" | "Corporate";
+  tier: MembershipCategory | string;
+  designation?: string;
   status: MembershipStatus;
   specialisation: string[];
+  spesseTrack?: "Track A" | "Track B" | "Track C" | "Track D" | "Track E";
+  node?: "Environmental Standards" | "Social Standards" | "Dual Node";
   zone: GeopoliticalZone;
   state: string;
   organisation: string;
@@ -24,6 +36,7 @@ export interface Member {
   joinedDate: string;
   expiryDate: string;
   verified: boolean;
+  votingEligible?: boolean;
   avatarUrl?: string;
   bio?: string;
 }
@@ -31,8 +44,11 @@ export interface Member {
 export interface MembershipTier {
   id: string;
   name: string;
-  code: "student" | "associate" | "certified" | "fellow" | "corporate";
-  annualFee: number;
+  designation: string;
+  code: string;
+  registrationFee: number;
+  annualDues: number;
+  annualFee: number; // for backward-compatibility
   currency: string;
   period: string;
   tagline: string;
@@ -40,6 +56,18 @@ export interface MembershipTier {
   isPopular?: boolean;
   eligibility: string[];
   benefits: string[];
+  votingRights: string;
+  typicalRoute: string;
+}
+
+export interface NationalCouncil {
+  id: string;
+  sn: number;
+  name: string;
+  chairTitle: string;
+  chairName: string;
+  functions: string[];
+  activeMatters: number;
 }
 
 export interface Chapter {
@@ -71,6 +99,7 @@ export interface EventItem {
   agenda?: { time: string; topic: string; speaker: string }[];
   speakers?: { name: string; role: string; org: string; avatarUrl?: string }[];
   featured?: boolean;
+  showOnHomepage?: boolean;
   capacity?: number;
   registeredCount?: number;
   bannerImage?: string;

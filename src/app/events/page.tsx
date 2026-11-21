@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import {
@@ -16,15 +16,45 @@ import {
 import { Section } from "@/components/shared/Section";
 import { Eyebrow } from "@/components/shared/Eyebrow";
 import { MOCK_EVENTS } from "@/lib/data/mockData";
+import { EventItem } from "@/lib/types";
 import { formatDate, formatNaira } from "@/lib/utils";
 
 const CATEGORIES = ["All", "Conference", "Webinar", "Workshop", "Chapter Event"];
 
 export default function EventsPage() {
+  const [events, setEvents] = useState<EventItem[]>(MOCK_EVENTS);
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
 
-  const filteredEvents = MOCK_EVENTS.filter((e) => {
+  const loadEvents = () => {
+    try {
+      if (typeof window !== "undefined") {
+        const stored = localStorage.getItem("cesspa_admin_events");
+        if (stored) {
+          const parsed = JSON.parse(stored);
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            setEvents(parsed);
+            return;
+          }
+        }
+      }
+    } catch (e) {
+      // fallback
+    }
+    setEvents(MOCK_EVENTS);
+  };
+
+  useEffect(() => {
+    loadEvents();
+    window.addEventListener("cesspa_events_updated", loadEvents);
+    window.addEventListener("storage", loadEvents);
+    return () => {
+      window.removeEventListener("cesspa_events_updated", loadEvents);
+      window.removeEventListener("storage", loadEvents);
+    };
+  }, []);
+
+  const filteredEvents = events.filter((e) => {
     const matchesCat = selectedCategory === "All" || e.category === selectedCategory;
     const matchesQuery =
       !searchQuery ||
@@ -100,9 +130,21 @@ export default function EventsPage() {
           {filteredEvents.map((event) => (
             <div
               key={event.id}
-              className="rounded-3xl p-6 sm:p-8 bg-white border border-brand-border shadow-sm card-hover flex flex-col justify-between"
+              className="rounded-3xl p-6 sm:p-8 bg-white border border-brand-border shadow-sm card-hover flex flex-col justify-between group"
             >
               <div className="space-y-4">
+                {/* Event Flyer Banner */}
+                {event.bannerImage && (
+                  <div className="w-full h-48 sm:h-56 rounded-2xl overflow-hidden border border-brand-border bg-slate-50">
+                    <img
+                      src={event.bannerImage}
+                      alt={event.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      loading="lazy"
+                    />
+                  </div>
+                )}
+
                 <div className="flex items-center justify-between text-xs">
                   <span className="font-montserrat font-bold text-leaf-green bg-sage-mist px-3 py-1 rounded-full uppercase">
                     {event.category}

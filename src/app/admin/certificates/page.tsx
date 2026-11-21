@@ -1,8 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import Image from "next/image";
-import { Award, ShieldCheck, Download, Search, CheckCircle2, QrCode } from "lucide-react";
+import { Download, Search, Check, QrCode } from "lucide-react";
 import { MOCK_CERTIFICATES } from "@/lib/data/mockData";
 import { Certificate } from "@/lib/types";
 import { formatDate } from "@/lib/utils";
@@ -20,150 +19,128 @@ export default function AdminCertificatesPage() {
   );
 
   return (
-    <div className="space-y-6">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+    <div className="space-y-8">
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-4 pb-4 border-b border-slate-200">
         <div>
-          <span className="text-xs font-montserrat font-bold text-heritage-gold uppercase tracking-wider block">
-            ACCREDITATION & ISSUANCE
-          </span>
-          <h1 className="font-montserrat font-extrabold text-2xl text-slate-900 uppercase mt-0.5">
-            Certification & Cryptographic Seals
+          <h1 className="font-heading font-bold text-2xl text-slate-900 tracking-tight">
+            Accreditation &amp; Certificates
           </h1>
-          <p className="text-xs sm:text-sm text-slate-500">
-            Preview, generate, and verify authorized practice credentials.
+          <p className="text-xs text-slate-500 mt-1">
+            Appendix III: Digital Governance • Statutory Registry of Certified Practice Seals
           </p>
+        </div>
+
+        <div className="flex items-center gap-2">
+          <button
+            type="button"
+            onClick={() => alert("Simulated: Exporting full certificate verification ledger...")}
+            className="px-3 py-1.5 rounded-md border border-slate-200 hover:bg-slate-50 text-slate-700 text-xs font-medium flex items-center gap-1.5 transition-colors"
+          >
+            <Download className="w-3.5 h-3.5 text-slate-500" /> Export Registry
+          </button>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-        {/* Certificate Registry Table (5 Cols) */}
-        <div className="lg:col-span-5 bg-white rounded-3xl p-6 border border-slate-200 shadow-xs space-y-4">
-          <div className="flex items-center justify-between">
-            <h3 className="font-montserrat font-extrabold text-sm text-slate-900 uppercase">
-              Issued Certificates
-            </h3>
-            <span className="text-xs text-slate-400 font-mono">{filtered.length} Valid</span>
+      {/* Main Workspace (Asymmetric Layout) */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        {/* Left Column: Certificate List (6 cols) */}
+        <div className="lg:col-span-6 space-y-4">
+          <div className="relative">
+            <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+            <input
+              type="text"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder="Search by name, cert #, or member ID..."
+              className="w-full pl-8 pr-3 py-1.5 rounded-md border border-slate-200 text-xs text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-[#0B4A2B]"
+            />
           </div>
 
-          <div className="space-y-2">
-            {filtered.map((cert) => (
-              <div
-                key={cert.id}
-                onClick={() => setSelectedCert(cert)}
-                className={`p-3.5 rounded-2xl border cursor-pointer transition-all text-xs ${
-                  selectedCert.id === cert.id
-                    ? "border-forest-green bg-forest-green/5 ring-2 ring-forest-green/20"
-                    : "border-slate-200 hover:bg-slate-50"
-                }`}
-              >
-                <div className="flex items-center justify-between">
-                  <strong className="text-slate-900 font-montserrat block">
-                    {cert.recipientName}
-                  </strong>
-                  <span className="bg-emerald-100 text-emerald-800 font-bold px-1.5 py-0.5 rounded text-[10px]">
-                    {cert.status}
-                  </span>
+          <div className="divide-y divide-slate-100 border-y border-slate-200">
+            {filtered.map((cert) => {
+              const isSelected = selectedCert.id === cert.id;
+              return (
+                <div
+                  key={cert.id}
+                  onClick={() => setSelectedCert(cert)}
+                  className={`py-3 px-2 cursor-pointer transition-colors text-xs ${
+                    isSelected ? "bg-slate-100/70" : "hover:bg-slate-50"
+                  }`}
+                >
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <div className="font-semibold text-slate-900">{cert.recipientName}</div>
+                      <div className="font-mono text-[11px] text-[#0B4A2B]">{cert.certificateNumber}</div>
+                    </div>
+                    <div className="text-right">
+                      <span className="text-[10px] px-1.5 py-0.5 rounded-md bg-slate-100 text-slate-700 font-medium">
+                        {cert.status}
+                      </span>
+                      <div className="text-[10px] text-slate-400 mt-0.5">{cert.tier}</div>
+                    </div>
+                  </div>
                 </div>
-                <p className="font-mono text-[11px] text-forest-green mt-0.5">
-                  {cert.certificateNumber}
-                </p>
-                <p className="text-[11px] text-slate-500">{cert.tier} • {cert.specialisation}</p>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
 
-        {/* Live Certificate Parchment Preview (7 Cols) */}
-        <div className="lg:col-span-7 space-y-4">
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-montserrat font-bold text-slate-500 uppercase">
-              Official Parchment Preview
-            </span>
-            <button
-              type="button"
-              onClick={() => alert(`Simulated: Generating high-resolution printable PDF certificate for ${selectedCert.recipientName}`)}
-              className="px-4 py-2 rounded-xl bg-forest-green hover:bg-deep-emerald text-white font-montserrat font-bold text-xs uppercase tracking-wider flex items-center gap-1.5 shadow-xs"
-            >
-              <Download className="w-3.5 h-3.5" /> Download Printable PDF
-            </button>
-          </div>
-
-          {/* Certificate Template Card */}
-          <div className="relative rounded-3xl p-8 sm:p-12 bg-white border-4 border-heritage-gold/50 shadow-2xl text-center space-y-6 overflow-hidden">
-            {/* Subtle background seal watermark */}
-            <div className="absolute inset-0 flex items-center justify-center opacity-5 pointer-events-none">
-              <div className="relative w-80 h-80">
-                <Image src="/images/brand/logo.png" alt="Seal Watermark" fill className="object-contain" />
-              </div>
-            </div>
-
-            {/* Header: Association & Logo */}
-            <div className="relative z-10 flex flex-col items-center space-y-2">
-              <div className="relative w-16 h-16 rounded-full overflow-hidden ring-2 ring-heritage-gold">
-                <Image src="/images/brand/logo.png" alt="CESSPA Official Seal" fill className="object-cover" />
-              </div>
+        {/* Right Column: Certificate Inspector & Digital Credential (6 cols) */}
+        <div className="lg:col-span-6 space-y-6">
+          <div className="p-6 bg-white border border-slate-200 rounded-lg space-y-5">
+            <div className="flex items-start justify-between pb-4 border-b border-slate-200">
               <div>
-                <span className="font-montserrat font-extrabold text-xs text-forest-green tracking-widest uppercase block">
-                  CERTIFIED ENVIRONMENTAL AND SOCIAL STANDARDS PROFESSIONALS ASSOCIATION
+                <span className="text-[10px] font-mono uppercase text-[#0B4A2B] font-bold block">
+                  CERTIFICATE OF ACCREDITATION
                 </span>
-                <span className="text-[10px] text-slate-500 tracking-wide uppercase">
-                  FEDERAL REPUBLIC OF NIGERIA
-                </span>
-              </div>
-            </div>
-
-            {/* Certificate Title */}
-            <div className="relative z-10 space-y-1">
-              <span className="text-xs font-montserrat font-bold text-heritage-gold uppercase tracking-widest block">
-                CERTIFICATE OF ACCREDITED PRACTICE
-              </span>
-              <p className="text-xs text-slate-600 italic">This is to certify that</p>
-              <h2 className="quote-font text-2xl sm:text-3xl font-bold text-forest-green pt-1">
-                {selectedCert.recipientName}
-              </h2>
-            </div>
-
-            {/* Certification Body Text */}
-            <div className="relative z-10 max-w-lg mx-auto text-xs sm:text-sm text-slate-700 leading-relaxed">
-              <p>
-                having fulfilled all statutory academic benchmarks, demonstrated requisite field experience,
-                and pledged adherence to the <strong>CESSPA Code of Professional Ethics</strong>, is hereby accredited as a
-              </p>
-              <p className="font-montserrat font-extrabold text-base text-slate-900 uppercase my-2 py-1 bg-sage-mist/60 rounded-xl border border-heritage-gold/30">
-                {selectedCert.tier}
-              </p>
-              <p className="text-xs text-slate-500">
-                Authorized practice domain: <strong>{selectedCert.specialisation}</strong>
-              </p>
-            </div>
-
-            {/* Signatures & Seal Row */}
-            <div className="relative z-10 pt-6 border-t border-heritage-gold/30 flex items-end justify-between text-xs">
-              <div className="text-left space-y-1">
-                <span className="font-cormorant italic text-base font-bold text-forest-green block">
-                  Dr. Amina G. Bello
-                </span>
-                <div className="w-28 h-px bg-slate-400" />
-                <span className="text-[10px] text-slate-500 block">President of Council</span>
-              </div>
-
-              {/* Gold Embossed Seal Emblem */}
-              <div className="flex flex-col items-center">
-                <div className="w-14 h-14 rounded-full bg-heritage-gold/20 border-2 border-heritage-gold flex items-center justify-center text-heritage-gold font-montserrat font-extrabold text-[10px] uppercase text-center p-1 shadow-inner">
-                  OFFICIAL SEAL
+                <h3 className="font-heading font-bold text-base text-slate-900 mt-0.5">
+                  {selectedCert.recipientName}
+                </h3>
+                <div className="font-mono text-xs text-slate-500 mt-0.5">
+                  ID: {selectedCert.membershipId} • Cert: {selectedCert.certificateNumber}
                 </div>
-                <span className="font-mono text-[9px] text-slate-400 mt-1">
-                  {selectedCert.certificateNumber}
-                </span>
               </div>
 
-              <div className="text-right space-y-1">
-                <span className="font-cormorant italic text-base font-bold text-forest-green block">
-                  Dr. Joshua M. Akor
-                </span>
-                <div className="w-28 h-px bg-slate-400 ml-auto" />
-                <span className="text-[10px] text-slate-500 block">Secretary General</span>
+              <div className="w-12 h-12 bg-slate-50 border border-slate-200 rounded-md flex items-center justify-center">
+                <QrCode className="w-6 h-6 text-slate-700" />
               </div>
+            </div>
+
+            <div className="space-y-2 text-xs divide-y divide-slate-100 text-slate-700">
+              <div className="flex justify-between py-1">
+                <span className="text-slate-500">Membership Grade:</span>
+                <span className="font-semibold text-slate-900">{selectedCert.tier}</span>
+              </div>
+              <div className="flex justify-between py-1">
+                <span className="text-slate-500">Domain / Node:</span>
+                <span>{selectedCert.specialisation}</span>
+              </div>
+              <div className="flex justify-between py-1">
+                <span className="text-slate-500">Issuing Body:</span>
+                <span>CESSPA National Secretariat, Abuja</span>
+              </div>
+              <div className="flex justify-between py-1">
+                <span className="text-slate-500">Valid Through:</span>
+                <span>{formatDate(selectedCert.expiryDate)}</span>
+              </div>
+              <div className="flex justify-between py-1">
+                <span className="text-slate-500">Legal Authority:</span>
+                <span>CAMA 2020 • SPESSE Node</span>
+              </div>
+            </div>
+
+            <div className="pt-3 border-t border-slate-200 flex items-center justify-between">
+              <span className="text-[11px] text-[#0B4A2B] font-medium flex items-center gap-1">
+                <Check className="w-3.5 h-3.5" /> Registry Verification Active
+              </span>
+              <button
+                type="button"
+                onClick={() => alert(`Simulated: Generating PDF credential for ${selectedCert.recipientName}`)}
+                className="px-3 py-1.5 rounded-md bg-[#0B4A2B] hover:bg-[#08331F] text-white text-xs font-semibold flex items-center gap-1.5 transition-colors"
+              >
+                <Download className="w-3.5 h-3.5" /> Download Certificate
+              </button>
             </div>
           </div>
         </div>

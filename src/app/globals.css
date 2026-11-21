@@ -1,77 +1,69 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Montserrat:wght@400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap");
 @import "tailwindcss";
 
 :root {
-  --font-inter: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-montserrat: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-body: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-heading: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 
-  --forest-green: #0a3a24;
-  --forest-dark: #072517;
-  --deep-emerald: #051d12;
-  --leaf-green: #16a34a;
-  --leaf-accent: #22c55e;
-  --leaf-light: #e8f7ed;
-  --heritage-gold: #c7962c;
+  --forest-green: #0b4a2b;
+  --forest-dark: #08331f;
+  --deep-emerald: #062617;
+  --leaf-green: #15803d;
+  --leaf-accent: #16a34a;
+  --leaf-light: #f0fdf4;
+  --heritage-gold: #b8892b;
   --ivory: #ffffff;
-  --bg-soft: #f4f7f4;
-  --ink-dark: #0e1e17;
-  --ink-body: #374151;
-  --ink-muted: #6b7280;
-  --brand-border: #e5e7eb;
+  --bg-soft: #f8fafc;
+  --ink-dark: #0f172a;
+  --ink-body: #334155;
+  --ink-muted: #64748b;
+  --brand-border: #e2e8f0;
 }
 
 @theme {
-  --color-forest-green: #0a3a24;
-  --color-forest-dark: #072517;
-  --color-deep-emerald: #051d12;
-  --color-leaf-green: #16a34a;
-  --color-leaf-accent: #22c55e;
-  --color-leaf-light: #e8f7ed;
-  --color-heritage-gold: #c7962c;
+  --color-forest-green: #0b4a2b;
+  --color-forest-dark: #08331f;
+  --color-deep-emerald: #062617;
+  --color-leaf-green: #15803d;
+  --color-leaf-accent: #16a34a;
+  --color-leaf-light: #f0fdf4;
+  --color-heritage-gold: #b8892b;
   --color-ivory: #ffffff;
-  --color-bg-soft: #f4f7f4;
-  --color-ink-dark: #0e1e17;
-  --color-ink-body: #374151;
-  --color-ink-muted: #6b7280;
-  --color-brand-border: #e5e7eb;
+  --color-bg-soft: #f8fafc;
+  --color-ink-dark: #0f172a;
+  --color-ink-body: #334155;
+  --color-ink-muted: #64748b;
+  --color-brand-border: #e2e8f0;
 
-  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-inter: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-montserrat: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-heading: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-sans: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-body: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-montserrat: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-heading: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
 /* Base Body Styles */
 body {
   background-color: #ffffff;
-  color: #374151;
-  font-family: var(--font-inter), system-ui, sans-serif;
-  line-height: 1.65;
+  color: #334155;
+  font-family: var(--font-body), system-ui, sans-serif;
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Clean Modern Headings (Montserrat) */
+/* Clean Headings */
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-montserrat), system-ui, sans-serif;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-}
-
-:where(h1, h2, h3, h4, h5, h6) {
-  color: #0e1e17;
-}
-
-.text-white {
-  color: #ffffff !important;
+  font-family: var(--font-heading), system-ui, sans-serif;
+  letter-spacing: -0.015em;
+  color: #0f172a;
 }
 
 .font-heading {
-  font-family: var(--font-montserrat), system-ui, sans-serif !important;
+  font-family: var(--font-heading), system-ui, sans-serif !important;
 }
 
-.font-sans {
-  font-family: var(--font-inter), system-ui, sans-serif !important;
+.font-sans, .font-body {
+  font-family: var(--font-body), system-ui, sans-serif !important;
 }
 
 /* Subtle Modern Eco Patterns */

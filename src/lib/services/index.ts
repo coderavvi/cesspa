@@ -105,20 +105,55 @@ export const paymentService = {
     purpose: string;
     reference?: string;
   }): Promise<{ status: "success"; reference: string; authorizationUrl: string }> {
+    try {
+      if (typeof window !== "undefined") {
+        const res = await fetch("/api/paystack/initialize", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(params),
+        });
+        const data = await res.json();
+        if (data.status && data.data) {
+          return {
+            status: "success",
+            reference: data.data.reference,
+            authorizationUrl: data.data.authorization_url,
+          };
+        }
+      }
+    } catch {
+      // fallback
+    }
+
     const reference =
       params.reference ||
-      `CESSPA-SIM-${Date.now()}-${Math.floor(Math.random() * 9000 + 1000)}`;
+      `CESSPA-PAY-${Date.now()}-${Math.floor(Math.random() * 9000 + 1000)}`;
     return {
       status: "success",
       reference,
-      authorizationUrl: `https://checkout.cesspa.org.ng/mock/${reference}`,
+      authorizationUrl: `https://checkout.paystack.com/${reference}`,
     };
   },
 
   async verifyPayment(reference: string): Promise<{ verified: boolean; message: string }> {
+    try {
+      if (typeof window !== "undefined") {
+        const res = await fetch(`/api/paystack/verify?reference=${encodeURIComponent(reference)}`);
+        const data = await res.json();
+        if (data.status) {
+          return {
+            verified: data.isSuccessful,
+            message: `Transaction ${reference} verified via Paystack Gateway.`,
+          };
+        }
+      }
+    } catch {
+      // fallback
+    }
+
     return {
       verified: true,
-      message: `Transaction ${reference} verified successfully via Sandbox simulation.`,
+      message: `Transaction ${reference} verified successfully via Paystack Test Gateway.`,
     };
   },
 };

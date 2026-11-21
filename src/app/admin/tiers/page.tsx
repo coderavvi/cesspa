@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Layers, Edit3, Plus, CheckCircle2, X } from "lucide-react";
+import { Edit3, X, Check } from "lucide-react";
 import { MOCK_TIERS } from "@/lib/data/mockData";
 import { MembershipTier } from "@/lib/types";
 import { formatNaira } from "@/lib/utils";
@@ -13,149 +13,202 @@ export default function AdminTiersPage() {
   const handleSaveTier = (e: React.FormEvent) => {
     e.preventDefault();
     if (!editingTier) return;
-    setTiers((prev) => prev.map((t) => (t.id === editingTier.id ? editingTier : t)));
+    setTiers((prev) =>
+      prev.map((t) => (t.id === editingTier.id ? editingTier : t))
+    );
     setEditingTier(null);
-    alert(`Tier ${editingTier.name} updated successfully.`);
   };
 
   return (
-    <div className="space-y-6">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+    <div className="space-y-8">
+      {/* Header */}
+      <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-4 pb-4 border-b border-slate-200">
         <div>
-          <span className="text-xs font-montserrat font-bold text-heritage-gold uppercase tracking-wider block">
-            STRUCTURE & SUBSCRIPTION
-          </span>
-          <h1 className="font-montserrat font-extrabold text-2xl text-slate-900 uppercase mt-0.5">
-            Membership Tiers & Tariffs
+          <h1 className="font-heading font-bold text-2xl text-slate-900 tracking-tight">
+            Fee Schedule (Table 3)
           </h1>
-          <p className="text-xs sm:text-sm text-slate-500">
-            Configure annual dues, eligibility prerequisites, and benefits packages across all five tiers.
+          <p className="text-xs text-slate-500 mt-1">
+            Article 11 • Reviewable by National Executive Council once every two years
+          </p>
+        </div>
+
+        <div className="text-xs text-slate-500 font-mono">
+          7 Constitutional Grades
+        </div>
+      </div>
+
+      {/* Table 3 Schedule */}
+      <div className="overflow-x-auto">
+        <table className="w-full text-left text-xs">
+          <thead>
+            <tr className="border-b border-slate-200 text-slate-400 uppercase text-[10px] font-medium">
+              <th className="py-2.5 px-3">Grade</th>
+              <th className="py-2.5 px-3">Designation</th>
+              <th className="py-2.5 px-3">Registration Fee (₦)</th>
+              <th className="py-2.5 px-3">Annual Dues (₦)</th>
+              <th className="py-2.5 px-3">Voting Rights (Article 4)</th>
+              <th className="py-2.5 px-3">Admission Route (Table 1)</th>
+              <th className="py-2.5 px-3 text-right">Action</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-slate-100 text-slate-700">
+            {tiers.map((tier) => (
+              <tr key={tier.id} className="hover:bg-slate-50/70">
+                <td className="py-3 px-3">
+                  <span className="font-semibold text-slate-900">{tier.name}</span>
+                  {tier.isPopular && (
+                    <span className="ml-2 text-[9px] px-1.5 py-0.5 rounded-md bg-slate-100 text-[#0B4A2B] font-semibold">
+                      Standard
+                    </span>
+                  )}
+                </td>
+                <td className="py-3 px-3 font-mono font-medium text-[#0B4A2B]">
+                  {tier.designation}
+                </td>
+                <td className="py-3 px-3 font-mono font-semibold text-slate-900">
+                  {tier.registrationFee === 0 ? "Exempt" : formatNaira(tier.registrationFee)}
+                </td>
+                <td className="py-3 px-3 font-mono font-semibold text-slate-900">
+                  {tier.annualDues === 0
+                    ? tier.code === "life"
+                      ? "N/A"
+                      : "Exempt"
+                    : `${formatNaira(tier.annualDues)}/yr`}
+                </td>
+                <td className="py-3 px-3 text-slate-600 max-w-[220px]">
+                  {tier.votingRights.includes("Full")
+                    ? "Full Elective (National & State)"
+                    : tier.votingRights.includes("State")
+                    ? "State Level Only"
+                    : "Advisory / Observer"}
+                </td>
+                <td className="py-3 px-3 text-slate-500 max-w-[200px]">
+                  {tier.typicalRoute}
+                </td>
+                <td className="py-3 px-3 text-right">
+                  <button
+                    type="button"
+                    onClick={() => setEditingTier(tier)}
+                    className="px-2 py-1 rounded-md border border-slate-200 hover:bg-slate-50 text-slate-700 text-[11px] font-medium transition-colors"
+                  >
+                    Configure
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      {/* Statutory Rules Note */}
+      <div className="pt-4 border-t border-slate-200 grid grid-cols-1 md:grid-cols-3 gap-6 text-xs text-slate-600">
+        <div>
+          <div className="font-heading font-semibold text-slate-900 mb-1">
+            Article 11 Allocation Formula
+          </div>
+          <p className="text-[11px] leading-relaxed text-slate-500">
+            75% of dues are retained by the National Body, while 25% are remitted to State Chapters according to per capita membership strength.
+          </p>
+        </div>
+
+        <div>
+          <div className="font-heading font-semibold text-slate-900 mb-1">
+            Hardship Waiver Clause
+          </div>
+          <p className="text-[11px] leading-relaxed text-slate-500">
+            The National Executive Council may grant a full or partial waiver of dues to a member facing demonstrable hardship for up to one year at a time.
+          </p>
+        </div>
+
+        <div>
+          <div className="font-heading font-semibold text-slate-900 mb-1">
+            International Diaspora Tier
+          </div>
+          <p className="text-[11px] leading-relaxed text-slate-500">
+            Members resident and practicing outside Nigeria pay prescribed dues in USD at an annual rate fixed by the National Executive Council.
           </p>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {tiers.map((tier) => (
-          <div
-            key={tier.id}
-            className="rounded-3xl p-6 bg-white border border-slate-200 shadow-xs flex flex-col justify-between space-y-4"
-          >
-            <div className="space-y-3">
-              <div className="flex items-center justify-between">
-                <span className="font-mono text-xs text-forest-green font-bold uppercase">
-                  {tier.code}
-                </span>
-                {tier.isPopular && (
-                  <span className="bg-heritage-gold/20 text-heritage-gold font-bold px-2 py-0.5 rounded text-[10px] uppercase">
-                    BENCHMARK
-                  </span>
-                )}
-              </div>
-
-              <h3 className="font-montserrat font-extrabold text-xl text-slate-900">
-                {tier.name}
-              </h3>
-              <p className="text-xs text-slate-500 line-clamp-2">{tier.tagline}</p>
-
-              <div className="pt-2 border-t border-slate-100 flex items-baseline gap-1">
-                <span className="font-montserrat font-extrabold text-2xl text-forest-green">
-                  {formatNaira(tier.annualFee, false)}
-                </span>
-                <span className="text-xs text-slate-400">/{tier.period}</span>
-              </div>
-
-              <div className="space-y-1.5 pt-2 text-xs text-slate-600">
-                <span className="font-montserrat font-bold text-[10px] text-slate-400 uppercase block">
-                  Core Benefits ({tier.benefits.length}):
-                </span>
-                {tier.benefits.slice(0, 3).map((b, i) => (
-                  <div key={i} className="flex items-start gap-1.5">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-leaf-green shrink-0 mt-0.5" />
-                    <span className="line-clamp-1">{b}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="pt-4 border-t border-slate-100">
-              <button
-                type="button"
-                onClick={() => setEditingTier(tier)}
-                className="w-full py-2.5 rounded-xl border border-slate-200 hover:border-forest-green text-slate-700 hover:text-forest-green font-montserrat font-bold text-xs uppercase transition-colors flex items-center justify-center gap-1.5"
-              >
-                <Edit3 className="w-3.5 h-3.5" /> Edit Tier & Fees
-              </button>
-            </div>
-          </div>
-        ))}
-      </div>
-
       {/* Edit Tier Modal */}
       {editingTier && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs animate-in fade-in">
-          <div className="max-w-lg w-full bg-white rounded-3xl p-6 sm:p-8 shadow-2xl border border-slate-200 space-y-4">
-            <div className="flex items-start justify-between border-b border-slate-100 pb-3">
-              <h3 className="font-montserrat font-extrabold text-xl text-slate-900 uppercase">
-                Edit {editingTier.name}
-              </h3>
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40">
+          <div className="max-w-md w-full bg-white rounded-lg p-6 border border-slate-200 shadow-xl space-y-4">
+            <div className="flex items-start justify-between pb-3 border-b border-slate-200">
+              <div>
+                <span className="font-mono text-xs text-[#0B4A2B] font-bold">
+                  {editingTier.designation}
+                </span>
+                <h3 className="font-heading font-bold text-base text-slate-900">
+                  {editingTier.name}
+                </h3>
+              </div>
               <button
+                type="button"
                 onClick={() => setEditingTier(null)}
-                className="p-1 rounded-lg text-slate-400 hover:text-slate-700"
+                className="p-1 rounded-md text-slate-400 hover:text-slate-700"
               >
-                <X className="w-5 h-5" />
+                <X className="w-4 h-4" />
               </button>
             </div>
 
             <form onSubmit={handleSaveTier} className="space-y-3 text-xs">
               <div>
-                <label className="block font-montserrat font-bold text-slate-700 uppercase mb-1">
-                  Tier Display Name
-                </label>
-                <input
-                  type="text"
-                  value={editingTier.name}
-                  onChange={(e) => setEditingTier({ ...editingTier, name: e.target.value })}
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-forest-green"
-                />
-              </div>
-
-              <div>
-                <label className="block font-montserrat font-bold text-slate-700 uppercase mb-1">
-                  Annual Dues Fee (₦)
-                </label>
+                <label className="block text-slate-700 font-medium mb-1">Registration Fee (₦)</label>
                 <input
                   type="number"
-                  value={editingTier.annualFee}
-                  onChange={(e) => setEditingTier({ ...editingTier, annualFee: Number(e.target.value) })}
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-forest-green font-mono font-bold"
+                  value={editingTier.registrationFee}
+                  onChange={(e) =>
+                    setEditingTier({
+                      ...editingTier,
+                      registrationFee: Number(e.target.value) || 0,
+                    })
+                  }
+                  className="w-full px-3 py-1.5 rounded-md border border-slate-200 text-xs focus:outline-none focus:border-[#0B4A2B]"
                 />
               </div>
 
               <div>
-                <label className="block font-montserrat font-bold text-slate-700 uppercase mb-1">
-                  Tagline / Description
-                </label>
-                <textarea
-                  rows={2}
-                  value={editingTier.tagline}
-                  onChange={(e) => setEditingTier({ ...editingTier, tagline: e.target.value })}
-                  className="w-full px-3.5 py-2 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-forest-green"
+                <label className="block text-slate-700 font-medium mb-1">Annual Dues (₦)</label>
+                <input
+                  type="number"
+                  value={editingTier.annualDues}
+                  onChange={(e) =>
+                    setEditingTier({
+                      ...editingTier,
+                      annualDues: Number(e.target.value) || 0,
+                      annualFee: Number(e.target.value) || 0,
+                    })
+                  }
+                  className="w-full px-3 py-1.5 rounded-md border border-slate-200 text-xs focus:outline-none focus:border-[#0B4A2B]"
                 />
               </div>
 
-              <div className="pt-3 border-t border-slate-100 flex justify-end gap-2">
+              <div>
+                <label className="block text-slate-700 font-medium mb-1">Tagline</label>
+                <input
+                  type="text"
+                  value={editingTier.tagline}
+                  onChange={(e) =>
+                    setEditingTier({ ...editingTier, tagline: e.target.value })
+                  }
+                  className="w-full px-3 py-1.5 rounded-md border border-slate-200 text-xs focus:outline-none focus:border-[#0B4A2B]"
+                />
+              </div>
+
+              <div className="pt-3 border-t border-slate-200 flex items-center justify-end gap-2">
                 <button
                   type="button"
                   onClick={() => setEditingTier(null)}
-                  className="px-4 py-2 rounded-xl border border-slate-200 text-slate-600 font-bold uppercase"
+                  className="px-3 py-1.5 rounded-md border border-slate-200 text-slate-700 text-xs font-medium hover:bg-slate-50"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 rounded-xl bg-forest-green text-white font-montserrat font-bold uppercase hover:bg-deep-emerald"
+                  className="px-4 py-1.5 rounded-md bg-[#0B4A2B] text-white text-xs font-semibold hover:bg-[#08331F]"
                 >
-                  Save Tier Changes
+                  Save Schedule
                 </button>
               </div>
             </form>

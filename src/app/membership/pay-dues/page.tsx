@@ -44,17 +44,19 @@ export default function PayDuesPage() {
     }
   };
 
-  // Determine annual fee based on member tier
-  const duesAmount =
-    member?.tier === "Fellow"
-      ? 150000
-      : member?.tier === "Student"
-      ? 15000
-      : member?.tier === "Associate"
-      ? 35000
-      : member?.tier === "Corporate"
-      ? 350000
-      : 75000;
+  // Determine annual dues based on constitutional Table 3 schedule
+  const getDuesAmount = (m: Member | null) => {
+    if (!m) return 10000;
+    const t = m.tier.toLowerCase();
+    if (t.includes("fellow")) return 20000;
+    if (t.includes("affiliate")) return 5000;
+    if (t.includes("student")) return 2000;
+    if (t.includes("corporate")) return 20000;
+    if (t.includes("life") || t.includes("honorary")) return 0;
+    return 10000; // Full Member standard
+  };
+
+  const duesAmount = getDuesAmount(member);
 
   return (
     <div className="w-full">

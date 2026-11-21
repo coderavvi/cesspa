@@ -18,6 +18,7 @@ import {
   FileText,
 } from "lucide-react";
 import { IMAGES } from "@/lib/images";
+import { UpcomingEventsSection } from "@/components/home/UpcomingEventsSection";
 
 export default function HomePage() {
   return (
@@ -660,106 +661,61 @@ export default function HomePage() {
       </section>
 
       {/* =========================================================================
-          9. TESTIMONIALS SECTION ("Clients Best Feedback About CESSPA Provision")
+          9. STATUTORY & INSTITUTIONAL PARTNERS (SPESSE Centers & Regulatory Bodies)
       ========================================================================== */}
-      <section className="py-20 lg:py-28 bg-[#f9fbf9] border-t border-gray-100">
+      <section className="py-20 lg:py-24 bg-[#f8faf8] border-t border-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
             <div>
-              <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#16a34a] mb-3">
+              <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#16a34a] mb-2">
                 <Trees className="w-4 h-4" />
-                PRACTITIONER TESTIMONIALS
+                INSTITUTIONAL ALIGNMENT
               </div>
-              <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#0e1e17] leading-tight">
-                What Regulators &amp; Environmental <br />
-                Leaders Say
+              <h2 className="font-heading text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#0e1e17] leading-tight">
+                Statutory Regulatory Partners &amp; <br />
+                SPESSE Centers of Excellence
               </h2>
             </div>
-
-            <div className="flex items-center gap-3">
-              <button
-                className="w-11 h-11 rounded-lg border border-gray-200 bg-white hover:bg-gray-50 text-gray-700 flex items-center justify-center transition-colors shadow-sm"
-                aria-label="Previous testimonial"
-              >
-                <ChevronLeft className="w-5 h-5" />
-              </button>
-              <button
-                className="w-11 h-11 rounded-lg bg-[#16a34a] hover:bg-[#15803d] text-white flex items-center justify-center transition-colors shadow-md"
-                aria-label="Next testimonial"
-              >
-                <ChevronRight className="w-5 h-5" />
-              </button>
-            </div>
+            <p className="text-xs sm:text-sm text-gray-500 max-w-md">
+              CESSPA operates in alignment with Federal Ministries, statutory regulatory agencies, and the National Universities Commission (NUC) accredited SPESSE nodes.
+            </p>
           </div>
 
-          {/* 2 Testimonial Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {/* Testimonial 1 */}
-            <div className="bg-white border border-gray-100 rounded-2xl p-8 shadow-sm flex flex-col justify-between">
-              <div>
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex text-amber-400 gap-1">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 fill-current" />
-                    ))}
-                  </div>
-                  <Quote className="w-8 h-8 text-[#16a34a]/30" />
-                </div>
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="w-14 h-14 rounded-full overflow-hidden relative border-2 border-[#16a34a]/30">
-                    <Image
-                      src={IMAGES.leadership.trustee1}
-                      alt="Dr. Amina Garba Bello"
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                  <div>
-                    <h4 className="font-heading font-bold text-base text-[#0e1e17]">Dr. Amina Garba Bello</h4>
-                    <p className="text-xs text-gray-500">Fellow (FCESSPA) • Lead Social Safeguards Advisor</p>
-                  </div>
-                </div>
-                <p className="text-sm text-gray-600 italic leading-relaxed">
-                  &ldquo;CESSPA&apos;s standardized ESIA methodology has brought immense clarity to statutory environmental approvals. Reports stamped with the official seal satisfy federal benchmarks and donor requirements effortlessly.&rdquo;
-                </p>
-              </div>
-              <div className="pt-6">
-                <span className="text-xs font-bold text-[#16a34a] uppercase tracking-wider">Regulatory Oversight</span>
-              </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="bg-white border border-gray-200 rounded-xl p-6 space-y-3">
+              <span className="text-[10px] font-mono font-bold text-[#16a34a] uppercase tracking-wider block">
+                STATUTORY SAFEGUARDS MANDATE
+              </span>
+              <h4 className="font-heading font-bold text-base text-[#0e1e17]">
+                Federal Ministry of Environment &amp; NESREA
+              </h4>
+              <p className="text-xs text-gray-600 leading-relaxed">
+                Adherence to the national EIA procedural guidelines, statutory environmental impact approvals, industrial effluent standards, and enforcement regulations.
+              </p>
             </div>
 
-            {/* Testimonial 2 */}
-            <div className="bg-white border border-gray-100 rounded-2xl p-8 shadow-sm flex flex-col justify-between">
-              <div>
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex text-amber-400 gap-1">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 fill-current" />
-                    ))}
-                  </div>
-                  <Quote className="w-8 h-8 text-[#16a34a]/30" />
-                </div>
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="w-14 h-14 rounded-full overflow-hidden relative border-2 border-[#16a34a]/30">
-                    <Image
-                      src={IMAGES.leadership.president}
-                      alt="Engr. Nonso Nwankwo"
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                  <div>
-                    <h4 className="font-heading font-bold text-base text-[#0e1e17]">Engr. Nonso Nwankwo</h4>
-                    <p className="text-xs text-gray-500">Director of Technical Standards • Certified Professional</p>
-                  </div>
-                </div>
-                <p className="text-sm text-gray-600 italic leading-relaxed">
-                  &ldquo;The continuous professional development workshops and technical compendiums from CESSPA ensure that practicing environmental auditors remain on the cutting edge of global ESG benchmarks.&rdquo;
-                </p>
-              </div>
-              <div className="pt-6">
-                <span className="text-xs font-bold text-[#16a34a] uppercase tracking-wider">Standards Compliance</span>
-              </div>
+            <div className="bg-white border border-gray-200 rounded-xl p-6 space-y-3">
+              <span className="text-[10px] font-mono font-bold text-[#16a34a] uppercase tracking-wider block">
+                SOCIAL STANDARDS &amp; INCLUSION
+              </span>
+              <h4 className="font-heading font-bold text-base text-[#0e1e17]">
+                Federal Ministry of Women Affairs
+              </h4>
+              <p className="text-xs text-gray-600 leading-relaxed">
+                Implementation of social safeguards practice, gender equity frameworks, vulnerable group inclusion, and community grievance redress mechanisms.
+              </p>
+            </div>
+
+            <div className="bg-white border border-gray-200 rounded-xl p-6 space-y-3">
+              <span className="text-[10px] font-mono font-bold text-[#16a34a] uppercase tracking-wider block">
+                ACADEMIC &amp; CAPACITY BENCHMARK
+              </span>
+              <h4 className="font-heading font-bold text-base text-[#0e1e17]">
+                SPESSE University Centers of Excellence
+              </h4>
+              <p className="text-xs text-gray-600 leading-relaxed">
+                Accredited certification tracks at ABU Zaria, UNIBEN, UNILAG, ATBU Bauchi, UNIMAID, and FUTO Owerri, standardizing professional procurement and safeguards competencies.
+              </p>
             </div>
           </div>
         </div>
@@ -863,6 +819,11 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* =========================================================================
+          UPCOMING EVENTS & CPD ACCREDITED MASTERCLASSES (Admin Toggleable)
+      ========================================================================== */}
+      <UpcomingEventsSection />
 
       {/* =========================================================================
           12. LATEST INSIGHTS ("Building a Greener Future Together Forever")

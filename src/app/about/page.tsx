@@ -84,40 +84,30 @@ export default function AboutPage() {
       {/* Mission, Vision, and Core Mandate */}
       <Section variant="sage">
         <div className="text-center max-w-2xl mx-auto mb-12">
-          <Eyebrow chip="MANDATE">PURPOSE & DIRECTION</Eyebrow>
+          <Eyebrow chip="CONSTITUTION">STATUTORY FOUNDATION</Eyebrow>
           <h2 className="font-montserrat font-extrabold text-2xl sm:text-3xl text-ink-dark uppercase mt-1">
-            Our Guiding Pillars
+            Vision &amp; Mission
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="rounded-2xl p-6 bg-white border border-brand-border shadow-sm space-y-3">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          <div className="rounded-2xl p-8 bg-white border border-brand-border shadow-xs space-y-4">
             <div className="w-12 h-12 rounded-xl bg-forest-green text-white flex items-center justify-center">
               <Eye className="w-6 h-6 text-heritage-gold" />
             </div>
             <h3 className="font-montserrat font-bold text-lg text-ink-dark uppercase">Our Vision</h3>
-            <p className="text-xs sm:text-sm text-ink-body leading-relaxed">
-              To be Nigeria’s pre-eminent professional certifying authority for Environmental and Social safeguards, recognized globally for ethical rigor, scientific excellence, and social justice.
+            <p className="text-sm sm:text-base text-ink-body leading-relaxed">
+              Be Nigeria&apos;s foremost professional body championing sustainable environmental and social standards enhancement, fostering a community of competent and ethical professionals dedicated to national and global development goals.
             </p>
           </div>
 
-          <div className="rounded-2xl p-6 bg-white border border-brand-border shadow-sm space-y-3">
-            <div className="w-12 h-12 rounded-xl bg-leaf-green text-white flex items-center justify-center">
+          <div className="rounded-2xl p-8 bg-white border border-brand-border shadow-xs space-y-4">
+            <div className="w-12 h-12 rounded-xl bg-forest-green text-white flex items-center justify-center">
               <Target className="w-6 h-6 text-white" />
             </div>
             <h3 className="font-montserrat font-bold text-lg text-ink-dark uppercase">Our Mission</h3>
-            <p className="text-xs sm:text-sm text-ink-body leading-relaxed">
-              To institutionalize world-class ESIA, safeguards audit, and stakeholder engagement standards through accredited certification, continuous professional development, and collaborative policy advocacy.
-            </p>
-          </div>
-
-          <div className="rounded-2xl p-6 bg-white border border-brand-border shadow-sm space-y-3">
-            <div className="w-12 h-12 rounded-xl bg-heritage-gold text-forest-green flex items-center justify-center">
-              <Flag className="w-6 h-6 text-forest-green" />
-            </div>
-            <h3 className="font-montserrat font-bold text-lg text-ink-dark uppercase">Our Core Goal</h3>
-            <p className="text-xs sm:text-sm text-ink-body leading-relaxed">
-              To empower practitioners with the tools, authority, and ethical backing required to assess first, mitigate early, and develop responsibly across both public and private capital pipelines.
+            <p className="text-sm sm:text-base text-ink-body leading-relaxed">
+              To build a credible, knowledge-driven, and globally recognized network of Environmental and Social Standards Professionals that supports effective policy implementation, capacity building, and sustainable development.
             </p>
           </div>
         </div>
@@ -125,48 +115,79 @@ export default function AboutPage() {
 
       {/* Strategic Objectives Grid */}
       <Section variant="white">
-        <div className="max-w-3xl mx-auto space-y-6">
+        <div className="max-w-4xl mx-auto space-y-8">
           <div className="text-center">
-            <Eyebrow chip="OBJECTIVES">CORE STRATEGIC MANDATE</Eyebrow>
+            <Eyebrow chip="ARTICLE 2">CONSTITUTIONAL OBJECTIVES</Eyebrow>
             <h2 className="font-montserrat font-extrabold text-2xl sm:text-3xl text-ink-dark uppercase mt-1">
-              What CESSPA Delivers
+              Statutory Objectives of CESSPA
             </h2>
+            <p className="text-xs sm:text-sm text-ink-muted mt-2 max-w-2xl mx-auto">
+              Enacted under the Companies and Allied Matters Act (CAMA 2020) for the governance, operation, and regulation of E&amp;S standards practice in Nigeria.
+            </p>
           </div>
 
-          <div className="space-y-4 pt-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4">
             {[
               {
-                title: "1. Foster Professional Standards & Certification",
-                desc: "Establish stringent peer-reviewed accreditation pathways for ESIA practitioners, baseline scientists, resettlement specialists, and safeguards auditors.",
+                title: "International Framework Alignment",
+                desc: "Harmonize and strengthen E&S standards in line with the World Bank Environmental and Social Framework (ESF), IFC Performance Standards, AfDB Integrated Safeguard System (ISS), and ISO 14000 standards.",
               },
               {
-                title: "2. Nationwide Outreach & Continuous Training (CPD)",
-                desc: "Conduct mandatory ongoing training modules, technical workshops, and field masterclasses across all 6 geopolitical zones to keep members abreast of evolving regulatory frameworks.",
+                title: "Capacity Building & Certification",
+                desc: "Enhance professional capacity through accredited training, SPESSECE Track A-E programs, peer certification, and continuous professional development.",
               },
               {
-                title: "3. Promote Member Welfare, Professional Indemnity & Ethics",
-                desc: "Safeguard the integrity of practitioners when issuing objective environmental assessments, resisting undue commercial pressures, and protecting whistleblowers.",
+                title: "Inter-Agency Regulatory Collaboration",
+                desc: "Foster structured partnerships with FMEnv, FMWA, NESREA, NOSDRA, NUC, United Nations agencies (UNDP, UNEP, UNICEF), and international development partners.",
               },
               {
-                title: "4. Policy Advocacy & Regulatory Convergence",
-                desc: "Collaborate constructively with the Federal Ministry of Environment, NESREA, and State Environmental Protection Boards to modernize national impact assessment standards.",
+                title: "Ethics, Compliance & Safeguards",
+                desc: "Promote professionalism, ethics, transparency, gender equality, and best practices across environmental impact assessments and social welfare safeguards.",
               },
-            ].map((obj) => (
-              <div key={obj.title} className="p-5 rounded-2xl bg-sage-mist/40 border border-brand-border space-y-1.5">
-                <h4 className="font-montserrat font-bold text-sm sm:text-base text-forest-green">
-                  {obj.title}
-                </h4>
+              {
+                title: "Research, Innovation & National Voice",
+                desc: "Serve as the recognized voice and reference body for E&S practitioners in Nigeria, advancing applied research, innovative methodologies, and policy implementation.",
+              },
+              {
+                title: "Grassroots Chapter Coordination",
+                desc: "Maintain active State Executive Councils (SEC) across 36 States and the FCT, coordinated through 6 Geopolitical Zonal structures.",
+              },
+            ].map((obj, i) => (
+              <div key={obj.title} className="p-5 rounded-xl bg-slate-50 border border-brand-border space-y-2">
+                <div className="flex items-center gap-2">
+                  <span className="font-mono text-xs font-bold text-forest-green">0{i + 1}.</span>
+                  <h4 className="font-montserrat font-bold text-sm text-ink-dark">
+                    {obj.title}
+                  </h4>
+                </div>
                 <p className="text-xs sm:text-sm text-ink-body leading-relaxed">{obj.desc}</p>
               </div>
             ))}
           </div>
 
-          <div className="pt-8 text-center">
+          <div className="p-6 rounded-xl bg-[#08331f] text-white flex flex-col sm:flex-row items-center justify-between gap-4 mt-8">
+            <div>
+              <span className="text-[10px] font-mono uppercase tracking-wider text-heritage-gold block">
+                LEGAL REGISTRATION &amp; SECRETARIAT
+              </span>
+              <p className="text-xs sm:text-sm text-white/90 mt-1 font-medium">
+                Registered non-profit, non-political body under CAMA 2020. National Secretariat located in the Federal Capital Territory (FCT), Abuja, Nigeria.
+              </p>
+            </div>
+            <Link
+              href="/membership"
+              className="px-5 py-2.5 rounded-lg bg-heritage-gold hover:bg-heritage-gold/90 text-forest-dark font-montserrat font-bold text-xs uppercase tracking-wider shrink-0"
+            >
+              Membership Schedule
+            </Link>
+          </div>
+
+          <div className="pt-4 text-center">
             <Link
               href="/about/executives"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-forest-green text-white font-montserrat font-bold text-xs uppercase tracking-wider hover:bg-deep-emerald shadow-md transition-all"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-forest-green text-white font-montserrat font-bold text-xs uppercase tracking-wider hover:bg-deep-emerald transition-all"
             >
-              Meet National Executives
+              National Executive Council
               <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
