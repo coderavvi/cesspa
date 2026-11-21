@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import {
   Search,
@@ -29,6 +29,38 @@ export default function AdminPaymentsPage() {
     amount: "10000",
     method: "Bank Transfer" as PaymentTransaction["method"],
   });
+
+  useEffect(() => {
+    // Automatically merge live verified Paystack payments into the ledger
+    fetch("/api/paystack/webhook")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.recentEvents && Array.isArray(data.recentEvents)) {
+          const liveTransactions: PaymentTransaction[] = data.recentEvents
+            .filter((e: any) => e.signatureValid && e.amount > 0)
+            .map((e: any) => ({
+              id: e.id,
+              reference: e.reference,
+              memberName: e.rawPayload?.data?.metadata?.customerName || e.customerEmail.split("@")[0],
+              email: e.customerEmail,
+              purpose: (e.rawPayload?.data?.metadata?.purpose || "Membership Dues") as PaymentTransaction["purpose"],
+              amount: e.amount,
+              method: `Paystack (${e.rawPayload?.data?.channel || "Online"})` as any,
+              status: "Successful",
+              date: e.receivedAt ? e.receivedAt.replace("T", " ").slice(0, 16) : "Recent",
+            }));
+
+          if (liveTransactions.length > 0) {
+            setPayments((prev) => {
+              const existingRefs = new Set(prev.map((p) => p.reference));
+              const newItems = liveTransactions.filter((lt) => !existingRefs.has(lt.reference));
+              return [...newItems, ...prev];
+            });
+          }
+        }
+      })
+      .catch(() => {});
+  }, []);
 
   const filtered = payments.filter((p) => {
     const q = search.toLowerCase();

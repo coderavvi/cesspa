@@ -88,12 +88,22 @@ export async function initializeTransaction(
   const reference =
     params.reference || `CESSPA-${Date.now()}-${Math.floor(Math.random() * 9000 + 1000)}`;
 
+  const customFields = [
+    { display_name: "Payer Name", variable_name: "customer_name", value: params.metadata?.customerName || "CESSPA Member" },
+    { display_name: "Purpose", variable_name: "purpose", value: params.metadata?.purpose || "General Payment" },
+    ...(params.metadata?.membershipId ? [{ display_name: "Membership ID", variable_name: "membership_id", value: params.metadata.membershipId }] : []),
+    ...(params.metadata?.tier ? [{ display_name: "Membership Grade", variable_name: "membership_tier", value: params.metadata.tier }] : []),
+  ];
+
   const body = {
     email: params.email,
     amount: Math.round(params.amount * 100), // convert Naira to kobo
     reference,
     callback_url: params.callbackUrl,
-    metadata: params.metadata,
+    metadata: {
+      ...params.metadata,
+      custom_fields: customFields,
+    },
     channels: params.channels || ["card", "bank", "ussd", "qr", "mobile_money", "bank_transfer"],
   };
 
