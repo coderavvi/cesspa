@@ -323,7 +323,7 @@ export function ExecutivesClient() {
                     src={member.image}
                     alt={member.name}
                     fill
-                    className="object-cover object-top"
+                    className="object-cover object-center"
                   />
                   <div
                     className={`absolute top-3 right-3 font-montserrat font-bold text-[10px] uppercase tracking-wider px-2.5 py-0.5 rounded shadow-xs ${
