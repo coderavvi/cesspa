@@ -4,14 +4,99 @@ import Link from "next/link";
 import { ShieldCheck, Award, ArrowRight, CheckCircle2 } from "lucide-react";
 import { Section } from "@/components/shared/Section";
 import { Eyebrow } from "@/components/shared/Eyebrow";
-import { MOCK_ADVISORY_COMMITTEE } from "@/lib/data/mockData";
 
 export const metadata = {
   title: "National Advisory Committee | CESSPA",
   description: "Distinguished leadership and members of the National Advisory Committee of the Certified Environmental and Social Standards Professionals Association of Nigeria.",
 };
 
+export interface AdvisoryCommitteeMember {
+  id: string;
+  name: string;
+  certification: string;
+  nescpLevel: string;
+  nsspcpLevel: string;
+  image: string;
+  bio?: string;
+  declarationConfirmed?: boolean;
+}
+
+export const MOCK_ADVISORY_COMMITTEE: AdvisoryCommitteeMember[] = [
+  {
+    id: "adv-1",
+    name: "Prof. Ibrahim Kolawole Muritala",
+    certification: "A-ESCP, I-SSCP",
+    nescpLevel: "Associate Environmental Standards Certified Professional (A-ESCP)",
+    nsspcpLevel: "Intermediate Social Standards Certified Professional (I-SSCP)",
+    image: "/images/advisory/prof-ibrahim-kolawole-muritala.jpg",
+    bio: "Pioneer academic and safeguard practitioner contributing specialist expertise to the harmonization of national and global environmental frameworks.",
+    declarationConfirmed: true,
+  },
+  {
+    id: "adv-2",
+    name: "Prof. John Gushit",
+    certification: "S-ESCP, F-SSCP",
+    nescpLevel: "Specialist Environmental Standards Certified Professional (S-ESCP)",
+    nsspcpLevel: "Foundation Social Standards Certified Professional (F-SSCP)",
+    image: "/images/advisory/prof-john-gushit.jpg",
+    bio: "Specialist standards researcher and senior environmental scientist advancing applied research in sustainable resource management.",
+    declarationConfirmed: true,
+  },
+  {
+    id: "adv-3",
+    name: "Leonell Elijah Echa",
+    certification: "I-ESCP, I-SSCP",
+    nescpLevel: "Intermediate Environmental Standards Certified Professional (I-ESCP)",
+    nsspcpLevel: "Intermediate Social Standards Certified Professional (I-SSCP)",
+    image: "/images/advisory/leonell-elijah-echa.jpg",
+    bio: "Practicing E&S standards leader focusing on project safeguard integration and cross-sectoral social risk screening.",
+    declarationConfirmed: true,
+  },
+  {
+    id: "adv-4",
+    name: "Dr. Ogechukwu Onyebueke",
+    certification: "I-ESCP, F-SSCP",
+    nescpLevel: "Intermediate Environmental Standards Certified Professional (I-ESCP)",
+    nsspcpLevel: "Foundation Social Standards Certified Professional (F-SSCP)",
+    image: "/images/advisory/dr-ogechukwu-onyebueke.jpg",
+    bio: "Environmental professional championing rigorous baseline auditing, ecological conservation, and community safeguards.",
+    declarationConfirmed: true,
+  },
+  {
+    id: "adv-5",
+    name: "Fatima Adekemi Ajala",
+    certification: "I-ESCP, I-SSCP",
+    nescpLevel: "Intermediate Environmental Standards Certified Professional (I-ESCP)",
+    nsspcpLevel: "Intermediate Social Standards Certified Professional (I-SSCP)",
+    image: "/images/advisory/fatima-adekemi-ajala.jpg",
+    bio: "E&S practitioner with dedicated leadership in social standards enhancement, gender inclusion, and community engagement.",
+    declarationConfirmed: true,
+  },
+  {
+    id: "adv-6",
+    name: "Assoc. Prof. Adamu Jibir",
+    certification: "F-ESCP, F-SSCP",
+    nescpLevel: "Foundation Environmental Standards Certified Professional (F-ESCP)",
+    nsspcpLevel: "Foundation Social Standards Certified Professional (F-SSCP)",
+    image: "/images/advisory/assoc-prof-adamu-jibir.jpg",
+    bio: "Development economist and safeguards scholar advising on responsible development, socioeconomic impacts, and policy integration.",
+    declarationConfirmed: true,
+  },
+  {
+    id: "adv-7",
+    name: "Agomoh, Okechi Ketandu",
+    certification: "F-ESCP, F-SSCP",
+    nescpLevel: "Foundation Environmental Standards Certified Professional (F-ESCP)",
+    nsspcpLevel: "Foundation Social Standards Certified Professional (F-SSCP)",
+    image: "/images/advisory/agomoh-okechi-ketandu.jpg",
+    bio: "Certified environmental and social standards practitioner advancing grassroots compliance and capacity development.",
+    declarationConfirmed: true,
+  },
+];
+
 export default function AdvisoryCommitteePage() {
+  const membersList = MOCK_ADVISORY_COMMITTEE || [];
+
   return (
     <div className="w-full">
       <section className="bg-forest-green text-white py-16 lg:py-20 relative overflow-hidden">
@@ -40,7 +125,7 @@ export default function AdvisoryCommitteePage() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {MOCK_ADVISORY_COMMITTEE.map((member) => (
+          {membersList.map((member) => (
             <div
               key={member.id}
               className="rounded-3xl overflow-hidden bg-white border border-brand-border shadow-sm card-hover flex flex-col justify-between"

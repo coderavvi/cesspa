@@ -4,14 +4,91 @@ import Link from "next/link";
 import { Mail, ShieldCheck, MapPin, ArrowRight, Award } from "lucide-react";
 import { Section } from "@/components/shared/Section";
 import { Eyebrow } from "@/components/shared/Eyebrow";
-import { MOCK_INTERIM_EXECUTIVES } from "@/lib/data/mockData";
 
 export const metadata = {
   title: "National Executive Council | CESSPA",
   description: "Interim National Executive Council of the Certified Environmental and Social Standards Professionals Association (CESSPA).",
 };
 
+export interface ExecutiveMember {
+  name: string;
+  credentials?: string;
+  role: string;
+  office: string;
+  portfolio: string;
+  email: string;
+  image: string;
+  isNationalPresident?: boolean;
+}
+
+export const MOCK_INTERIM_EXECUTIVES: ExecutiveMember[] = [
+  {
+    name: "Saminu Abdu",
+    credentials: "I-SSCP, F-ESCP",
+    role: "Interim National President",
+    office: "National Secretariat, Abuja",
+    portfolio: "Strategic Governance, Institutional Engagement & National Leadership",
+    email: "president@cesspa.org.ng",
+    image: "/images/executives/saminu-abdu.jpg",
+    isNationalPresident: true,
+  },
+  {
+    name: "Amos Ibrahim Agwom",
+    credentials: "MAF, MSSD, B.Sc, I-SSCP, CESSPA, AFAn, IMCON",
+    role: "Interim National Vice Chairman Sustainable Social Standard",
+    office: "National Secretariat, Abuja",
+    portfolio: "Sustainable Social Standards Enhancement, Community Inclusion & Safeguards",
+    email: "vc.social@cesspa.org.ng",
+    image: "/images/executives/amos-ibrahim-agwom.jpg",
+  },
+  {
+    name: "ORGA Joseph Terfa",
+    credentials: "I-SSCP, I-ESCP",
+    role: "Interim National Secretary",
+    office: "National Secretariat HQ, Abuja",
+    portfolio: "Secretariat Operations, Council Records, Official Communications",
+    email: "secgen@cesspa.org.ng",
+    image: "/images/executives/orga-joseph-terfa.jpg",
+  },
+  {
+    name: "Oluwafemi Adedoyin Florence",
+    credentials: "NES, F-ESCP",
+    role: "Interim National Assistant Secretary",
+    office: "National Secretariat, Abuja",
+    portfolio: "Administrative Coordination, Secretariat Archives & Documentation",
+    email: "asst.sec@cesspa.org.ng",
+    image: "/images/executives/oluwafemi-adedoyin-florence.jpg",
+  },
+  {
+    name: "Deborah Abieyuwa Aiguokun",
+    role: "Interim Financial Secretary",
+    office: "National Secretariat, Abuja",
+    portfolio: "Financial Records, Accounts Management & Dues Verification",
+    email: "finance@cesspa.org.ng",
+    image: "/images/executives/deborah-abieyuwa-aiguokun.jpg",
+  },
+  {
+    name: "Aminu Mai'adua Suleiman",
+    role: "Interim National Publicity Secretary",
+    office: "National Secretariat, Abuja",
+    portfolio: "Media Strategy, Public Relations, Press Releases & Information Dissemination",
+    email: "publicity@cesspa.org.ng",
+    image: "/images/executives/aminu-maiadua-suleiman.jpg",
+  },
+  {
+    name: "Riskat Bukola Mustapha",
+    credentials: "Environmental Health Consultant Certified Environmental Standard Professional",
+    role: "Interim Assistant Treasurer",
+    office: "National Secretariat, Abuja",
+    portfolio: "Treasury Support, Member Welfare & Fiduciary Accounting",
+    email: "treasury@cesspa.org.ng",
+    image: "/images/executives/riskat-bukola-mustapha.jpg",
+  },
+];
+
 export default function ExecutivesPage() {
+  const executivesList = MOCK_INTERIM_EXECUTIVES || [];
+
   return (
     <div className="w-full">
       <section className="bg-forest-green text-white py-16 lg:py-20 relative overflow-hidden">
@@ -31,7 +108,7 @@ export default function ExecutivesPage() {
 
       <Section variant="ivory">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {MOCK_INTERIM_EXECUTIVES.map((exec) => (
+          {executivesList.map((exec) => (
             <div
               key={exec.name}
               className={`rounded-3xl overflow-hidden bg-white border shadow-sm card-hover flex flex-col justify-between ${
