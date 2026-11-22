@@ -827,7 +827,7 @@ export default function HomePage() {
               href="/about/executives"
               className="inline-flex items-center gap-2 bg-[#16a34a] hover:bg-[#15803d] text-white font-bold px-7 py-3 rounded-lg transition-all shadow-md hover:shadow-lg active:scale-95 text-xs sm:text-sm uppercase tracking-wider"
             >
-              <span>View All Interim National Executives</span>
+              <span>View All National Executives &amp; Leadership</span>
               <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
@@ -917,7 +917,7 @@ export default function HomePage() {
                 </div>
               </div>
               <div className="px-6 pb-6 pt-2 border-t border-gray-50 flex items-center justify-between text-xs text-gray-500">
-                <span className="font-semibold text-[#0e1e17]">Ken Ebiama, Esq.</span>
+                <span className="font-semibold text-[#0e1e17]">Social Safeguards Working Group</span>
                 <Link href="/resources/blog/peace-community-relations-foundation-responsible-development" className="text-[#16a34a] hover:text-[#15803d] font-bold inline-flex items-center gap-1">
                   <span>Read Article</span>
                   <ArrowRight className="w-4 h-4" />
@@ -946,7 +946,7 @@ export default function HomePage() {
                 </div>
               </div>
               <div className="px-6 pb-6 pt-2 border-t border-gray-50 flex items-center justify-between text-xs text-gray-500">
-                <span className="font-semibold text-[#0e1e17]">Mrs. Toyin Balogun-Adeleke</span>
+                <span className="font-semibold text-[#0e1e17]">Environmental Standards Committee</span>
                 <Link href="/resources/blog/twc-inception-uniting-practitioners-across-six-zones" className="text-[#16a34a] hover:text-[#15803d] font-bold inline-flex items-center gap-1">
                   <span>Read Article</span>
                   <ArrowRight className="w-4 h-4" />

@@ -71,18 +71,41 @@ export default function ChaptersPage() {
               className="rounded-3xl overflow-hidden bg-white border border-brand-border shadow-sm card-hover flex flex-col justify-between"
             >
               <div>
-                {/* Zonal Coordinator Portrait Photo */}
+                {/* Zonal Coordinator Portrait Photo or In Formation Banner */}
                 <div className="relative aspect-4/3 w-full bg-sage-mist overflow-hidden">
                   {chapter.coordinatorImage ? (
-                    <Image
-                      src={chapter.coordinatorImage}
-                      alt={`${chapter.coordinator} - ${chapter.zone} Zonal Coordinator`}
-                      fill
-                      className="object-cover object-top"
-                    />
+                    <>
+                      <Image
+                        src={chapter.coordinatorImage}
+                        alt={`${chapter.coordinator} - ${chapter.zone} Zonal Coordinator`}
+                        fill
+                        className="object-cover object-top"
+                      />
+                      <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/85 via-black/50 to-transparent p-4 text-white">
+                        <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-heritage-gold block">
+                          ZONAL COORDINATOR
+                        </span>
+                        <h4 className="font-montserrat font-bold text-base leading-tight">
+                          {chapter.coordinator}
+                        </h4>
+                        {chapter.coordinatorCredentials && (
+                          <span className="text-[11px] text-sage-mist font-mono font-semibold">
+                            {chapter.coordinatorCredentials}
+                          </span>
+                        )}
+                      </div>
+                    </>
                   ) : (
-                    <div className="w-full h-full flex items-center justify-center bg-forest-green text-white">
-                      <Users className="w-12 h-12 text-sage-mist" />
+                    <div className="w-full h-full flex flex-col items-center justify-center bg-forest-green/5 p-6 text-center border-b border-brand-border/60">
+                      <div className="w-14 h-14 rounded-2xl bg-forest-green/10 flex items-center justify-center text-forest-green mb-2.5">
+                        <Users className="w-7 h-7" />
+                      </div>
+                      <span className="font-montserrat font-bold text-xs uppercase tracking-wider text-forest-green">
+                        Secretariat In Formation
+                      </span>
+                      <p className="text-[11px] text-ink-muted mt-1 max-w-[200px]">
+                        Under Interim National Executive Oversight
+                      </p>
                     </div>
                   )}
 
@@ -90,22 +113,14 @@ export default function ChaptersPage() {
                     {chapter.zone}
                   </div>
 
-                  <div className="absolute top-3 right-3 bg-emerald-100 text-emerald-800 font-bold px-2 py-0.5 rounded text-[10px] uppercase shadow-xs">
+                  <div
+                    className={`absolute top-3 right-3 font-bold px-2 py-0.5 rounded text-[10px] uppercase shadow-xs ${
+                      chapter.status === "Active"
+                        ? "bg-emerald-100 text-emerald-800"
+                        : "bg-amber-100 text-amber-800"
+                    }`}
+                  >
                     {chapter.status}
-                  </div>
-
-                  <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-4 text-white">
-                    <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-heritage-gold block">
-                      ZONAL COORDINATOR
-                    </span>
-                    <h4 className="font-montserrat font-bold text-base leading-tight">
-                      {chapter.coordinator}
-                    </h4>
-                    {chapter.coordinatorCredentials && (
-                      <span className="text-[11px] text-sage-mist font-mono font-semibold">
-                        {chapter.coordinatorCredentials}
-                      </span>
-                    )}
                   </div>
                 </div>
 
