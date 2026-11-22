@@ -148,13 +148,23 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/#services" className="hover:text-[#4ade80] transition-colors">
-                  Our Services
+                <Link href="/about/board" className="hover:text-[#4ade80] transition-colors">
+                  National Advisory Committee
                 </Link>
               </li>
               <li>
                 <Link href="/about/executives" className="hover:text-[#4ade80] transition-colors">
                   Executive Council
+                </Link>
+              </li>
+              <li>
+                <Link href="/chapters" className="hover:text-[#4ade80] transition-colors">
+                  Geopolitical Chapters
+                </Link>
+              </li>
+              <li>
+                <Link href="/about/presidents-message" className="hover:text-[#4ade80] transition-colors">
+                  President's Message
                 </Link>
               </li>
               <li>

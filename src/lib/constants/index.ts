@@ -48,8 +48,9 @@ export const NAV_ITEMS = [
     href: "/about",
     children: [
       { label: "About CESSPA", href: "/about" },
-      { label: "Governing Board", href: "/about/board" },
+      { label: "National Advisory Committee", href: "/about/board" },
       { label: "Executive Council", href: "/about/executives" },
+      { label: "Chapters", href: "/chapters" },
       { label: "President's Message", href: "/about/presidents-message" },
       { label: "Code of Ethics", href: "/about/code-of-ethics" },
     ],

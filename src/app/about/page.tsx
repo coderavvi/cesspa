@@ -44,25 +44,26 @@ export default function AboutPage() {
       <Section variant="ivory">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           <div className="lg:col-span-6 space-y-6">
-            <Eyebrow chip="GENESIS">WHY CESSPA WAS CREATED</Eyebrow>
+            <Eyebrow chip="GENESIS">ORIGIN &amp; MANDATE OF CESSPA</Eyebrow>
             <h2 className="font-montserrat font-extrabold text-2xl sm:text-3xl text-ink-dark uppercase">
-              Addressing Nigeria's Infrastructure Imperative
+              Established by Pioneer Certified ESS Professionals
             </h2>
 
             <p className="text-sm sm:text-base text-ink-body leading-relaxed">
-              Nigeria’s rapid infrastructure growth across transportation, energy, mining, and urban renewal
-              demands certified, regulated professionals in Environmental & Social (E&S) safeguards.
+              The <strong>Certified Environmental and Social Standards Professionals Association (CESSPA)</strong> is a National Professional Body established by the pioneer Certified Professionals of the <strong>National Environmental Standards Certification Programme (NESCP)</strong> in the Federal Ministry of Environment and the <strong>Nigeria Social Standards Practice Certification Programme (NSSPCP)</strong> in the Federal Ministry of Women Affairs and Social Development, both under the <strong>Sustainable Procurement, Environmental and Social Standards Enhancement (SPESSE) Project</strong> sponsored by the <strong>World Bank</strong>.
             </p>
 
             <p className="text-sm sm:text-base text-ink-body leading-relaxed">
-              Initiated by intensive nationwide stakeholder consultations, the <strong>Technical Working Committee (TWC)</strong> was
-              incepted in <strong>October 2025</strong> across all six geopolitical zones to unite certified professionals.
-              CESSPA establishes the regulatory bridge ensuring that infrastructure projects do not harm local ecosystems or disenfranchise host communities.
+              CESSPA provides a unified platform for uniting, strengthening, and elevating Environmental and Social Standards (ESS) practice through promoting professionalism, ethical practice, research and capacity development, policy advocacy, and strategic collaboration with government agencies and partners to harmonize E&amp;S Standards with international frameworks for sustainable safeguards in public and private sector programs and projects, serving as a recognized voice for ESS Professionals in Nigeria.
+            </p>
+
+            <p className="text-sm sm:text-base text-ink-body leading-relaxed">
+              As the first cohort of Certified ESS Professionals in Nigeria, CESSPA aims to build a credible, knowledge-driven community dedicated to advancing Nigeria&apos;s Environmental and Social Safeguards in alignment with global Sustainable Development Goals. Thus, CESSPA is committed to promoting sustainable development, environmental stewardship, social inclusion, climate resilience, and responsible investment in line with national development priorities and ESS international best practices for sustainability.
             </p>
 
             <div className="p-4 rounded-xl bg-sage-mist border border-brand-border space-y-2">
               <span className="font-montserrat font-bold text-xs uppercase tracking-wider text-forest-green block">
-                Our Core Proposition:
+                Together, We Enhance Standard Practice for Sustainability:
               </span>
               <p className="text-xs sm:text-sm text-ink-dark font-medium leading-relaxed">
                 "Environmental sustainability must include people. Sustainable development protects both the environment and the people who depend on it."
@@ -182,12 +183,26 @@ export default function AboutPage() {
             </Link>
           </div>
 
-          <div className="pt-4 text-center">
+          <div className="pt-4 flex flex-wrap items-center justify-center gap-4">
             <Link
-              href="/about/executives"
+              href="/about/board"
               className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-forest-green text-white font-montserrat font-bold text-xs uppercase tracking-wider hover:bg-deep-emerald transition-all"
             >
-              National Executive Council
+              National Advisory Committee
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+            <Link
+              href="/about/executives"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-white border border-forest-green text-forest-green font-montserrat font-bold text-xs uppercase tracking-wider hover:bg-forest-green hover:text-white transition-all"
+            >
+              Executive Council
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+            <Link
+              href="/chapters"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-sage-mist border border-brand-border text-ink-dark font-montserrat font-bold text-xs uppercase tracking-wider hover:bg-forest-green hover:text-white transition-all"
+            >
+              Geopolitical Chapters
               <ArrowRight className="w-4 h-4" />
             </Link>
           </div>

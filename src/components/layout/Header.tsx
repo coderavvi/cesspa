@@ -19,6 +19,7 @@ import {
   Camera,
   FileText,
   Video,
+  MapPin,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Logo } from "@/components/shared/Logo";
@@ -35,9 +36,11 @@ export function Header() {
       href: "/about",
       dropdown: [
         { label: "About CESSPA", href: "/about", icon: ShieldCheck, desc: "Nigeria's statutory E&S standards association" },
-        { label: "Governing Board", href: "/about/board", icon: Users, desc: "Eminent trustees & environmental leadership" },
-        { label: "Executive Council", href: "/about/executives", icon: Award, desc: "National council & portfolio directors" },
-        { label: "President's Address", href: "/about/presidents-message", icon: BookOpen, desc: "Strategic vision for Nigerian ecology" },
+        { label: "National Advisory Committee", href: "/about/board", icon: Users, desc: "Advisory committee & strategic oversight" },
+        { label: "Executive Council", href: "/about/executives", icon: Award, desc: "Interim national executives & portfolio leaders" },
+        { label: "Chapters", href: "/chapters", icon: MapPin, desc: "Geopolitical chapters & 6 zonal coordinators" },
+        { label: "President's Message", href: "/about/presidents-message", icon: BookOpen, desc: "Inaugural address by Interim National President" },
+        { label: "Code of Ethics", href: "/about/code-of-ethics", icon: ShieldCheck, desc: "Ethical standards & practitioner conduct" },
       ],
     },
     {

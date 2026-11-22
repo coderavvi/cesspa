@@ -76,6 +76,9 @@ export interface Chapter {
   zone: GeopoliticalZone;
   statesCovered: string[];
   coordinator: string;
+  coordinatorTitle?: string;
+  coordinatorCredentials?: string;
+  coordinatorImage?: string;
   coordinatorEmail: string;
   coordinatorPhone: string;
   meetingSchedule: string;

@@ -487,7 +487,10 @@ export const MOCK_CHAPTERS: Chapter[] = [
     name: "North Central Chapter (FCT & Middle Belt)",
     zone: "North Central",
     statesCovered: ["FCT Abuja", "Benue", "Kogi", "Kwara", "Nasarawa", "Niger", "Plateau"],
-    coordinator: "Dr. Joshua M. Akor",
+    coordinator: "Nkom Achi Emmanuel",
+    coordinatorTitle: "Interim North Central Zonal Coordinator",
+    coordinatorCredentials: "I-ESCP, I-SSCP, CBOP",
+    coordinatorImage: "/images/coordinators/nkom-achi-emmanuel.jpg",
     coordinatorEmail: "northcentral@cesspa.org.ng",
     coordinatorPhone: "+234 803 445 1200",
     meetingSchedule: "Last Thursday of every month at 4:00 PM (Hybrid)",
@@ -500,6 +503,9 @@ export const MOCK_CHAPTERS: Chapter[] = [
     zone: "South West",
     statesCovered: ["Lagos", "Ogun", "Oyo", "Osun", "Ondo", "Ekiti"],
     coordinator: "Mrs. Toyin Balogun-Adeleke",
+    coordinatorTitle: "Zonal Coordinator (South West)",
+    coordinatorCredentials: "F-CESSPA, Lead Safeguards Assessor",
+    coordinatorImage: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=800&q=80",
     coordinatorEmail: "southwest@cesspa.org.ng",
     coordinatorPhone: "+234 802 334 7890",
     meetingSchedule: "2nd Saturday of every month at 10:00 AM (Victoria Island / Zoom)",
@@ -512,6 +518,9 @@ export const MOCK_CHAPTERS: Chapter[] = [
     zone: "South South",
     statesCovered: ["Rivers", "Delta", "Akwa Ibom", "Bayelsa", "Cross River", "Edo"],
     coordinator: "Ken Ebiama, Esq.",
+    coordinatorTitle: "Zonal Coordinator (South South)",
+    coordinatorCredentials: "F-CESSPA, Maritime & Social Safeguards",
+    coordinatorImage: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=800&q=80",
     coordinatorEmail: "southsouth@cesspa.org.ng",
     coordinatorPhone: "+234 805 771 9922",
     meetingSchedule: "3rd Thursday of every month at 3:00 PM (Port Harcourt / Online)",
@@ -524,6 +533,9 @@ export const MOCK_CHAPTERS: Chapter[] = [
     zone: "South East",
     statesCovered: ["Enugu", "Anambra", "Abia", "Imo", "Ebonyi"],
     coordinator: "Engr. Nonso Nwankwo",
+    coordinatorTitle: "Zonal Coordinator (South East)",
+    coordinatorCredentials: "FNSE, F-CESSPA, ESIA Specialist",
+    coordinatorImage: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=800&q=80",
     coordinatorEmail: "southeast@cesspa.org.ng",
     coordinatorPhone: "+234 803 889 0044",
     meetingSchedule: "1st Friday of every month at 4:30 PM (Enugu / Hybrid)",
@@ -536,6 +548,9 @@ export const MOCK_CHAPTERS: Chapter[] = [
     zone: "North West",
     statesCovered: ["Kano", "Kaduna", "Katsina", "Jigawa", "Sokoto", "Kebbi", "Zamfara"],
     coordinator: "Aliyu Mohammed Sani",
+    coordinatorTitle: "Zonal Coordinator (North West)",
+    coordinatorCredentials: "M-CESSPA, Agricultural & Dryland Safeguards",
+    coordinatorImage: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=800&q=80",
     coordinatorEmail: "northwest@cesspa.org.ng",
     coordinatorPhone: "+234 814 112 4433",
     meetingSchedule: "Last Saturday of every month at 11:00 AM (Kano / Virtual)",
@@ -548,11 +563,174 @@ export const MOCK_CHAPTERS: Chapter[] = [
     zone: "North East",
     statesCovered: ["Bauchi", "Borno", "Adamawa", "Gombe", "Taraba", "Yobe"],
     coordinator: "Bilkisu Abubakar",
+    coordinatorTitle: "Zonal Coordinator (North East)",
+    coordinatorCredentials: "M-CESSPA, Environmental Health & Outreach",
+    coordinatorImage: "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=800&q=80",
     coordinatorEmail: "northeast@cesspa.org.ng",
     coordinatorPhone: "+234 807 223 9988",
     meetingSchedule: "3rd Saturday of every month at 10:30 AM (Bauchi / Virtual)",
     memberCount: 64,
     status: "Active",
+  },
+];
+
+export interface AdvisoryCommitteeMember {
+  id: string;
+  name: string;
+  certification: string;
+  nescpLevel: string;
+  nsspcpLevel: string;
+  image: string;
+  bio?: string;
+  declarationConfirmed?: boolean;
+}
+
+export const MOCK_ADVISORY_COMMITTEE: AdvisoryCommitteeMember[] = [
+  {
+    id: "adv-1",
+    name: "Prof. Ibrahim Kolawole Muritala",
+    certification: "A-ESCP, I-SSCP",
+    nescpLevel: "Associate Environmental Standards Certified Professional (A-ESCP)",
+    nsspcpLevel: "Intermediate Social Standards Certified Professional (I-SSCP)",
+    image: "/images/advisory/prof-ibrahim-kolawole-muritala.jpg",
+    bio: "Pioneer academic and safeguard practitioner contributing specialist expertise to the harmonization of national and global environmental frameworks.",
+    declarationConfirmed: true,
+  },
+  {
+    id: "adv-2",
+    name: "Prof. John Gushit",
+    certification: "S-ESCP, F-SSCP",
+    nescpLevel: "Specialist Environmental Standards Certified Professional (S-ESCP)",
+    nsspcpLevel: "Foundation Social Standards Certified Professional (F-SSCP)",
+    image: "/images/advisory/prof-john-gushit.jpg",
+    bio: "Specialist standards researcher and senior environmental scientist advancing applied research in sustainable resource management.",
+    declarationConfirmed: true,
+  },
+  {
+    id: "adv-3",
+    name: "Leonell Elijah Echa",
+    certification: "I-ESCP, I-SSCP",
+    nescpLevel: "Intermediate Environmental Standards Certified Professional (I-ESCP)",
+    nsspcpLevel: "Intermediate Social Standards Certified Professional (I-SSCP)",
+    image: "/images/advisory/leonell-elijah-echa.jpg",
+    bio: "Practicing E&S standards leader focusing on project safeguard integration and cross-sectoral social risk screening.",
+    declarationConfirmed: true,
+  },
+  {
+    id: "adv-4",
+    name: "Dr. Ogechukwu Onyebueke",
+    certification: "I-ESCP, F-SSCP",
+    nescpLevel: "Intermediate Environmental Standards Certified Professional (I-ESCP)",
+    nsspcpLevel: "Foundation Social Standards Certified Professional (F-SSCP)",
+    image: "/images/advisory/dr-ogechukwu-onyebueke.jpg",
+    bio: "Environmental professional championing rigorous baseline auditing, ecological conservation, and community safeguards.",
+    declarationConfirmed: true,
+  },
+  {
+    id: "adv-5",
+    name: "Fatima Adekemi Ajala",
+    certification: "I-ESCP, I-SSCP",
+    nescpLevel: "Intermediate Environmental Standards Certified Professional (I-ESCP)",
+    nsspcpLevel: "Intermediate Social Standards Certified Professional (I-SSCP)",
+    image: "/images/advisory/fatima-adekemi-ajala.jpg",
+    bio: "E&S practitioner with dedicated leadership in social standards enhancement, gender inclusion, and community engagement.",
+    declarationConfirmed: true,
+  },
+  {
+    id: "adv-6",
+    name: "Assoc. Prof. Adamu Jibir",
+    certification: "F-ESCP, F-SSCP",
+    nescpLevel: "Foundation Environmental Standards Certified Professional (F-ESCP)",
+    nsspcpLevel: "Foundation Social Standards Certified Professional (F-SSCP)",
+    image: "/images/advisory/assoc-prof-adamu-jibir.jpg",
+    bio: "Development economist and safeguards scholar advising on responsible development, socioeconomic impacts, and policy integration.",
+    declarationConfirmed: true,
+  },
+  {
+    id: "adv-7",
+    name: "Agomoh, Okechi Ketandu",
+    certification: "F-ESCP, F-SSCP",
+    nescpLevel: "Foundation Environmental Standards Certified Professional (F-ESCP)",
+    nsspcpLevel: "Foundation Social Standards Certified Professional (F-SSCP)",
+    image: "/images/advisory/agomoh-okechi-ketandu.jpg",
+    bio: "Certified environmental and social standards practitioner advancing grassroots compliance and capacity development.",
+    declarationConfirmed: true,
+  },
+];
+
+export interface ExecutiveMember {
+  name: string;
+  credentials?: string;
+  role: string;
+  office: string;
+  portfolio: string;
+  email: string;
+  image: string;
+  isNationalPresident?: boolean;
+}
+
+export const MOCK_INTERIM_EXECUTIVES: ExecutiveMember[] = [
+  {
+    name: "Saminu Abdu",
+    credentials: "I-SSCP, F-ESCP",
+    role: "Interim National President",
+    office: "National Secretariat, Abuja",
+    portfolio: "Strategic Governance, Institutional Engagement & National Leadership",
+    email: "president@cesspa.org.ng",
+    image: "/images/executives/saminu-abdu.jpg",
+    isNationalPresident: true,
+  },
+  {
+    name: "Amos Ibrahim Agwom",
+    credentials: "MAF, MSSD, B.Sc, I-SSCP, CESSPA, AFAn, IMCON",
+    role: "Interim National Vice Chairman Sustainable Social Standard",
+    office: "National Secretariat, Abuja",
+    portfolio: "Sustainable Social Standards Enhancement, Community Inclusion & Safeguards",
+    email: "vc.social@cesspa.org.ng",
+    image: "/images/executives/amos-ibrahim-agwom.jpg",
+  },
+  {
+    name: "ORGA Joseph Terfa",
+    credentials: "I-SSCP, I-ESCP",
+    role: "Interim National Secretary",
+    office: "National Secretariat HQ, Abuja",
+    portfolio: "Secretariat Operations, Council Records, Official Communications",
+    email: "secgen@cesspa.org.ng",
+    image: "/images/executives/orga-joseph-terfa.jpg",
+  },
+  {
+    name: "Oluwafemi Adedoyin Florence",
+    credentials: "NES, F-ESCP",
+    role: "Interim National Assistant Secretary",
+    office: "National Secretariat, Abuja",
+    portfolio: "Administrative Coordination, Secretariat Archives & Documentation",
+    email: "asst.sec@cesspa.org.ng",
+    image: "/images/executives/oluwafemi-adedoyin-florence.jpg",
+  },
+  {
+    name: "Deborah Abieyuwa Aiguokun",
+    role: "Interim Financial Secretary",
+    office: "National Secretariat, Abuja",
+    portfolio: "Financial Records, Accounts Management & Dues Verification",
+    email: "finance@cesspa.org.ng",
+    image: "/images/executives/deborah-abieyuwa-aiguokun.jpg",
+  },
+  {
+    name: "Aminu Mai'adua Suleiman",
+    role: "Interim National Publicity Secretary",
+    office: "National Secretariat, Abuja",
+    portfolio: "Media Strategy, Public Relations, Press Releases & Information Dissemination",
+    email: "publicity@cesspa.org.ng",
+    image: "/images/executives/aminu-maiadua-suleiman.jpg",
+  },
+  {
+    name: "Riskat Bukola Mustapha",
+    credentials: "Environmental Health Consultant Certified Environmental Standard Professional",
+    role: "Interim Assistant Treasurer",
+    office: "National Secretariat, Abuja",
+    portfolio: "Treasury Support, Member Welfare & Fiduciary Accounting",
+    email: "treasury@cesspa.org.ng",
+    image: "/images/executives/riskat-bukola-mustapha.jpg",
   },
 ];
 

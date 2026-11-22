@@ -1,108 +1,60 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Mail, ShieldCheck, MapPin, ArrowRight } from "lucide-react";
+import { Mail, ShieldCheck, MapPin, ArrowRight, Award } from "lucide-react";
 import { Section } from "@/components/shared/Section";
 import { Eyebrow } from "@/components/shared/Eyebrow";
+import { MOCK_INTERIM_EXECUTIVES } from "@/lib/data/mockData";
 
 export const metadata = {
-  title: "National Executives | CESSPA",
-  description: "Operational leadership and National Executive Committee of CESSPA across Nigeria's six geopolitical zones.",
+  title: "National Executive Council | CESSPA",
+  description: "Interim National Executive Council of the Certified Environmental and Social Standards Professionals Association (CESSPA).",
 };
-
-const EXECUTIVES = [
-  {
-    name: "Dr. Joshua M. Akor",
-    role: "National Secretary General",
-    zone: "North Central",
-    office: "Secretariat HQ, Abuja",
-    portfolio: "Operations, Council Records & Chapter Liaisons",
-    email: "secgen@cesspa.org.ng",
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=80",
-  },
-  {
-    name: "Mrs. Toyin Balogun-Adeleke",
-    role: "National Vice President (West)",
-    zone: "South West",
-    office: "Lagos Hub",
-    portfolio: "Accreditation, CPD Workshops & Private Sector Partnerships",
-    email: "vp.west@cesspa.org.ng",
-    image: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=800&q=80",
-  },
-  {
-    name: "Ken Ebiama, Esq.",
-    role: "National Vice President (East/South)",
-    zone: "South South",
-    office: "Port Harcourt Hub",
-    portfolio: "Host Community Rights, Maritime Safeguards & Mediation",
-    email: "vp.south@cesspa.org.ng",
-    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=800&q=80",
-  },
-  {
-    name: "Aliyu Mohammed Sani",
-    role: "National Vice President (North)",
-    zone: "North West",
-    office: "Kano Hub",
-    portfolio: "Dryland Safeguards, Agriculture & Regional Integration",
-    email: "vp.north@cesspa.org.ng",
-    image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=800&q=80",
-  },
-  {
-    name: "Engr. Nonso Nwankwo",
-    role: "Director of Technical Standards",
-    zone: "South East",
-    office: "Enugu Hub",
-    portfolio: "ESIA Guidelines, Peer Review & Methodology Quality Control",
-    email: "standards@cesspa.org.ng",
-    image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=800&q=80",
-  },
-  {
-    name: "Bilkisu Abubakar",
-    role: "Director of Membership & Outreach",
-    zone: "North East",
-    office: "Bauchi Hub",
-    portfolio: "Member Onboarding, Student Chapters & Women in Safeguards",
-    email: "membership@cesspa.org.ng",
-    image: "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=800&q=80",
-  },
-];
 
 export default function ExecutivesPage() {
   return (
     <div className="w-full">
       <section className="bg-forest-green text-white py-16 lg:py-20 relative overflow-hidden">
         <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <Eyebrow chip="OPERATIONS" lightMode={true}>
-            EXECUTIVE COUNCIL
+          <Eyebrow chip="OPERATIONS & LEADERSHIP" lightMode={true}>
+            INTERIM NATIONAL EXECUTIVE COUNCIL (INEC)
           </Eyebrow>
           <h1 className="font-montserrat font-extrabold text-3xl sm:text-4xl md:text-5xl text-white uppercase mt-2 max-w-3xl">
             National Executives
           </h1>
           <p className="text-sm sm:text-base text-sage-mist/90 max-w-2xl mt-4 leading-relaxed">
-            Delivering CESSPA’s strategic programs, professional examinations, and member services across
-            the six geopolitical zones of the Federal Republic of Nigeria.
+            Leading the establishment, operational delivery, and national expansion of the Certified Environmental
+            and Social Standards Professionals Association across Nigeria.
           </p>
         </div>
       </section>
 
       <Section variant="ivory">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {EXECUTIVES.map((exec) => (
+          {MOCK_INTERIM_EXECUTIVES.map((exec) => (
             <div
               key={exec.name}
-              className="rounded-3xl overflow-hidden bg-white border border-brand-border shadow-sm card-hover flex flex-col justify-between"
+              className={`rounded-3xl overflow-hidden bg-white border shadow-sm card-hover flex flex-col justify-between ${
+                exec.isNationalPresident ? "border-heritage-gold ring-2 ring-heritage-gold/20" : "border-brand-border"
+              }`}
             >
               <div>
-                <div className="relative aspect-4/3 w-full bg-sage-mist">
+                <div className="relative aspect-4/3 w-full bg-sage-mist overflow-hidden">
                   <Image
                     src={exec.image}
                     alt={exec.name}
                     fill
-                    className="object-cover"
+                    className="object-cover object-top"
                   />
-                  <div className="absolute top-3 left-3 bg-forest-green text-white font-montserrat font-bold text-[10px] uppercase tracking-wider px-2 py-0.5 rounded shadow-xs">
-                    {exec.zone}
-                  </div>
+                  {exec.isNationalPresident ? (
+                    <div className="absolute top-3 left-3 bg-heritage-gold text-forest-dark font-montserrat font-extrabold text-[10px] uppercase tracking-wider px-2.5 py-1 rounded shadow-xs flex items-center gap-1">
+                      <Award className="w-3 h-3" /> National President
+                    </div>
+                  ) : (
+                    <div className="absolute top-3 left-3 bg-forest-green text-white font-montserrat font-bold text-[10px] uppercase tracking-wider px-2 py-0.5 rounded shadow-xs">
+                      National Executive
+                    </div>
+                  )}
                 </div>
 
                 <div className="p-6 space-y-3">
@@ -110,16 +62,21 @@ export default function ExecutivesPage() {
                     <h3 className="font-montserrat font-bold text-lg text-ink-dark">
                       {exec.name}
                     </h3>
-                    <p className="text-xs font-semibold text-forest-green uppercase tracking-wide mt-0.5">
+                    {exec.credentials && (
+                      <p className="text-[11px] font-semibold text-heritage-gold font-mono">
+                        {exec.credentials}
+                      </p>
+                    )}
+                    <p className="text-xs font-bold text-forest-green uppercase tracking-wide mt-1">
                       {exec.role}
                     </p>
                   </div>
 
                   <div className="p-3 rounded-xl bg-sage-mist/50 border border-brand-border/60 text-xs space-y-1">
                     <span className="font-montserrat font-bold text-[10px] text-heritage-gold uppercase tracking-wider block">
-                      Portfolio Focus:
+                      Portfolio Responsibilities:
                     </span>
-                    <p className="text-ink-body font-medium">{exec.portfolio}</p>
+                    <p className="text-ink-body font-medium leading-relaxed">{exec.portfolio}</p>
                   </div>
 
                   <div className="flex items-center gap-1.5 text-xs text-ink-muted">
@@ -137,12 +94,36 @@ export default function ExecutivesPage() {
                   <Mail className="w-3.5 h-3.5" />
                   Contact Portfolio
                 </a>
-                <span className="flex items-center gap-1 text-[11px] text-leaf-green">
-                  <ShieldCheck className="w-3.5 h-3.5" /> Executive
+                <span className="flex items-center gap-1 text-[11px] text-leaf-green font-medium">
+                  <ShieldCheck className="w-3.5 h-3.5" /> Certified
                 </span>
               </div>
             </div>
           ))}
+        </div>
+
+        {/* Navigation bridge */}
+        <div className="mt-14 p-8 rounded-3xl bg-sage-mist border border-brand-border text-center max-w-2xl mx-auto space-y-4">
+          <h4 className="font-montserrat font-bold text-lg text-ink-dark uppercase">
+            Explore Geopolitical Chapters &amp; Advisory Committee
+          </h4>
+          <p className="text-xs sm:text-sm text-ink-body">
+            CESSPA coordinates six geopolitical chapters across Nigeria led by dedicated Zonal Coordinators and backed by our National Advisory Committee.
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-3">
+            <Link
+              href="/chapters"
+              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-forest-green text-white font-montserrat font-bold text-xs uppercase tracking-wider hover:bg-deep-emerald transition-colors"
+            >
+              View Zonal Chapters <ArrowRight className="w-4 h-4" />
+            </Link>
+            <Link
+              href="/about/board"
+              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-white border border-forest-green text-forest-green font-montserrat font-bold text-xs uppercase tracking-wider hover:bg-forest-green hover:text-white transition-colors"
+            >
+              National Advisory Committee <ArrowRight className="w-4 h-4" />
+            </Link>
+          </div>
         </div>
       </Section>
     </div>

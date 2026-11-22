@@ -729,13 +729,14 @@ export default function HomePage() {
           <h3 className="font-heading font-bold text-xl sm:text-2xl text-white tracking-wide">
             Trusted by <span className="text-white">Federal Ministries</span>, <span className="text-[#dcfce7]">State Regulatory Agencies</span> &amp; <span className="text-[#86efac]">Industry</span>
           </h3>
-          <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 font-bold text-sm sm:text-base">
+          <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 font-bold text-sm sm:text-base">
             <span className="bg-white/15 border border-[#86efac]/40 text-white px-5 py-2.5 rounded-lg shadow-xs hover:border-[#86efac] transition-colors">FMEnv Nigeria</span>
-            <span className="bg-white/15 border border-[#86efac]/40 text-[#dcfce7] px-5 py-2.5 rounded-lg shadow-xs hover:border-[#86efac] transition-colors">NESREA</span>
-            <span className="bg-white/15 border border-[#86efac]/40 text-white px-5 py-2.5 rounded-lg shadow-xs hover:border-[#86efac] transition-colors">NOSDRA</span>
-            <span className="bg-white/15 border border-[#86efac]/40 text-[#dcfce7] px-5 py-2.5 rounded-lg shadow-xs hover:border-[#86efac] transition-colors">UNEP Partner</span>
-            <span className="bg-white/15 border border-[#86efac]/40 text-white px-5 py-2.5 rounded-lg shadow-xs hover:border-[#86efac] transition-colors">World Bank E&amp;S Hub</span>
-            <span className="bg-white/15 border border-[#86efac]/40 text-[#dcfce7] px-5 py-2.5 rounded-lg shadow-xs hover:border-[#86efac] transition-colors">NUPRC</span>
+            <span className="bg-white/15 border border-[#86efac]/40 text-[#dcfce7] px-5 py-2.5 rounded-lg shadow-xs hover:border-[#86efac] transition-colors">Federal Ministry of Women Affairs</span>
+            <span className="bg-white/15 border border-[#86efac]/40 text-white px-5 py-2.5 rounded-lg shadow-xs hover:border-[#86efac] transition-colors">NESREA</span>
+            <span className="bg-white/15 border border-[#86efac]/40 text-[#dcfce7] px-5 py-2.5 rounded-lg shadow-xs hover:border-[#86efac] transition-colors">NOSDRA</span>
+            <span className="bg-white/15 border border-[#86efac]/40 text-white px-5 py-2.5 rounded-lg shadow-xs hover:border-[#86efac] transition-colors">UNEP Partner</span>
+            <span className="bg-white/15 border border-[#86efac]/40 text-[#dcfce7] px-5 py-2.5 rounded-lg shadow-xs hover:border-[#86efac] transition-colors">World Bank E&amp;S Hub</span>
+            <span className="bg-white/15 border border-[#86efac]/40 text-white px-5 py-2.5 rounded-lg shadow-xs hover:border-[#86efac] transition-colors">NUPRC</span>
           </div>
         </div>
       </section>
@@ -754,68 +755,81 @@ export default function HomePage() {
           </h2>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-10">
-            {/* Member 1: Dr. Joshua M. Akor */}
+            {/* Member 1: Saminu Abdu */}
             <div className="flex flex-col items-center space-y-4">
-              <div className="w-40 h-40 rounded-full overflow-hidden border-4 border-gray-100 shadow-lg relative group">
+              <div className="w-44 h-44 rounded-full overflow-hidden border-4 border-heritage-gold/50 shadow-lg relative group bg-sage-mist">
                 <Image
-                  src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=80"
-                  alt="Dr. Joshua M. Akor"
+                  src="/images/executives/saminu-abdu.jpg"
+                  alt="Saminu Abdu I-SSCP, F-ESCP"
                   fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  className="object-cover object-top group-hover:scale-105 transition-transform duration-500"
                 />
               </div>
-              <div>
-                <h3 className="font-heading font-bold text-lg text-[#0e1e17]">Dr. Joshua M. Akor</h3>
-                <p className="text-xs text-gray-500">National Secretary General</p>
+              <div className="text-center">
+                <h3 className="font-heading font-bold text-lg text-[#0e1e17]">Saminu Abdu</h3>
+                <span className="text-[11px] font-mono text-heritage-gold font-bold block">I-SSCP, F-ESCP</span>
+                <p className="text-xs text-forest-green font-bold uppercase mt-0.5">Interim National President</p>
+              </div>
+              <div className="flex items-center gap-3 text-gray-400">
+                <a href="mailto:president@cesspa.org.ng" className="hover:text-[#16a34a] transition-colors" aria-label="Email">
+                  <span className="text-xs font-semibold">president@cesspa.org.ng</span>
+                </a>
+              </div>
+            </div>
+
+            {/* Member 2: Amos Ibrahim Agwom */}
+            <div className="flex flex-col items-center space-y-4">
+              <div className="w-44 h-44 rounded-full overflow-hidden border-4 border-gray-100 shadow-lg relative group bg-sage-mist">
+                <Image
+                  src="/images/executives/amos-ibrahim-agwom.jpg"
+                  alt="Amos Ibrahim Agwom"
+                  fill
+                  className="object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+              <div className="text-center">
+                <h3 className="font-heading font-bold text-lg text-[#0e1e17]">Amos Ibrahim Agwom</h3>
+                <span className="text-[11px] font-mono text-heritage-gold font-bold block">MAF, MSSD, B.Sc, I-SSCP</span>
+                <p className="text-xs text-forest-green font-bold uppercase mt-0.5">Vice Chairman Social Standards</p>
+              </div>
+              <div className="flex items-center gap-3 text-gray-400">
+                <a href="mailto:vc.social@cesspa.org.ng" className="hover:text-[#16a34a] transition-colors" aria-label="Email">
+                  <span className="text-xs font-semibold">vc.social@cesspa.org.ng</span>
+                </a>
+              </div>
+            </div>
+
+            {/* Member 3: ORGA Joseph Terfa */}
+            <div className="flex flex-col items-center space-y-4">
+              <div className="w-44 h-44 rounded-full overflow-hidden border-4 border-gray-100 shadow-lg relative group bg-sage-mist">
+                <Image
+                  src="/images/executives/orga-joseph-terfa.jpg"
+                  alt="ORGA Joseph Terfa"
+                  fill
+                  className="object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+              <div className="text-center">
+                <h3 className="font-heading font-bold text-lg text-[#0e1e17]">ORGA Joseph Terfa</h3>
+                <span className="text-[11px] font-mono text-heritage-gold font-bold block">I-SSCP, I-ESCP</span>
+                <p className="text-xs text-forest-green font-bold uppercase mt-0.5">Interim National Secretary</p>
               </div>
               <div className="flex items-center gap-3 text-gray-400">
                 <a href="mailto:secgen@cesspa.org.ng" className="hover:text-[#16a34a] transition-colors" aria-label="Email">
-                  <span className="text-xs font-bold">secgen@cesspa.org.ng</span>
+                  <span className="text-xs font-semibold">secgen@cesspa.org.ng</span>
                 </a>
               </div>
             </div>
+          </div>
 
-            {/* Member 2: Mrs. Toyin Balogun-Adeleke */}
-            <div className="flex flex-col items-center space-y-4">
-              <div className="w-40 h-40 rounded-full overflow-hidden border-4 border-gray-100 shadow-lg relative group">
-                <Image
-                  src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=800&q=80"
-                  alt="Mrs. Toyin Balogun-Adeleke"
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-              </div>
-              <div>
-                <h3 className="font-heading font-bold text-lg text-[#0e1e17]">Mrs. Toyin Balogun-Adeleke</h3>
-                <p className="text-xs text-gray-500">National Vice President (West)</p>
-              </div>
-              <div className="flex items-center gap-3 text-gray-400">
-                <a href="mailto:vp.west@cesspa.org.ng" className="hover:text-[#16a34a] transition-colors" aria-label="Email">
-                  <span className="text-xs font-bold">vp.west@cesspa.org.ng</span>
-                </a>
-              </div>
-            </div>
-
-            {/* Member 3: Ken Ebiama, Esq. */}
-            <div className="flex flex-col items-center space-y-4">
-              <div className="w-40 h-40 rounded-full overflow-hidden border-4 border-gray-100 shadow-lg relative group">
-                <Image
-                  src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=800&q=80"
-                  alt="Ken Ebiama, Esq."
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-              </div>
-              <div>
-                <h3 className="font-heading font-bold text-lg text-[#0e1e17]">Ken Ebiama, Esq.</h3>
-                <p className="text-xs text-gray-500">National Vice President (East/South)</p>
-              </div>
-              <div className="flex items-center gap-3 text-gray-400">
-                <a href="mailto:vp.south@cesspa.org.ng" className="hover:text-[#16a34a] transition-colors" aria-label="Email">
-                  <span className="text-xs font-bold">vp.south@cesspa.org.ng</span>
-                </a>
-              </div>
-            </div>
+          <div className="mt-12 text-center">
+            <Link
+              href="/about/executives"
+              className="inline-flex items-center gap-2 bg-[#16a34a] hover:bg-[#15803d] text-white font-bold px-7 py-3 rounded-lg transition-all shadow-md hover:shadow-lg active:scale-95 text-xs sm:text-sm uppercase tracking-wider"
+            >
+              <span>View All Interim National Executives</span>
+              <ArrowRight className="w-4 h-4" />
+            </Link>
           </div>
         </div>
       </section>

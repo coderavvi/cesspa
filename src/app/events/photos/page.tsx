@@ -3,58 +3,91 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Eye, X, ChevronLeft, ChevronRight, Calendar, MapPin } from "lucide-react";
+import { Eye, X, ChevronLeft, ChevronRight, Calendar, MapPin, Building2 } from "lucide-react";
 import { Section } from "@/components/shared/Section";
 import { Eyebrow } from "@/components/shared/Eyebrow";
 
 const GALLERY_PHOTOS = [
   {
     id: 1,
-    title: "Inaugural Technical Working Committee (TWC) Inception Session",
-    location: "Transcorp Hilton, Abuja",
-    date: "October 2025",
-    image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=1200&q=80",
-    caption: "Stakeholder conveners across all 6 geopolitical zones establishing the CESSPA charter.",
+    title: "Courtesy Visit to RAAMP National Coordinators",
+    location: "NAIC Building, Abuja",
+    date: "November 2026",
+    image: "/images/visits/visit-raamp.jpg",
+    caption: "CESSPA courtesy visit the Rural Access and Agricultural Marketing Project (RAAMP) National COORDINATORS at the NAIC building Abuja.",
+    category: "Institutional Engagement",
   },
   {
     id: 2,
-    title: "ESIA Pillar 01 Masterclass: Risk Screening in Infrastructure",
-    location: "Victoria Island, Lagos",
-    date: "January 2026",
-    image: "https://images.unsplash.com/photo-1475721027785-f74eccf877e2?auto=format&fit=crop&w=1200&q=80",
-    caption: "Practitioners analyzing high-resolution predictive baseline models for road corridors.",
+    title: "Follow-up Visit to Nigerian Social Standard Practice Certificate Program",
+    location: "Federal Ministry of Women Affairs, Abuja",
+    date: "November 2026",
+    image: "/images/visits/visit-nsspcp-fmwa.jpg",
+    caption: "CESSPA follow-up courtesy visit to the Nigerian Social Standard Practice Certificate program, Federal Ministry of Women Affairs Abuja.",
+    category: "Ministry Collaboration",
   },
   {
     id: 3,
-    title: "Social Safeguards Field Workshop: Community Consultation Protocols",
-    location: "Enugu Chapter Hub",
-    date: "March 2026",
-    image: "https://images.unsplash.com/photo-1577495508048-b635879837f1?auto=format&fit=crop&w=1200&q=80",
-    caption: "Engaging rural farmers and community leaders in livelihood restoration planning.",
+    title: "Courtesy Visit to SPESSE Center Leader ATBU",
+    location: "ATBU Bauchi",
+    date: "November 2026",
+    image: "/images/visits/visit-spesse-atbu.jpg",
+    caption: "CESSPA courtesy visit to the SPESSE Center leader ATBU Bauchi.",
+    category: "Academic Partnership",
   },
   {
     id: 4,
-    title: "Continuous M&E Symposium: Lifecycle Digital Audit Logs",
-    location: "Kano Chapter Hub",
-    date: "May 2026",
-    image: "https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&w=1200&q=80",
-    caption: "Demonstration of calibrated remote telemetry for water and air quality audits.",
+    title: "Courtesy Visit to National Agency for the Great Green Wall (NAGGW)",
+    location: "NAGGW Headquarters, Abuja",
+    date: "November 2026",
+    image: "/images/visits/visit-naggw.jpg",
+    caption: "CESSPA courtesy visit to the National Agency for the Great Green Wall (NAGGW), Abuja.",
+    category: "Environmental Safeguards",
   },
   {
     id: 5,
-    title: "Host Community Peace & Dignity Dialogue",
-    location: "Port Harcourt Hub",
-    date: "July 2026",
-    image: "https://images.unsplash.com/photo-1515187029135-18ee286d815b?auto=format&fit=crop&w=1200&q=80",
-    caption: "Panel discussion on institutionalizing Grievance Redress Mechanisms (GRMs).",
+    title: "Courtesy Visit to NESREA Headquarters",
+    location: "NESREA Headquarters, Abuja",
+    date: "November 2026",
+    image: "/images/visits/visit-nesrea.jpg",
+    caption: "CESSPA courtesy visit to National Environmental Standards and Regulations Enforcement Agency (NESREA) Headquarters Abuja.",
+    category: "Regulatory Alignment",
   },
   {
     id: 6,
-    title: "CESSPA National Council Inauguration & Seal Unveiling",
-    location: "International Conference Centre, Abuja",
-    date: "September 2026",
-    image: "https://images.unsplash.com/photo-1528605248644-14dd04022da1?auto=format&fit=crop&w=1200&q=80",
-    caption: "Official presentation of the Certified Practitioner Seal to inducted Fellows.",
+    title: "Courtesy Visit to Director Environmental Sustainability, TCN",
+    location: "Transmission Company of Nigeria (TCN) Head Office, Abuja",
+    date: "November 2026",
+    image: "/images/visits/visit-tcn.jpg",
+    caption: "CESSPA courtesy visit to the Director Environmental Sustainability, Transmission Company of Nigeria, Head office Abuja.",
+    category: "Infrastructure Safeguards",
+  },
+  {
+    id: 7,
+    title: "Courtesy Visit to Director Environmental Assessment, FMEnv",
+    location: "Federal Ministry of Environment, Abuja",
+    date: "November 2026",
+    image: "/images/visits/visit-fmenv-ea.jpg",
+    caption: "CESSPA courtesy visit to the Director Environmental Assessment, Federal Ministry of Environment Abuja.",
+    category: "Regulatory Alignment",
+  },
+  {
+    id: 8,
+    title: "Courtesy Visit to Director Desertification, Land Degradation & Drought Management",
+    location: "Federal Ministry of Environment, Abuja",
+    date: "November 2026",
+    image: "/images/visits/visit-fmenv-desertification.jpg",
+    caption: "CESSPA courtesy visit to the Director Desertification, Land Degradation and Drought Management, Federal Ministry of Environment Abuja.",
+    category: "Ecological Restoration",
+  },
+  {
+    id: 9,
+    title: "Follow-up Visit to NESCP, Federal Ministry of Environment",
+    location: "Federal Ministry of Environment, Abuja",
+    date: "November 2026",
+    image: "/images/visits/visit-nescp-fmenv.jpg",
+    caption: "CESSPA follow-up courtesy visit to the National Environmental Standard Certification Program, Federal Ministry of Environment Abuja.",
+    category: "Certification Alignment",
   },
 ];
 
@@ -66,13 +99,13 @@ export default function EventPhotosPage() {
       <section className="bg-forest-green text-white py-16 lg:py-20 relative overflow-hidden">
         <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <Eyebrow chip="ARCHIVE" lightMode={true}>
-            MEDIA & FIELD ENGAGEMENT
+            FIELD ENGAGEMENTS &amp; COURTESY VISITS
           </Eyebrow>
           <h1 className="font-montserrat font-extrabold text-3xl sm:text-4xl md:text-5xl text-white uppercase mt-2 max-w-3xl">
-            Event Photo Gallery
+            Event &amp; Stakeholder Photos
           </h1>
           <p className="text-sm sm:text-base text-sage-mist/90 max-w-2xl mt-4 leading-relaxed">
-            Visual highlights from CESSPA national summits, geopolitical chapter forums, and safeguards training masterclasses.
+            Visual documentation of CESSPA official courtesy visits, stakeholder engagements, and regulatory dialogues across Federal Ministries, agencies, and SPESSE Centers of Excellence.
           </p>
         </div>
       </section>
@@ -84,7 +117,7 @@ export default function EventPhotosPage() {
             Event Calendar
           </Link>
           <Link href="/events/photos" className="text-forest-green border-b-2 border-heritage-gold pb-3">
-            Event Photos
+            Event Photos &amp; Courtesy Visits
           </Link>
           <Link href="/events/presentations" className="text-ink-muted hover:text-forest-green pb-3">
             Public Presentations
@@ -106,6 +139,9 @@ export default function EventPhotosPage() {
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
                 />
+                <div className="absolute top-3 left-3 bg-forest-green/90 text-white font-montserrat font-bold text-[10px] uppercase tracking-wider px-2 py-0.5 rounded shadow-xs">
+                  {item.category}
+                </div>
                 <div className="absolute inset-0 bg-forest-green/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                   <div className="w-12 h-12 rounded-full bg-white/90 text-forest-green flex items-center justify-center shadow-lg">
                     <Eye className="w-6 h-6" />
@@ -127,7 +163,7 @@ export default function EventPhotosPage() {
                 <h3 className="font-montserrat font-bold text-sm text-ink-dark group-hover:text-forest-green transition-colors">
                   {item.title}
                 </h3>
-                <p className="text-xs text-ink-body line-clamp-2">{item.caption}</p>
+                <p className="text-xs text-ink-body line-clamp-3 leading-relaxed">{item.caption}</p>
               </div>
             </div>
           ))}
@@ -141,6 +177,7 @@ export default function EventPhotosPage() {
             <button
               onClick={() => setActivePhoto(null)}
               className="absolute top-4 right-4 z-20 p-2 rounded-full bg-forest-green/80 text-white hover:bg-forest-green transition-colors"
+              aria-label="Close"
             >
               <X className="w-5 h-5" />
             </button>
@@ -161,7 +198,7 @@ export default function EventPhotosPage() {
               <h3 className="font-montserrat font-extrabold text-xl text-ink-dark">
                 {GALLERY_PHOTOS[activePhoto].title}
               </h3>
-              <p className="text-xs sm:text-sm text-ink-body">
+              <p className="text-xs sm:text-sm text-ink-body leading-relaxed">
                 {GALLERY_PHOTOS[activePhoto].caption}
               </p>
             </div>
