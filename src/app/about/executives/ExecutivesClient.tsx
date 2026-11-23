@@ -2,8 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
-import { Mail, ShieldCheck, MapPin, ArrowRight, Award, Users } from "lucide-react";
+import { Mail, ShieldCheck, MapPin, Award } from "lucide-react";
 import { Section } from "@/components/shared/Section";
 import { Eyebrow } from "@/components/shared/Eyebrow";
 
@@ -383,35 +382,6 @@ export function ExecutivesClient() {
               </div>
             </div>
           ))}
-        </div>
-
-        {/* Informative Zonal Clarification Notice */}
-        <div className="mt-14 p-8 rounded-3xl bg-sage-mist border border-brand-border text-center max-w-3xl mx-auto space-y-4">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-forest-green/10 text-forest-green font-montserrat font-bold text-xs uppercase">
-            <Users className="w-4 h-4" /> Nationwide Geopolitical Coordination
-          </div>
-          <h4 className="font-montserrat font-bold text-xl text-ink-dark uppercase">
-            Geopolitical Zonal Coordination Notice
-          </h4>
-          <p className="text-xs sm:text-sm text-ink-body leading-relaxed max-w-2xl mx-auto">
-            CESSPA’s zonal coordination is spearheaded by the Interim North Central Zonal Secretariat (FCT &amp; Middle Belt).
-            The remaining five geopolitical zones operate under the direct oversight of the Interim National Executive Council
-            pending regional chapter congresses and leadership ratification.
-          </p>
-          <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
-            <Link
-              href="/chapters"
-              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-forest-green text-white font-montserrat font-bold text-xs uppercase tracking-wider hover:bg-deep-emerald transition-colors"
-            >
-              View Zonal Chapters <ArrowRight className="w-4 h-4" />
-            </Link>
-            <Link
-              href="/about/presidents-message"
-              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-white border border-forest-green text-forest-green font-montserrat font-bold text-xs uppercase tracking-wider hover:bg-forest-green hover:text-white transition-colors"
-            >
-              President&apos;s Message <ArrowRight className="w-4 h-4" />
-            </Link>
-          </div>
         </div>
       </Section>
     </div>
