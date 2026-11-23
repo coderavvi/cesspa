@@ -20,6 +20,7 @@ import {
 } from "lucide-react";
 import { IMAGES } from "@/lib/images";
 import { UpcomingEventsSection } from "@/components/home/UpcomingEventsSection";
+import { PastEventsGallerySection } from "@/components/home/PastEventsGallerySection";
 
 export default function HomePage() {
   return (
@@ -840,6 +841,11 @@ export default function HomePage() {
           UPCOMING EVENTS (Admin Toggleable)
       ========================================================================== */}
       <UpcomingEventsSection />
+
+      {/* =========================================================================
+          PAST EVENTS & FIELD ENGAGEMENTS GALLERY (Admin Manageable)
+      ========================================================================== */}
+      <PastEventsGallerySection />
 
       {/* =========================================================================
           12. LATEST INSIGHTS ("Building a Greener Future Together Forever")

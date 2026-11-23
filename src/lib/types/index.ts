@@ -108,6 +108,17 @@ export interface EventItem {
   cpdPoints?: number;
 }
 
+export interface PastEventPhoto {
+  id: string;
+  title: string;
+  location: string;
+  date: string;
+  image: string;
+  caption: string;
+  category: string;
+  showOnHomepage?: boolean;
+}
+
 export interface EventRegistration {
   id: string;
   eventId: string;

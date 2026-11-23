@@ -18,11 +18,17 @@ import {
   Image as ImageIcon,
   FileImage,
   ArrowRight,
+  Camera,
 } from "lucide-react";
 import { MOCK_EVENTS } from "@/lib/data/mockData";
 import { EventItem } from "@/lib/types";
 import { formatDate, formatNaira } from "@/lib/utils";
 import { getStoredRegistrations } from "@/lib/registrations";
+import { PastEventsManager } from "./PastEventsManager";
+import {
+  getStoredPastEventPhotos,
+  PAST_EVENTS_UPDATED_EVENT,
+} from "@/lib/data/pastEventsGallery";
 
 // Client-side image compression helper to keep localStorage fast and prevent storage limit errors
 function compressImage(file: File): Promise<string> {
@@ -54,6 +60,8 @@ function compressImage(file: File): Promise<string> {
 }
 
 export default function AdminEventsPage() {
+  const [eventsTab, setEventsTab] = useState<"upcoming" | "past">("upcoming");
+  const [pastPhotosCount, setPastPhotosCount] = useState<number>(0);
   const [events, setEvents] = useState<EventItem[]>(MOCK_EVENTS);
   const [selectedEvent, setSelectedEvent] = useState<EventItem | null>(null);
   const [query, setQuery] = useState("");
@@ -122,6 +130,12 @@ export default function AdminEventsPage() {
         }
 
         refreshRegistrations();
+
+        const params = new URLSearchParams(window.location.search);
+        if (params.get("tab") === "past") {
+          setEventsTab("past");
+        }
+        setPastPhotosCount(getStoredPastEventPhotos().length);
       }
     } catch {
       setEvents(MOCK_EVENTS);
@@ -132,9 +146,18 @@ export default function AdminEventsPage() {
       refreshRegistrations();
     };
 
+    const handlePastCountUpdate = () => {
+      setPastPhotosCount(getStoredPastEventPhotos().length);
+    };
+
     window.addEventListener("cesspa_registrations_updated", handleUpdate);
+    window.addEventListener(PAST_EVENTS_UPDATED_EVENT, handlePastCountUpdate);
+    window.addEventListener("storage", handlePastCountUpdate);
+
     return () => {
       window.removeEventListener("cesspa_registrations_updated", handleUpdate);
+      window.removeEventListener(PAST_EVENTS_UPDATED_EVENT, handlePastCountUpdate);
+      window.removeEventListener("storage", handlePastCountUpdate);
     };
   }, []);
 
@@ -308,9 +331,56 @@ export default function AdminEventsPage() {
   };
 
   return (
-    <div className="space-y-8">
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-4 pb-4 border-b border-slate-200">
+    <div className="space-y-6">
+      {/* Top Tab Bar: Upcoming Events vs Past Events Gallery */}
+      <div className="flex flex-wrap items-center gap-2 p-1.5 rounded-xl bg-slate-100 border border-slate-200 w-fit">
+        <button
+          type="button"
+          onClick={() => setEventsTab("upcoming")}
+          className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-heading font-bold uppercase tracking-wider transition-all cursor-pointer ${
+            eventsTab === "upcoming"
+              ? "bg-[#0B4A2B] text-white shadow-xs"
+              : "text-slate-600 hover:text-slate-900 hover:bg-slate-200/60"
+          }`}
+        >
+          <Calendar className="w-3.5 h-3.5" />
+          <span>Upcoming Events Calendar</span>
+          <span
+            className={`px-1.5 py-0.5 rounded-full text-[10px] font-mono ${
+              eventsTab === "upcoming" ? "bg-white/20 text-white" : "bg-slate-200 text-slate-700"
+            }`}
+          >
+            {events.length}
+          </span>
+        </button>
+
+        <button
+          type="button"
+          onClick={() => setEventsTab("past")}
+          className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-heading font-bold uppercase tracking-wider transition-all cursor-pointer ${
+            eventsTab === "past"
+              ? "bg-[#0B4A2B] text-white shadow-xs"
+              : "text-slate-600 hover:text-slate-900 hover:bg-slate-200/60"
+          }`}
+        >
+          <Camera className="w-3.5 h-3.5" />
+          <span>Past Events &amp; Gallery Archive</span>
+          <span
+            className={`px-1.5 py-0.5 rounded-full text-[10px] font-mono ${
+              eventsTab === "past" ? "bg-white/20 text-white" : "bg-slate-200 text-slate-700"
+            }`}
+          >
+            {pastPhotosCount || 9}
+          </span>
+        </button>
+      </div>
+
+      {eventsTab === "past" ? (
+        <PastEventsManager />
+      ) : (
+        <>
+          {/* Header */}
+          <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-4 pb-4 border-b border-slate-200">
         <div>
           <h1 className="font-heading font-bold text-2xl text-slate-900 tracking-tight">
             Events Management
@@ -922,6 +992,8 @@ export default function AdminEventsPage() {
             </form>
           </div>
         </div>
+      )}
+        </>
       )}
     </div>
   );

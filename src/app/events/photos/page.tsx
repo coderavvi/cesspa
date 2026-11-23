@@ -1,98 +1,36 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Eye, X, ChevronLeft, ChevronRight, Calendar, MapPin, Building2 } from "lucide-react";
 import { Section } from "@/components/shared/Section";
 import { Eyebrow } from "@/components/shared/Eyebrow";
-
-const GALLERY_PHOTOS = [
-  {
-    id: 1,
-    title: "Courtesy Visit to RAAMP National Coordinators",
-    location: "NAIC Building, Abuja",
-    date: "November 2026",
-    image: "/images/visits/visit-raamp.jpg",
-    caption: "CESSPA courtesy visit the Rural Access and Agricultural Marketing Project (RAAMP) National COORDINATORS at the NAIC building Abuja.",
-    category: "Institutional Engagement",
-  },
-  {
-    id: 2,
-    title: "Follow-up Visit to Nigerian Social Standard Practice Certificate Program",
-    location: "Federal Ministry of Women Affairs, Abuja",
-    date: "November 2026",
-    image: "/images/visits/visit-nsspcp-fmwa.jpg",
-    caption: "CESSPA follow-up courtesy visit to the Nigerian Social Standard Practice Certificate program, Federal Ministry of Women Affairs Abuja.",
-    category: "Ministry Collaboration",
-  },
-  {
-    id: 3,
-    title: "Courtesy Visit to SPESSE Center Leader ATBU",
-    location: "ATBU Bauchi",
-    date: "November 2026",
-    image: "/images/visits/visit-spesse-atbu.jpg",
-    caption: "CESSPA courtesy visit to the SPESSE Center leader ATBU Bauchi.",
-    category: "Academic Partnership",
-  },
-  {
-    id: 4,
-    title: "Courtesy Visit to National Agency for the Great Green Wall (NAGGW)",
-    location: "NAGGW Headquarters, Abuja",
-    date: "November 2026",
-    image: "/images/visits/visit-naggw.jpg",
-    caption: "CESSPA courtesy visit to the National Agency for the Great Green Wall (NAGGW), Abuja.",
-    category: "Environmental Safeguards",
-  },
-  {
-    id: 5,
-    title: "Courtesy Visit to NESREA Headquarters",
-    location: "NESREA Headquarters, Abuja",
-    date: "November 2026",
-    image: "/images/visits/visit-nesrea.jpg",
-    caption: "CESSPA courtesy visit to National Environmental Standards and Regulations Enforcement Agency (NESREA) Headquarters Abuja.",
-    category: "Regulatory Alignment",
-  },
-  {
-    id: 6,
-    title: "Courtesy Visit to Director Environmental Sustainability, TCN",
-    location: "Transmission Company of Nigeria (TCN) Head Office, Abuja",
-    date: "November 2026",
-    image: "/images/visits/visit-tcn.jpg",
-    caption: "CESSPA courtesy visit to the Director Environmental Sustainability, Transmission Company of Nigeria, Head office Abuja.",
-    category: "Infrastructure Safeguards",
-  },
-  {
-    id: 7,
-    title: "Courtesy Visit to Director Environmental Assessment, FMEnv",
-    location: "Federal Ministry of Environment, Abuja",
-    date: "November 2026",
-    image: "/images/visits/visit-fmenv-ea.jpg",
-    caption: "CESSPA courtesy visit to the Director Environmental Assessment, Federal Ministry of Environment Abuja.",
-    category: "Regulatory Alignment",
-  },
-  {
-    id: 8,
-    title: "Courtesy Visit to Director Desertification, Land Degradation & Drought Management",
-    location: "Federal Ministry of Environment, Abuja",
-    date: "November 2026",
-    image: "/images/visits/visit-fmenv-desertification.jpg",
-    caption: "CESSPA courtesy visit to the Director Desertification, Land Degradation and Drought Management, Federal Ministry of Environment Abuja.",
-    category: "Ecological Restoration",
-  },
-  {
-    id: 9,
-    title: "Follow-up Visit to NESCP, Federal Ministry of Environment",
-    location: "Federal Ministry of Environment, Abuja",
-    date: "November 2026",
-    image: "/images/visits/visit-nescp-fmenv.jpg",
-    caption: "CESSPA follow-up courtesy visit to the National Environmental Standard Certification Program, Federal Ministry of Environment Abuja.",
-    category: "Certification Alignment",
-  },
-];
+import {
+  PastEventPhoto,
+  getStoredPastEventPhotos,
+  PAST_EVENTS_UPDATED_EVENT,
+  INITIAL_PAST_EVENT_PHOTOS,
+} from "@/lib/data/pastEventsGallery";
 
 export default function EventPhotosPage() {
+  const [photos, setPhotos] = useState<PastEventPhoto[]>(INITIAL_PAST_EVENT_PHOTOS);
   const [activePhoto, setActivePhoto] = useState<number | null>(null);
+
+  useEffect(() => {
+    setPhotos(getStoredPastEventPhotos());
+
+    const handleUpdate = () => {
+      setPhotos(getStoredPastEventPhotos());
+    };
+
+    window.addEventListener(PAST_EVENTS_UPDATED_EVENT, handleUpdate);
+    window.addEventListener("storage", handleUpdate);
+    return () => {
+      window.removeEventListener(PAST_EVENTS_UPDATED_EVENT, handleUpdate);
+      window.removeEventListener("storage", handleUpdate);
+    };
+  }, []);
 
   return (
     <div className="w-full">
@@ -126,7 +64,7 @@ export default function EventPhotosPage() {
 
         {/* Photo Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {GALLERY_PHOTOS.map((item, index) => (
+          {photos.map((item, index) => (
             <div
               key={item.id}
               onClick={() => setActivePhoto(index)}
@@ -171,7 +109,7 @@ export default function EventPhotosPage() {
       </Section>
 
       {/* Lightbox Modal */}
-      {activePhoto !== null && (
+      {activePhoto !== null && photos[activePhoto] && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-forest-green/90 backdrop-blur-md animate-in fade-in duration-200">
           <div className="relative max-w-4xl w-full bg-white rounded-3xl overflow-hidden shadow-2xl border border-brand-border">
             <button
@@ -184,8 +122,8 @@ export default function EventPhotosPage() {
 
             <div className="relative aspect-16/10 w-full bg-black">
               <Image
-                src={GALLERY_PHOTOS[activePhoto].image}
-                alt={GALLERY_PHOTOS[activePhoto].title}
+                src={photos[activePhoto].image}
+                alt={photos[activePhoto].title}
                 fill
                 className="object-contain"
               />
@@ -193,13 +131,13 @@ export default function EventPhotosPage() {
 
             <div className="p-6 bg-white space-y-2">
               <span className="text-[10px] font-montserrat font-bold text-heritage-gold uppercase tracking-widest block">
-                {GALLERY_PHOTOS[activePhoto].location} • {GALLERY_PHOTOS[activePhoto].date}
+                {photos[activePhoto].location} • {photos[activePhoto].date}
               </span>
               <h3 className="font-montserrat font-extrabold text-xl text-ink-dark">
-                {GALLERY_PHOTOS[activePhoto].title}
+                {photos[activePhoto].title}
               </h3>
               <p className="text-xs sm:text-sm text-ink-body leading-relaxed">
-                {GALLERY_PHOTOS[activePhoto].caption}
+                {photos[activePhoto].caption}
               </p>
             </div>
           </div>
