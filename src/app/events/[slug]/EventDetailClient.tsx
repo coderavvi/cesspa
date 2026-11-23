@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import {
@@ -25,7 +25,15 @@ import { EventItem } from "@/lib/types";
 import { formatDate, formatNaira } from "@/lib/utils";
 import { addEventRegistration } from "@/lib/registrations";
 
-export function EventDetailClient({ event }: { event: EventItem }) {
+export function EventDetailClient({
+  slug,
+  initialEvent,
+}: {
+  slug: string;
+  initialEvent: EventItem | null;
+}) {
+  const [event, setEvent] = useState<EventItem | null>(initialEvent);
+  const [loading, setLoading] = useState<boolean>(!initialEvent);
   const [regModalOpen, setRegModalOpen] = useState(false);
   const [isPaymentOpen, setIsPaymentOpen] = useState(false);
   const [registered, setRegistered] = useState(false);
@@ -36,6 +44,66 @@ export function EventDetailClient({ event }: { event: EventItem }) {
     email: "",
     phone: "",
   });
+
+  useEffect(() => {
+    if (!initialEvent && typeof window !== "undefined") {
+      try {
+        const stored = localStorage.getItem("cesspa_admin_events");
+        if (stored) {
+          const parsed: EventItem[] = JSON.parse(stored);
+          const found = parsed.find(
+            (e) =>
+              e.slug === slug ||
+              e.id === slug ||
+              e.slug?.toLowerCase() === slug.toLowerCase()
+          );
+          if (found) {
+            setEvent(found);
+            setLoading(false);
+            return;
+          }
+        }
+      } catch (err) {
+        console.error("Error loading event from localStorage:", err);
+      }
+      setLoading(false);
+    }
+  }, [slug, initialEvent]);
+
+  if (loading) {
+    return (
+      <div className="w-full min-h-[60vh] flex flex-col items-center justify-center py-24 bg-white">
+        <div className="w-10 h-10 border-4 border-forest-green/20 border-t-forest-green rounded-full animate-spin mb-4" />
+        <p className="text-xs text-slate-500 font-medium">Loading event details &amp; registration...</p>
+      </div>
+    );
+  }
+
+  if (!event) {
+    return (
+      <div className="w-full py-24 bg-white text-center px-4">
+        <div className="max-w-md mx-auto space-y-4">
+          <div className="w-14 h-14 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center mx-auto">
+            <Calendar className="w-7 h-7" />
+          </div>
+          <h2 className="font-heading font-extrabold text-2xl text-slate-900">
+            Event Not Found
+          </h2>
+          <p className="text-xs text-slate-600 leading-relaxed">
+            The event you are looking for may have concluded, been updated, or relocated. Please browse the full calendar of association events.
+          </p>
+          <div className="pt-2 flex justify-center gap-3">
+            <Link
+              href="/events"
+              className="px-5 py-2.5 rounded-xl bg-forest-green text-white font-heading font-bold text-xs uppercase tracking-wider hover:bg-deep-emerald transition-colors"
+            >
+              Browse Event Calendar
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   const handleOpenRegistration = () => {
     setRegModalOpen(true);

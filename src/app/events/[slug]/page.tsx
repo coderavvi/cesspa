@@ -1,5 +1,4 @@
 import React from "react";
-import { notFound } from "next/navigation";
 import { MOCK_EVENTS } from "@/lib/data/mockData";
 import { EventDetailClient } from "./EventDetailClient";
 import type { Metadata } from "next";
@@ -18,7 +17,11 @@ export async function generateMetadata({
   const { slug } = await params;
   const event = MOCK_EVENTS.find((e) => e.slug === slug);
   if (!event) {
-    return { title: "Event Not Found | CESSPA" };
+    return {
+      title: "Event Details & Registration | CESSPA",
+      description:
+        "Official CESSPA event details, agenda, speaker sessions, and delegate registration.",
+    };
   }
   return {
     title: `${event.title} | CESSPA Events`,
@@ -32,11 +35,7 @@ export default async function EventDetailPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const event = MOCK_EVENTS.find((e) => e.slug === slug);
+  const event = MOCK_EVENTS.find((e) => e.slug === slug) ?? null;
 
-  if (!event) {
-    notFound();
-  }
-
-  return <EventDetailClient event={event} />;
+  return <EventDetailClient slug={slug} initialEvent={event} />;
 }

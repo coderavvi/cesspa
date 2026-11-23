@@ -66,8 +66,8 @@ export default function HomePage() {
                 <span>Environmental &amp; Social Standards • Nigeria</span>
               </div>
 
-              <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-black text-white leading-[1.1] tracking-tight">
-                <span className="text-white">Raising Standards,</span> <br />
+              <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-black text-white !text-white leading-[1.1] tracking-tight" style={{ color: "#ffffff" }}>
+                <span className="text-white !text-white" style={{ color: "#ffffff" }}>Raising Standards,</span> <br />
                 <span className="text-[#4ade80] drop-shadow-[0_2px_10px_rgba(74,222,128,0.3)]">Guarding Ecology</span>
               </h1>
 

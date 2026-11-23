@@ -56,7 +56,7 @@
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-heading), system-ui, sans-serif;
     letter-spacing: -0.015em;
-    color: #0f172a;
+    color: inherit;
   }
 }
 
