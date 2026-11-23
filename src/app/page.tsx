@@ -7,6 +7,7 @@ import {
   CheckCircle2,
   Users,
   Award,
+  GraduationCap,
   Star,
   Globe2,
   Recycle,
@@ -468,11 +469,11 @@ export default function HomePage() {
       <section className="py-20 bg-white">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="bg-[#f4f8f4] border border-gray-100 rounded-2xl overflow-hidden shadow-lg grid grid-cols-1 md:grid-cols-12 items-center">
-            {/* Left: Professional Admission Practitioner Image */}
+            {/* Left: Professional Admission Academic Scholar Image */}
             <div className="md:col-span-5 h-64 md:h-full relative min-h-[300px]">
               <Image
                 src={IMAGES.admission.professional}
-                alt="CESSPA Certified Environmental & Social Standards Professional"
+                alt="CESSPA Certified Professional and Academic Standards Scholar"
                 fill
                 className="object-cover object-top"
                 sizes="(max-width: 768px) 100vw, 400px"
@@ -482,7 +483,7 @@ export default function HomePage() {
             {/* Right: Contact Callout */}
             <div className="md:col-span-7 p-8 sm:p-12 space-y-4">
               <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#16a34a]">
-                <Award className="w-4 h-4" />
+                <GraduationCap className="w-4 h-4" />
                 PROFESSIONAL ADMISSION
               </div>
 
