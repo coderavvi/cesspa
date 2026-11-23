@@ -34,6 +34,11 @@ export const IMAGES = {
     esiaGuide: "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=1200&q=80",
   },
 
+  // Membership & Professional Admission
+  admission: {
+    professional: "/images/brand/professional-admission.jpg",
+  },
+
   // Leadership & Governance
   leadership: {
     president: "/images/executives/saminu-abdu.jpg",

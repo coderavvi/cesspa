@@ -463,25 +463,26 @@ export default function HomePage() {
       </section>
 
       {/* =========================================================================
-          6. CALLOUT PROMO CARD ("Plant & Safe Trees" / Membership Admission)
+          6. CALLOUT PROMO CARD (Professional Admission / Certification)
       ========================================================================== */}
       <section className="py-20 bg-white">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="bg-[#f4f8f4] border border-gray-100 rounded-2xl overflow-hidden shadow-lg grid grid-cols-1 md:grid-cols-12 items-center">
-            {/* Left: Sprouting tree image */}
-            <div className="md:col-span-5 h-64 md:h-full relative min-h-[280px]">
+            {/* Left: Professional Admission Practitioner Image */}
+            <div className="md:col-span-5 h-64 md:h-full relative min-h-[300px]">
               <Image
-                src={IMAGES.behance.plantSprout}
-                alt="Advance your environmental career with CESSPA certification"
+                src={IMAGES.admission.professional}
+                alt="CESSPA Certified Environmental & Social Standards Professional"
                 fill
-                className="object-cover"
+                className="object-cover object-top"
+                sizes="(max-width: 768px) 100vw, 400px"
               />
             </div>
 
             {/* Right: Contact Callout */}
             <div className="md:col-span-7 p-8 sm:p-12 space-y-4">
               <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#16a34a]">
-                <Trees className="w-4 h-4" />
+                <Award className="w-4 h-4" />
                 PROFESSIONAL ADMISSION
               </div>
 
