@@ -12,7 +12,6 @@ import {
   X,
   ChevronLeft,
   ChevronRight,
-  Filter,
 } from "lucide-react";
 import {
   PastEventPhoto,
@@ -26,7 +25,6 @@ export function PastEventsGallerySection() {
   const [photos, setPhotos] = useState<PastEventPhoto[]>(INITIAL_PAST_EVENT_PHOTOS);
   const [sectionEnabled, setSectionEnabled] = useState(true);
   const [mounted, setMounted] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState("All");
   const [activePhotoIndex, setActivePhotoIndex] = useState<number | null>(null);
 
   // Carousel navigation state
@@ -57,24 +55,12 @@ export function PastEventsGallerySection() {
     };
   }, []);
 
-  // Filter only active homepage photos
+  // Active homepage photos
   const homepagePhotos = useMemo(() => {
     return photos.filter((p) => p.showOnHomepage !== false);
   }, [photos]);
 
-  const categories = useMemo(() => {
-    const set = new Set<string>();
-    set.add("All");
-    homepagePhotos.forEach((p) => {
-      if (p.category) set.add(p.category);
-    });
-    return Array.from(set);
-  }, [homepagePhotos]);
-
-  const filteredPhotos = useMemo(() => {
-    if (selectedCategory === "All") return homepagePhotos;
-    return homepagePhotos.filter((p) => p.category === selectedCategory);
-  }, [homepagePhotos, selectedCategory]);
+  const galleryPhotos = homepagePhotos;
 
   // Update carousel scroll buttons state
   const updateScrollState = useCallback(() => {
@@ -89,17 +75,14 @@ export function PastEventsGallerySection() {
     if (firstCard) {
       const cardWidth = firstCard.offsetWidth + 24; // width + gap
       const newIndex = Math.round(scrollLeft / cardWidth);
-      setActiveIndex(Math.max(0, Math.min(newIndex, filteredPhotos.length - 1)));
+      setActiveIndex(Math.max(0, Math.min(newIndex, galleryPhotos.length - 1)));
     }
-  }, [filteredPhotos.length]);
+  }, [galleryPhotos.length]);
 
   useEffect(() => {
     const el = carouselRef.current;
     if (!el) return;
 
-    // Reset scroll to 0 when category changes
-    el.scrollTo({ left: 0, behavior: "smooth" });
-    setActiveIndex(0);
     updateScrollState();
 
     el.addEventListener("scroll", updateScrollState, { passive: true });
@@ -109,7 +92,7 @@ export function PastEventsGallerySection() {
       el.removeEventListener("scroll", updateScrollState);
       window.removeEventListener("resize", updateScrollState);
     };
-  }, [selectedCategory, updateScrollState]);
+  }, [updateScrollState]);
 
   const scrollPrev = () => {
     const el = carouselRef.current;
@@ -142,20 +125,20 @@ export function PastEventsGallerySection() {
       if (e.key === "Escape") {
         setActivePhotoIndex(null);
       } else if (e.key === "ArrowRight") {
-        setActivePhotoIndex((prev) => (prev !== null && prev < filteredPhotos.length - 1 ? prev + 1 : 0));
+        setActivePhotoIndex((prev) => (prev !== null && prev < galleryPhotos.length - 1 ? prev + 1 : 0));
       } else if (e.key === "ArrowLeft") {
-        setActivePhotoIndex((prev) => (prev !== null && prev > 0 ? prev - 1 : filteredPhotos.length - 1));
+        setActivePhotoIndex((prev) => (prev !== null && prev > 0 ? prev - 1 : galleryPhotos.length - 1));
       }
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [activePhotoIndex, filteredPhotos.length]);
+  }, [activePhotoIndex, galleryPhotos.length]);
 
   if (mounted && (!sectionEnabled || homepagePhotos.length === 0)) {
     return null;
   }
 
-  const activePhoto = activePhotoIndex !== null ? filteredPhotos[activePhotoIndex] : null;
+  const activePhoto = activePhotoIndex !== null ? galleryPhotos[activePhotoIndex] : null;
 
   return (
     <section id="past-events-gallery" className="py-20 lg:py-24 bg-[#fbfdfa] border-t border-slate-200 overflow-hidden">
@@ -218,32 +201,6 @@ export function PastEventsGallerySection() {
           </div>
         </div>
 
-        {/* Category Filter Pills */}
-        {categories.length > 2 && (
-          <div className="flex items-center gap-2 overflow-x-auto pb-3 mb-6 scrollbar-none text-xs">
-            <span className="text-slate-400 flex items-center gap-1 shrink-0 font-medium mr-1">
-              <Filter className="w-3 h-3" /> Filter:
-            </span>
-            {categories.map((cat) => (
-              <button
-                key={cat}
-                type="button"
-                onClick={() => {
-                  setSelectedCategory(cat);
-                  setActivePhotoIndex(null);
-                }}
-                className={`px-3.5 py-1.5 rounded-full font-medium shrink-0 transition-all cursor-pointer ${
-                  selectedCategory === cat
-                    ? "bg-forest-green text-white shadow-xs font-semibold"
-                    : "bg-white text-slate-600 border border-slate-200 hover:border-slate-300 hover:bg-slate-50"
-                }`}
-              >
-                {cat}
-              </button>
-            ))}
-          </div>
-        )}
-
         {/* Carousel Viewport Container */}
         <div className="relative group">
           {/* Subtle Floating Navigation Buttons on Desktop */}
@@ -274,7 +231,7 @@ export function PastEventsGallerySection() {
             ref={carouselRef}
             className="flex gap-6 overflow-x-auto scrollbar-none snap-x snap-mandatory scroll-smooth py-3 px-1 -mx-1"
           >
-            {filteredPhotos.map((item, index) => (
+            {galleryPhotos.map((item, index) => (
               <div
                 key={item.id}
                 onClick={() => setActivePhotoIndex(index)}
@@ -289,9 +246,6 @@ export function PastEventsGallerySection() {
                     className="object-cover group-hover/card:scale-105 transition-transform duration-500"
                     sizes="(max-width: 640px) 85vw, (max-width: 1024px) 50vw, 33vw"
                   />
-                  <div className="absolute top-3 left-3 bg-forest-green/95 backdrop-blur-xs text-white font-montserrat font-semibold text-[10px] uppercase tracking-wider px-2.5 py-1 rounded-md shadow-xs z-10">
-                    {item.category}
-                  </div>
                   <div className="absolute inset-0 bg-forest-green/40 opacity-0 group-hover/card:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                     <div className="w-12 h-12 rounded-full bg-white/95 text-forest-green flex items-center justify-center shadow-lg transform scale-90 group-hover/card:scale-100 transition-transform">
                       <Eye className="w-5 h-5" />
@@ -302,16 +256,22 @@ export function PastEventsGallerySection() {
                 {/* Card Content */}
                 <div className="p-5 flex-1 flex flex-col justify-between space-y-3">
                   <div className="space-y-2">
-                    <div className="flex items-center justify-between text-[11px] text-slate-500 font-medium">
-                      <span className="flex items-center gap-1.5 truncate mr-2">
-                        <MapPin className="w-3.5 h-3.5 text-forest-green shrink-0" />
-                        <span className="truncate">{item.location}</span>
-                      </span>
-                      <span className="flex items-center gap-1.5 shrink-0">
-                        <Calendar className="w-3.5 h-3.5 text-forest-green shrink-0" />
-                        {item.date}
-                      </span>
-                    </div>
+                    {(item.location || item.date) && (
+                      <div className="flex items-center justify-between text-[11px] text-slate-500 font-medium">
+                        {item.location && (
+                          <span className="flex items-center gap-1.5 truncate mr-2">
+                            <MapPin className="w-3.5 h-3.5 text-forest-green shrink-0" />
+                            <span className="truncate">{item.location}</span>
+                          </span>
+                        )}
+                        {item.date && (
+                          <span className="flex items-center gap-1.5 shrink-0 ml-auto">
+                            <Calendar className="w-3.5 h-3.5 text-forest-green shrink-0" />
+                            {item.date}
+                          </span>
+                        )}
+                      </div>
+                    )}
 
                     <h3 className="font-heading font-bold text-sm sm:text-base text-slate-900 group-hover/card:text-forest-green transition-colors line-clamp-2 leading-snug">
                       {item.title}
@@ -322,12 +282,12 @@ export function PastEventsGallerySection() {
                     </p>
                   </div>
 
-                  <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-forest-green font-semibold">
-                    <span className="inline-flex items-center gap-1 text-[11px] group-hover/card:underline">
-                      View Event Details <ArrowRight className="w-3 h-3 group-hover/card:translate-x-0.5 transition-transform" />
+                  <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs text-forest-green font-medium">
+                    <span className="inline-flex items-center gap-1.5 text-[11px] text-forest-green group-hover/card:text-deep-emerald font-semibold">
+                      <Eye className="w-3.5 h-3.5" /> View Photo
                     </span>
-                    <span className="text-[10px] text-slate-400 font-mono">
-                      #{index + 1}
+                    <span className="text-[11px] text-slate-400 group-hover/card:text-forest-green transition-colors">
+                      Click to expand
                     </span>
                   </div>
                 </div>
@@ -336,9 +296,9 @@ export function PastEventsGallerySection() {
           </div>
 
           {/* Carousel Pagination Dots */}
-          {filteredPhotos.length > 1 && (
+          {galleryPhotos.length > 1 && (
             <div className="flex items-center justify-center gap-2 mt-8">
-              {filteredPhotos.map((_, i) => (
+              {galleryPhotos.map((_, i) => (
                 <button
                   key={i}
                   type="button"
@@ -370,13 +330,9 @@ export function PastEventsGallerySection() {
           >
             {/* Top Close & Counter Bar */}
             <div className="flex items-center justify-between px-6 py-3.5 border-b border-slate-100 bg-white shrink-0">
-              <div className="flex items-center gap-2 text-xs text-slate-500 font-medium">
-                <span className="px-2 py-0.5 rounded bg-forest-green/10 text-forest-green font-bold text-[10px] uppercase">
-                  {activePhoto.category}
-                </span>
-                <span>•</span>
+              <div className="text-xs text-slate-500 font-medium">
                 <span>
-                  Photo {(activePhotoIndex ?? 0) + 1} of {filteredPhotos.length}
+                  Photo {(activePhotoIndex ?? 0) + 1} of {galleryPhotos.length}
                 </span>
               </div>
               <button
@@ -399,13 +355,13 @@ export function PastEventsGallerySection() {
                 priority
               />
 
-              {filteredPhotos.length > 1 && (
+              {galleryPhotos.length > 1 && (
                 <>
                   <button
                     type="button"
                     onClick={(e) => {
                       e.stopPropagation();
-                      setActivePhotoIndex((prev) => (prev !== null && prev > 0 ? prev - 1 : filteredPhotos.length - 1));
+                      setActivePhotoIndex((prev) => (prev !== null && prev > 0 ? prev - 1 : galleryPhotos.length - 1));
                     }}
                     className="absolute left-3 top-1/2 -translate-y-1/2 p-2.5 rounded-full bg-black/50 hover:bg-black/80 text-white transition-colors cursor-pointer"
                     aria-label="Previous photo"
@@ -416,7 +372,7 @@ export function PastEventsGallerySection() {
                     type="button"
                     onClick={(e) => {
                       e.stopPropagation();
-                      setActivePhotoIndex((prev) => (prev !== null && prev < filteredPhotos.length - 1 ? prev + 1 : 0));
+                      setActivePhotoIndex((prev) => (prev !== null && prev < galleryPhotos.length - 1 ? prev + 1 : 0));
                     }}
                     className="absolute right-3 top-1/2 -translate-y-1/2 p-2.5 rounded-full bg-black/50 hover:bg-black/80 text-white transition-colors cursor-pointer"
                     aria-label="Next photo"
@@ -429,17 +385,23 @@ export function PastEventsGallerySection() {
 
             {/* Detailed Description Footer */}
             <div className="p-6 bg-white overflow-y-auto space-y-2.5">
-              <div className="flex flex-wrap items-center gap-3 text-xs text-slate-500 font-medium">
-                <span className="flex items-center gap-1.5 text-forest-green font-semibold">
-                  <MapPin className="w-3.5 h-3.5" />
-                  {activePhoto.location}
-                </span>
-                <span>•</span>
-                <span className="flex items-center gap-1.5">
-                  <Calendar className="w-3.5 h-3.5" />
-                  {activePhoto.date}
-                </span>
-              </div>
+              {(activePhoto.location || activePhoto.date) && (
+                <div className="flex flex-wrap items-center gap-3 text-xs text-slate-500 font-medium">
+                  {activePhoto.location && (
+                    <span className="flex items-center gap-1.5 text-forest-green font-semibold">
+                      <MapPin className="w-3.5 h-3.5" />
+                      {activePhoto.location}
+                    </span>
+                  )}
+                  {activePhoto.location && activePhoto.date && <span>•</span>}
+                  {activePhoto.date && (
+                    <span className="flex items-center gap-1.5">
+                      <Calendar className="w-3.5 h-3.5" />
+                      {activePhoto.date}
+                    </span>
+                  )}
+                </div>
+              )}
 
               <h3 className="font-heading font-extrabold text-lg sm:text-xl text-slate-900 leading-snug">
                 {activePhoto.title}

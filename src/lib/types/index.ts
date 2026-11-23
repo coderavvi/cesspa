@@ -111,11 +111,11 @@ export interface EventItem {
 export interface PastEventPhoto {
   id: string;
   title: string;
-  location: string;
-  date: string;
   image: string;
   caption: string;
-  category: string;
+  location?: string;
+  date?: string;
+  category?: string;
   showOnHomepage?: boolean;
 }
 

@@ -10,20 +10,15 @@ import {
   X,
   Trash2,
   Eye,
-  EyeOff,
   Globe,
   Upload,
   Camera,
   Edit3,
   CheckCircle2,
-  Filter,
   Image as ImageIcon,
-  Sparkles,
-  ExternalLink,
 } from "lucide-react";
 import {
   PastEventPhoto,
-  PAST_EVENT_CATEGORIES,
   INITIAL_PAST_EVENT_PHOTOS,
   getStoredPastEventPhotos,
   savePastEventPhotos,
@@ -66,7 +61,6 @@ export function PastEventsManager() {
   const [selectedPhoto, setSelectedPhoto] = useState<PastEventPhoto | null>(null);
   const [homepageGlobalEnabled, setHomepageGlobalEnabledState] = useState(true);
   const [query, setQuery] = useState("");
-  const [categoryFilter, setCategoryFilter] = useState("All");
   const [createModalOpen, setCreateModalOpen] = useState(false);
   const [lightboxPhoto, setLightboxPhoto] = useState<PastEventPhoto | null>(null);
   const [uploadingImage, setUploadingImage] = useState(false);
@@ -79,9 +73,8 @@ export function PastEventsManager() {
   // New Event Form State
   const [newPhoto, setNewPhoto] = useState({
     title: "",
-    category: "Institutional Engagement",
     date: "November 2026",
-    location: "",
+    location: "Abuja, Nigeria",
     image: "",
     caption: "",
     showOnHomepage: true,
@@ -206,20 +199,19 @@ export function PastEventsManager() {
   const handleCreatePastEvent = (e: React.FormEvent) => {
     e.preventDefault();
     if (!newPhoto.title.trim()) {
-      alert("Please provide an event title.");
+      alert("Please provide a title or brief headline for this photo.");
       return;
     }
     if (!newPhoto.image.trim()) {
-      alert("Please upload an image or provide an image URL for the past event.");
+      alert("Please upload a photograph or provide an image URL.");
       return;
     }
 
     const created: PastEventPhoto = {
       id: `past-evt-${Date.now()}`,
       title: newPhoto.title.trim(),
-      category: newPhoto.category,
-      date: newPhoto.date.trim() || "Recent Event",
-      location: newPhoto.location.trim() || "Abuja, Nigeria",
+      date: newPhoto.date.trim() || undefined,
+      location: newPhoto.location.trim() || undefined,
       image: newPhoto.image,
       caption: newPhoto.caption.trim() || newPhoto.title.trim(),
       showOnHomepage: newPhoto.showOnHomepage,
@@ -235,9 +227,8 @@ export function PastEventsManager() {
     // Reset form
     setNewPhoto({
       title: "",
-      category: "Institutional Engagement",
       date: "November 2026",
-      location: "",
+      location: "Abuja, Nigeria",
       image: "",
       caption: "",
       showOnHomepage: true,
@@ -247,7 +238,7 @@ export function PastEventsManager() {
   // Handle delete past event
   const handleDeletePastEvent = (id: string, e?: React.MouseEvent) => {
     if (e) e.stopPropagation();
-    if (!confirm("Are you sure you want to remove this past event from the gallery?")) return;
+    if (!confirm("Are you sure you want to remove this photo from the gallery?")) return;
 
     const nextList = photos.filter((p) => p.id !== id);
     setPhotos(nextList);
@@ -260,15 +251,15 @@ export function PastEventsManager() {
     }
   };
 
-  // Filtered photos
+  // Filtered photos by search query
   const filtered = photos.filter((p) => {
-    const matchQ =
-      !query ||
-      p.title.toLowerCase().includes(query.toLowerCase()) ||
-      p.location.toLowerCase().includes(query.toLowerCase()) ||
-      p.caption.toLowerCase().includes(query.toLowerCase());
-    const matchCat = categoryFilter === "All" || p.category === categoryFilter;
-    return matchQ && matchCat;
+    if (!query.trim()) return true;
+    const q = query.toLowerCase();
+    return (
+      p.title.toLowerCase().includes(q) ||
+      (p.location && p.location.toLowerCase().includes(q)) ||
+      p.caption.toLowerCase().includes(q)
+    );
   });
 
   return (
@@ -278,10 +269,10 @@ export function PastEventsManager() {
         <div>
           <h2 className="font-heading font-bold text-xl text-slate-900 tracking-tight flex items-center gap-2">
             <Camera className="w-5 h-5 text-forest-green" />
-            Past Events &amp; Stakeholder Gallery
+            Past Events &amp; Photo Gallery
           </h2>
           <p className="text-xs text-slate-500 mt-1">
-            Upload and manage past event photos, courtesy visits, and official descriptions shown on the homepage gallery and events photo archive.
+            Simple gallery updating tool: upload event photos and write descriptions to update the homepage and archive gallery.
           </p>
         </div>
 
@@ -310,39 +301,25 @@ export function PastEventsManager() {
             onClick={() => setCreateModalOpen(true)}
             className="px-3.5 py-1.5 rounded-md bg-forest-green hover:bg-deep-emerald text-white text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer shadow-xs"
           >
-            <Plus className="w-3.5 h-3.5" /> Upload Event Photo
+            <Plus className="w-3.5 h-3.5" /> Add Gallery Photo
           </button>
         </div>
       </div>
 
-      {/* Filter Row */}
-      <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pb-2 border-b border-slate-200">
-        <div className="relative flex-1 max-w-sm">
+      {/* Simple Search Row */}
+      <div className="flex items-center gap-3 pb-2 border-b border-slate-200">
+        <div className="relative flex-1 max-w-md">
           <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
           <input
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search past events by title, location, or description..."
+            placeholder="Search gallery photos by title or description..."
             className="w-full pl-8 pr-3 py-1.5 rounded-md border border-slate-200 text-xs text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-forest-green"
           />
         </div>
-
-        <div className="flex items-center gap-2 text-xs">
-          <span className="text-slate-500 text-[11px] flex items-center gap-1">
-            <Filter className="w-3 h-3" /> Category:
-          </span>
-          <select
-            value={categoryFilter}
-            onChange={(e) => setCategoryFilter(e.target.value)}
-            className="px-2.5 py-1.5 rounded-md border border-slate-200 text-xs text-slate-700 focus:outline-none focus:border-forest-green bg-white cursor-pointer"
-          >
-            {PAST_EVENT_CATEGORIES.map((c) => (
-              <option key={c} value={c}>
-                {c === "All" ? "All Categories" : c}
-              </option>
-            ))}
-          </select>
+        <div className="text-xs text-slate-500 font-medium ml-auto">
+          {filtered.length} photo{filtered.length === 1 ? "" : "s"} in gallery
         </div>
       </div>
 
@@ -352,7 +329,7 @@ export function PastEventsManager() {
         <div className="lg:col-span-7 space-y-3">
           {filtered.length === 0 ? (
             <div className="p-8 text-center rounded-xl border border-dashed border-slate-300 text-slate-500 text-xs">
-              No past event photos match your current search or category filter.
+              No gallery photos match your search.
             </div>
           ) : (
             filtered.map((item) => {
@@ -382,9 +359,9 @@ export function PastEventsManager() {
                   {/* Information */}
                   <div className="flex-1 min-w-0 space-y-1">
                     <div className="flex items-center justify-between gap-2">
-                      <span className="text-[10px] font-bold text-forest-green uppercase tracking-wider px-2 py-0.5 rounded bg-forest-green/10 truncate max-w-[200px]">
-                        {item.category}
-                      </span>
+                      <h4 className="font-heading font-bold text-xs sm:text-sm text-slate-900 truncate">
+                        {item.title}
+                      </h4>
                       <button
                         type="button"
                         onClick={(e) => handleTogglePhotoHomepage(item.id, e)}
@@ -399,21 +376,23 @@ export function PastEventsManager() {
                       </button>
                     </div>
 
-                    <h4 className="font-heading font-bold text-xs sm:text-sm text-slate-900 truncate">
-                      {item.title}
-                    </h4>
-
-                    <div className="flex items-center gap-3 text-[11px] text-slate-500">
-                      <span className="flex items-center gap-1 truncate max-w-[150px]">
-                        <MapPin className="w-3 h-3 text-forest-green shrink-0" />
-                        <span className="truncate">{item.location}</span>
-                      </span>
-                      <span>•</span>
-                      <span className="flex items-center gap-1 shrink-0">
-                        <Calendar className="w-3 h-3 text-forest-green shrink-0" />
-                        {item.date}
-                      </span>
-                    </div>
+                    {(item.location || item.date) && (
+                      <div className="flex items-center gap-3 text-[11px] text-slate-500">
+                        {item.location && (
+                          <span className="flex items-center gap-1 truncate max-w-[150px]">
+                            <MapPin className="w-3 h-3 text-forest-green shrink-0" />
+                            <span className="truncate">{item.location}</span>
+                          </span>
+                        )}
+                        {item.location && item.date && <span>•</span>}
+                        {item.date && (
+                          <span className="flex items-center gap-1 shrink-0">
+                            <Calendar className="w-3 h-3 text-forest-green shrink-0" />
+                            {item.date}
+                          </span>
+                        )}
+                      </div>
+                    )}
 
                     <p className="text-[11px] text-slate-600 line-clamp-2 leading-relaxed">
                       {item.caption}
@@ -431,7 +410,7 @@ export function PastEventsManager() {
             <form onSubmit={handleSaveInspector} className="space-y-4 text-xs">
               <div className="flex items-center justify-between pb-3 border-b border-slate-100">
                 <span className="font-heading font-bold text-slate-900 text-sm flex items-center gap-1.5">
-                  <Edit3 className="w-4 h-4 text-forest-green" /> Event Details &amp; Photo
+                  <Edit3 className="w-4 h-4 text-forest-green" /> Edit Photo Details
                 </span>
                 <div className="flex items-center gap-1.5">
                   <button
@@ -445,7 +424,7 @@ export function PastEventsManager() {
                   <button
                     type="button"
                     onClick={(e) => handleDeletePastEvent(editForm.id, e)}
-                    title="Delete this event"
+                    title="Delete this photo"
                     className="p-1.5 rounded-md hover:bg-red-50 text-red-600 transition-colors cursor-pointer"
                   >
                     <Trash2 className="w-4 h-4" />
@@ -462,7 +441,7 @@ export function PastEventsManager() {
 
               {/* Image Preview & Replace */}
               <div>
-                <label className="block text-slate-700 font-medium mb-1.5">Event Photograph</label>
+                <label className="block text-slate-700 font-medium mb-1.5">Photograph</label>
                 <div className="relative aspect-16/10 rounded-xl overflow-hidden bg-slate-100 border border-slate-200 group">
                   <Image
                     src={editForm.image}
@@ -493,7 +472,7 @@ export function PastEventsManager() {
 
               {/* Title */}
               <div>
-                <label className="block text-slate-700 font-medium mb-1">Event Title</label>
+                <label className="block text-slate-700 font-medium mb-1">Photo Title / Headline</label>
                 <input
                   type="text"
                   required
@@ -503,60 +482,43 @@ export function PastEventsManager() {
                 />
               </div>
 
-              {/* Category */}
-              <div>
-                <label className="block text-slate-700 font-medium mb-1">Engagement Category</label>
-                <select
-                  value={editForm.category}
-                  onChange={(e) => setEditForm({ ...editForm, category: e.target.value })}
-                  className="w-full px-3 py-1.5 rounded-md border border-slate-200 text-xs text-slate-900 focus:outline-none focus:border-forest-green bg-white cursor-pointer"
-                >
-                  {PAST_EVENT_CATEGORIES.filter((c) => c !== "All").map((c) => (
-                    <option key={c} value={c}>
-                      {c}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-              {/* Date & Location */}
-              <div className="grid grid-cols-2 gap-3">
-                <div>
-                  <label className="block text-slate-700 font-medium mb-1">Event Date</label>
-                  <input
-                    type="text"
-                    required
-                    value={editForm.date}
-                    onChange={(e) => setEditForm({ ...editForm, date: e.target.value })}
-                    className="w-full px-3 py-1.5 rounded-md border border-slate-200 text-xs text-slate-900 focus:outline-none focus:border-forest-green"
-                  />
-                </div>
-                <div>
-                  <label className="block text-slate-700 font-medium mb-1">Location / Venue</label>
-                  <input
-                    type="text"
-                    required
-                    value={editForm.location}
-                    onChange={(e) => setEditForm({ ...editForm, location: e.target.value })}
-                    className="w-full px-3 py-1.5 rounded-md border border-slate-200 text-xs text-slate-900 focus:outline-none focus:border-forest-green"
-                  />
-                </div>
-              </div>
-
               {/* Detailed Description / Caption */}
               <div>
-                <label className="block text-slate-700 font-medium mb-1 flex items-center justify-between">
-                  <span>Detailed Event Description / Caption</span>
-                  <span className="text-[10px] text-slate-400 font-normal">Reference chat notes</span>
+                <label className="block text-slate-700 font-medium mb-1">
+                  Description / Caption
                 </label>
                 <textarea
                   rows={4}
                   required
                   value={editForm.caption}
                   onChange={(e) => setEditForm({ ...editForm, caption: e.target.value })}
-                  placeholder="Detail description of the event as referenced in official briefs..."
+                  placeholder="Detailed description of the event, attendees, and discussions..."
                   className="w-full p-2.5 rounded-md border border-slate-200 text-xs text-slate-900 leading-relaxed focus:outline-none focus:border-forest-green"
                 />
+              </div>
+
+              {/* Optional Date & Location */}
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-slate-700 font-medium mb-1">Date (Optional)</label>
+                  <input
+                    type="text"
+                    value={editForm.date || ""}
+                    onChange={(e) => setEditForm({ ...editForm, date: e.target.value })}
+                    placeholder="e.g. November 2026"
+                    className="w-full px-3 py-1.5 rounded-md border border-slate-200 text-xs text-slate-900 focus:outline-none focus:border-forest-green"
+                  />
+                </div>
+                <div>
+                  <label className="block text-slate-700 font-medium mb-1">Location (Optional)</label>
+                  <input
+                    type="text"
+                    value={editForm.location || ""}
+                    onChange={(e) => setEditForm({ ...editForm, location: e.target.value })}
+                    placeholder="e.g. Abuja, Nigeria"
+                    className="w-full px-3 py-1.5 rounded-md border border-slate-200 text-xs text-slate-900 focus:outline-none focus:border-forest-green"
+                  />
+                </div>
               </div>
 
               {/* Show on Homepage Toggle */}
@@ -564,7 +526,7 @@ export function PastEventsManager() {
                 <div>
                   <span className="block font-semibold text-slate-800 text-xs">Show on Homepage Gallery</span>
                   <span className="block text-[11px] text-slate-500">
-                    Feature this photo in the homepage past events section
+                    Feature this photo in the homepage past events carousel
                   </span>
                 </div>
                 <input
@@ -581,13 +543,13 @@ export function PastEventsManager() {
                   type="submit"
                   className="px-4 py-2 rounded-lg bg-forest-green hover:bg-deep-emerald text-white text-xs font-semibold shadow-xs transition-colors cursor-pointer"
                 >
-                  Save Event Details
+                  Save Photo Details
                 </button>
               </div>
             </form>
           ) : (
             <div className="p-10 text-center text-slate-400 text-xs">
-              Select an event photo from the list to view and edit its details.
+              Select a photo from the list to view and edit its details.
             </div>
           )}
         </div>
@@ -603,7 +565,7 @@ export function PastEventsManager() {
           <div className="relative max-w-lg w-full bg-white rounded-2xl overflow-hidden shadow-2xl border border-slate-200 flex flex-col max-h-[90vh]">
             <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200 bg-slate-50/50 shrink-0">
               <h3 className="font-heading font-bold text-base text-slate-900 flex items-center gap-2">
-                <Camera className="w-4 h-4 text-forest-green" /> Upload Past Event Photo &amp; Description
+                <Camera className="w-4 h-4 text-forest-green" /> Add Photo to Gallery
               </h3>
               <button
                 type="button"
@@ -618,7 +580,7 @@ export function PastEventsManager() {
               {/* Image Upload Dropzone */}
               <div>
                 <label className="block text-slate-700 font-medium mb-1.5">
-                  Event Photo <span className="text-red-500">*</span>
+                  Photograph <span className="text-red-500">*</span>
                 </label>
                 {newPhoto.image ? (
                   <div className="relative aspect-16/10 rounded-xl overflow-hidden bg-slate-100 border border-slate-200 group">
@@ -658,21 +620,21 @@ export function PastEventsManager() {
 
                 {/* Direct URL input fallback */}
                 <div className="mt-2 flex items-center gap-2">
-                  <span className="text-[10px] text-slate-400 shrink-0">Or image path/URL:</span>
+                  <span className="text-[10px] text-slate-400 shrink-0">Or image URL / path:</span>
                   <input
                     type="text"
                     value={newPhoto.image}
                     onChange={(e) => setNewPhoto({ ...newPhoto, image: e.target.value })}
-                    placeholder="/images/visits/visit-name.jpg or https://..."
+                    placeholder="/images/visits/example.jpg or https://..."
                     className="flex-1 px-2.5 py-1 rounded border border-slate-200 text-[11px] text-slate-700 focus:outline-none focus:border-forest-green"
                   />
                 </div>
               </div>
 
-              {/* Event Title */}
+              {/* Title */}
               <div>
                 <label className="block text-slate-700 font-medium mb-1">
-                  Event Title <span className="text-red-500">*</span>
+                  Title / Headline <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="text"
@@ -684,29 +646,27 @@ export function PastEventsManager() {
                 />
               </div>
 
-              {/* Category */}
+              {/* Detailed Description / Caption */}
               <div>
-                <label className="block text-slate-700 font-medium mb-1">Category</label>
-                <select
-                  value={newPhoto.category}
-                  onChange={(e) => setNewPhoto({ ...newPhoto, category: e.target.value })}
-                  className="w-full px-3 py-1.5 rounded-md border border-slate-200 text-xs text-slate-700 focus:outline-none focus:border-forest-green bg-white cursor-pointer"
-                >
-                  {PAST_EVENT_CATEGORIES.filter((c) => c !== "All").map((c) => (
-                    <option key={c} value={c}>
-                      {c}
-                    </option>
-                  ))}
-                </select>
+                <label className="block text-slate-700 font-medium mb-1">
+                  Description / Caption <span className="text-red-500">*</span>
+                </label>
+                <textarea
+                  rows={3}
+                  required
+                  value={newPhoto.caption}
+                  onChange={(e) => setNewPhoto({ ...newPhoto, caption: e.target.value })}
+                  placeholder="Detail description of the visit, attendees, or event highlights..."
+                  className="w-full p-2.5 rounded-md border border-slate-200 text-xs focus:outline-none focus:border-forest-green leading-relaxed"
+                />
               </div>
 
-              {/* Date & Location */}
+              {/* Optional Date & Location */}
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-slate-700 font-medium mb-1">Date</label>
+                  <label className="block text-slate-700 font-medium mb-1">Date (Optional)</label>
                   <input
                     type="text"
-                    required
                     value={newPhoto.date}
                     onChange={(e) => setNewPhoto({ ...newPhoto, date: e.target.value })}
                     placeholder="e.g. November 2026"
@@ -714,10 +674,9 @@ export function PastEventsManager() {
                   />
                 </div>
                 <div>
-                  <label className="block text-slate-700 font-medium mb-1">Location</label>
+                  <label className="block text-slate-700 font-medium mb-1">Location (Optional)</label>
                   <input
                     type="text"
-                    required
                     value={newPhoto.location}
                     onChange={(e) => setNewPhoto({ ...newPhoto, location: e.target.value })}
                     placeholder="e.g. NESREA Headquarters, Abuja"
@@ -726,27 +685,12 @@ export function PastEventsManager() {
                 </div>
               </div>
 
-              {/* Detailed Description / Caption */}
-              <div>
-                <label className="block text-slate-700 font-medium mb-1">
-                  Detailed Event Description <span className="text-red-500">*</span>
-                </label>
-                <textarea
-                  rows={3}
-                  required
-                  value={newPhoto.caption}
-                  onChange={(e) => setNewPhoto({ ...newPhoto, caption: e.target.value })}
-                  placeholder="Official description of the event as referenced in chat updates (e.g. CESSPA courtesy visit to...)"
-                  className="w-full p-2.5 rounded-md border border-slate-200 text-xs focus:outline-none focus:border-forest-green leading-relaxed"
-                />
-              </div>
-
               {/* Show on Homepage Toggle */}
               <div className="p-3 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between">
                 <div>
                   <span className="block font-semibold text-slate-800 text-xs">Display in Homepage Gallery</span>
                   <span className="block text-[11px] text-slate-500">
-                    Immediately feature this past event on the main landing page
+                    Immediately feature this photo on the homepage carousel
                   </span>
                 </div>
                 <input
@@ -792,8 +736,8 @@ export function PastEventsManager() {
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-center justify-between px-5 py-3 border-b border-slate-100 bg-white">
-              <span className="text-xs font-bold text-forest-green uppercase tracking-wider">
-                {lightboxPhoto.category}
+              <span className="text-xs font-bold text-slate-800 truncate">
+                {lightboxPhoto.title}
               </span>
               <button
                 type="button"
@@ -812,17 +756,23 @@ export function PastEventsManager() {
               />
             </div>
             <div className="p-5 bg-white space-y-2">
-              <div className="flex items-center gap-3 text-xs text-slate-500">
-                <span className="flex items-center gap-1 font-semibold text-forest-green">
-                  <MapPin className="w-3.5 h-3.5" />
-                  {lightboxPhoto.location}
-                </span>
-                <span>•</span>
-                <span className="flex items-center gap-1">
-                  <Calendar className="w-3.5 h-3.5" />
-                  {lightboxPhoto.date}
-                </span>
-              </div>
+              {(lightboxPhoto.location || lightboxPhoto.date) && (
+                <div className="flex items-center gap-3 text-xs text-slate-500">
+                  {lightboxPhoto.location && (
+                    <span className="flex items-center gap-1 font-semibold text-forest-green">
+                      <MapPin className="w-3.5 h-3.5" />
+                      {lightboxPhoto.location}
+                    </span>
+                  )}
+                  {lightboxPhoto.location && lightboxPhoto.date && <span>•</span>}
+                  {lightboxPhoto.date && (
+                    <span className="flex items-center gap-1">
+                      <Calendar className="w-3.5 h-3.5" />
+                      {lightboxPhoto.date}
+                    </span>
+                  )}
+                </div>
+              )}
               <h3 className="font-heading font-extrabold text-base text-slate-900">
                 {lightboxPhoto.title}
               </h3>

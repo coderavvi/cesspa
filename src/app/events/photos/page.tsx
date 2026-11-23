@@ -77,9 +77,6 @@ export default function EventPhotosPage() {
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
                 />
-                <div className="absolute top-3 left-3 bg-forest-green/90 text-white font-montserrat font-bold text-[10px] uppercase tracking-wider px-2 py-0.5 rounded shadow-xs">
-                  {item.category}
-                </div>
                 <div className="absolute inset-0 bg-forest-green/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                   <div className="w-12 h-12 rounded-full bg-white/90 text-forest-green flex items-center justify-center shadow-lg">
                     <Eye className="w-6 h-6" />
